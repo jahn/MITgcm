@@ -114,21 +114,63 @@ This file, reproduced completely below, specifies the main parameters
 for the experiment. The parameters that are significant for this configuration
 are
 
- - Line 7
+.. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+   :start-at: viscAh=
+   :end-at: viscAh=
+   :linenos:
+   :lineno-match:
 
-   - `viscAh=4.E2,`
-   - this line sets the Laplacian friction coefficient to :math:`400 m^2s^{-1}`
+- this line sets the Laplacian friction coefficient to :math:`400 m^2s^{-1}`
 
- - Line 10
+.. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+   :start-at: beta=
+   :end-at: beta=
+   :linenos:
+   :lineno-match:
 
-   - `beta=1.E-11,`
-   - this line sets :math:`\beta` (the gradient of the coriolis parameter, :math:`f`) to :math:`10^{-11} s^{-1}m^{-1}`
+- this line sets :math:`\beta` (the gradient of the coriolis parameter, :math:`f`)
+  to :math:`10^{-11} s^{-1}m^{-1}`
 
- - Lines 15 and 16
+.. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+   :start-at: rigidLid=
+   :end-at: implicitFreeSurface=
+   :linenos:
+   :lineno-match:
 
-   - `rigidLid=.FALSE.,`
-   - `implicitFreeSurface=.TRUE.,`
-   - these lines suppress the rigid lid formulation of the surface pressure inverter and activate the implicit free surface form of the pressure inverter.
+- these lines suppress the rigid lid formulation of the surface pressure
+  inverter and activate the implicit free surface form of the pressure inverter.
+
+The above was coded like this in rst:
+
+.. code-block:: rst
+
+    .. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+       :start-at: viscAh=
+       :end-at: viscAh=
+       :linenos:
+       :lineno-match:
+
+    - this line sets the Laplacian friction coefficient to :math:`400 m^2s^{-1}`
+
+    .. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+       :start-at: beta=
+       :end-at: beta=
+       :linenos:
+       :lineno-match:
+
+    - this line sets :math:`\beta` (the gradient of the coriolis parameter, :math:`f`)
+      to :math:`10^{-11} s^{-1}m^{-1}`
+
+    .. literalinclude:: ../../../verification/tutorial_barotropic_gyre/input/data
+       :start-at: rigidLid=
+       :end-at: implicitFreeSurface=
+       :linenos:
+       :lineno-match:
+
+    - these lines suppress the rigid lid formulation of the surface pressure
+      inverter and activate the implicit free surface form of the pressure inverter.
+
+...
 
  - Line 27
 
