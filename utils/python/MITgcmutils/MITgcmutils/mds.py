@@ -229,6 +229,67 @@ _typesuffixes = {'float32':'f4',
                  'float64':'f8',
                 }
 
+def findmds(fnamearg,itrs=-1,verbose=False):
+    '''
+    Find meta-data files as written by MITgcm.
+
+    Without itrs, will try to read
+
+      fname.meta or fname.001.001.meta, ...
+
+    If itrs is a list of integers of an integer, it will read the corresponding
+
+      fname.000000iter.meta, ...
+
+    If itrs is NaN, it will read all iterations for which files are found.
+    If itrs is Inf, it will read the highest iteration found.
+
+    fname may contain shell wildcards, which is useful for tile files organized
+    into directories, e.g.,
+
+      T = rdmds('prefix*/T', 2880)
+
+    will read prefix0000/T.0000002880.*, prefix0001/T.0000002880.*, ...
+    (and any others that match the wildcard, so be careful how you name things!)
+    '''
+    # add iteration number to file name unless itrs is -1
+    additrs = itrs != -1
+    if itrs is np.nan:
+        # all iterations
+        itrs = scanforfiles(fnamearg)
+        if verbose: warning('Reading {0} time levels: '.format(len(itrs)), *itrs)
+        returnits = True
+        itrsislist = True
+    elif itrs is np.inf:
+        # last iteration
+        itrs = scanforfiles(fnamearg)
+        if len(itrs):
+            if verbose: warning('Found {0} time levels, reading'.format(len(itrs)), itrs[-1])
+        else:
+            if verbose: warning('Found 0 time levels for {}'.format(fnamearg))
+        itrs = itrs[-1:]
+        returnits = True
+        itrsislist = False
+    else:
+        returnits = False
+        itrsislist = np.iterable(itrs)
+
+    # always make itrs a list
+    itrs = aslist(itrs)
+
+    res = []
+    for iit,it in enumerate(itrs):
+        if additrs:
+            fname = fnamearg + '.{0:010d}'.format(int(it))
+        else:
+            fname = fnamearg
+
+        metafiles = glob.glob(fname + 2*('.'+3*'[0-9]') + '.meta') or glob.glob(fname+'.meta')
+        res.append([m[:-5] for m in metafiles])
+
+    return res
+
+
 def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
           returnmeta=False,astype=float,region=None,lev=(),fld=None,
           usememmap=False,mm=False,squeeze=True,verbose=False):
