@@ -171,7 +171,19 @@ def _aslist(i):
 
 
 def fromfileshape(filename,dtype,shape=None,**kwargs):
-    return np.fromfile(filename, dtype, **kwargs).reshape(shape)
+    arr = np.fromfile(filename, dtype, **kwargs)
+    try:
+        arr = arr.reshape(shape)
+    except ValueError:
+        sz = np.prod(shape)
+        sys.stderr.write('WARNING: Truncating data to {} items to fit shape!\n'.format(sz))
+        arr = arr[:sz]
+        try:
+            arr = arr.reshape(shape)
+        except ValueError:
+            sys.stderr.write('WARNING: Cannot reshape data to requested shape!\n')
+            raise
+    return arr
 
 
 def scanforfiles(fname):
