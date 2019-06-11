@@ -84,6 +84,7 @@ General purpose numerical infrastructure packages
    obcs.rst
    rbcs.rst
    ptracers.rst
+   offline.rst
 
 Ocean Packages
 ==============
