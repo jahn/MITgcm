@@ -40,9 +40,7 @@ and '.data'.
    :varlink:`ConvFile`      & :kbd:`' '` & Filename prefix for vertical diffusion convection count
    :varlink:`KPP_DiffSFile` & :kbd:`' '` & Filename prefix for vertical diffusivity (kpp package)
    :varlink:`KPP_ghatKFile` & :kbd:`' '` & Filename prefix for non-local vertical mixing (kpp package)
-   :varlink:`HFluxFile`     & :kbd:`' '` & Filename prefix for heat flux
    :varlink:`SFluxFile`     & :kbd:`' '` & Filename prefix for salt flux
-   :varlink:`IceFile`       & :kbd:`' '` & Filename prefix for ice area fraction
 
 The parameters in :numref:`pkg_offline_parm02` control the timing of the
 forcing fields, see the following section.
@@ -121,7 +119,7 @@ was 1 hour.
    ...
    /
    &OFFLINE_PARM02
-   offlinePeriod = 86400.,
+   offlineForcingPeriod = 86400.,
    offlineTimeOffset = 0.,
    offlineIter0 = 10000,
    deltaToffline = 3600.,
@@ -169,7 +167,7 @@ These settings are appropriate for reading snapshots:
    ...
    /
    &OFFLINE_PARM02
-   offlinePeriod = 86400.,
+   offlineForcingPeriod = 86400.,
    offlineTimeOffset = 43200.,
    offlineIter0 = 10000,
    deltaToffline = 3600.,
