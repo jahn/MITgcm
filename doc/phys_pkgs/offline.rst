@@ -54,13 +54,14 @@ forcing fields, see the following section.
    :delim: &
    :header: Flag/Parameter, Default, Description
 
-   :varlink:`offlineIter0`         & 0                         & Shift in iteration numbers used to label files (see below for examples).         
+   :varlink:`offlineIter0`         & :varlink:`nIter0`         & Shift in iteration numbers used to label files (see below for examples).
    :varlink:`deltaToffline`        & :varlink:`deltaTclock`    & Time step used to compute the iteration numbers (in seconds).
    :varlink:`offlineTimeOffset`    & 0.0                       & Time offset of forcing fields (in seconds, default 0); this is relative to time averages starting at :math:`t=0`, i.e., the first forcing record/file is placed at (:varlink:`offlineTimeOffset` + :varlink:`offlineForcingPeriod` )/2; see below for examples.
-   :varlink:`offlineForcingPeriod` & 0.0                       & Time interval between forcing fields (in seconds), zero means constant-in-time forcing.      
-   :varlink:`offlineForcingCycle`  & 0.0                       & Repeat cycle of forcing fields (in seconds), zero means non-repeating forcing.     
+   :varlink:`offlineForcingPeriod` & 2592000.0                 & Time interval between forcing fields (in seconds), must be positive.
+   :varlink:`offlineForcingCycle`  & 31104000.0                & Repeat cycle of forcing fields (in seconds), zero means non-repeating forcing.
    :varlink:`offlineLoadPrec`      & :varlink:`readBinaryPrec` & Precision of offline forcing files (in bits).
 
+To achieve constant-in-time forcing, set offlineForcingCycle=offlineForcingPeriod.
 
 
 Timing of offline forcing fields
