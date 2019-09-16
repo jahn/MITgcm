@@ -107,13 +107,14 @@ C  gTr_AB           :: Adams-Bashforth tracer tendency increment
       _RL gTracer (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL gTrForc (1-OLx:sNx+OLx,1-OLy:sNy+OLy)
       _RL gTr_AB  (1-OLx:sNx+OLx,1-OLy:sNy+OLy)
+      _RL gTrDiag (1-OLx:sNx+OLx,1-OLy:sNy+OLy)
       LOGICAL calcAdvection
       INTEGER iterNb
       _RL dummy(Nr)
 #ifdef ALLOW_DIAGNOSTICS
       CHARACTER*8 diagName
       CHARACTER*4 diagSufx
-      LOGICAL diagForcing, diagAB_tend
+      LOGICAL diagForcing, diagAB_tend, diagGTr
 #endif /* ALLOW_DIAGNOSTICS */
 CEOP
 
@@ -159,6 +160,7 @@ C-    Initialise tracer tendency to zero
 #ifdef ALLOW_DIAGNOSTICS
         diagForcing = .FALSE.
         diagAB_tend = .FALSE.
+        diagGTr = .FALSE.
         IF ( useDiagnostics ) THEN
           diagSufx = GAD_DIAG_SUFX( GAD_TR, myThid )
           diagName = 'Forc'//diagSufx
@@ -166,6 +168,8 @@ C-    Initialise tracer tendency to zero
           diagName = 'AB_g'//diagSufx
           IF ( PTRACERS_AdamsBashGtr(iTracer) )
      &    diagAB_tend = DIAGNOSTICS_IS_ON( diagName, myThid )
+          diagName = 'g'//diagSufx
+          diagGTr = DIAGNOSTICS_IS_ON( diagName, myThid )
         ENDIF
 #endif
 
@@ -455,6 +459,21 @@ c       IF ( PTRACERS_ImplVertAdv(iTracer) ) THEN
      U         gTracer,
      I         myThid )
         ENDIF
+
+#ifdef ALLOW_DIAGNOSTICS
+        IF ( diagGTr ) THEN
+         diagName = 'g'//diagSufx
+         DO k=1,Nr
+          DO j=1,sNy
+           DO i=1,sNx
+            gTrDiag(i,j) = gTracer(i,j,k) - pTracer(i,j,k,bi,bj,iTracer)
+            gTrDiag(i,j) = gTrDiag(i,j)/PTRACERS_dTLev(k)
+           ENDDO
+          ENDDO
+          CALL DIAGNOSTICS_FILL(gTrDiag,diagName,k,1,2,bi,bj,myThid)
+         ENDDO
+        ENDIF
+#endif /* ALLOW_DIAGNOSTICS */
 
         IF ( PTRACERS_AdamsBash_Tr(iTracer) ) THEN
 C--   Save current tracer field (for AB on tracer) and then update tracer
