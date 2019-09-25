@@ -30,6 +30,25 @@ class ParseError(ValueError):
                          + ('in: ' + _currentline,))
 
 
+class MdsArray(np.ndarray):
+    def __new__(cls, input_array, metadata=None, iters=None):
+        obj = np.asarray(input_array).view(cls)
+        obj.metadata = metadata
+        obj.iters = iters
+        return obj
+
+    def __array_finalize__(self, obj):
+        if obj is None: return
+        self.metadata = getattr(obj, 'metadata', None)
+        self.iters = getattr(obj, 'iters', None)
+
+    def __array_wrap__(self, obj):
+        if obj.shape == ():
+            return obj[()]    # if ufunc output is scalar, return it
+        else:
+            return np.ndarray.__array_wrap__(self, obj)
+
+
 # these deal with comments in the metafile
 
 _comment_pattern = re.compile(
@@ -384,7 +403,7 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
                 assert nlev+2 <= len(gdims)
                 rdims = levdims + gdims[len(levdims):-2] + (rje-rj0,rie-ri0)
                 # always include itrs and rec dimensions and squeeze later
-                arr = np.empty((len(itrs),len(reclist))+rdims, astype)
+                arr = np.empty((len(itrs),len(reclist))+rdims, astype).view(MdsArray)
                 arr[...] = fill_value
                 metaref = meta
             else:
@@ -473,7 +492,7 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
         metaref['timeInterval'] = timeIntervals
 
     if arr is None:
-        arr = np.array([])
+        arr = MdsArray([])
     else:
         # squeeze singleton iteration, record and level dimensions like matlab version
         dims = (len(itrs),len(reclist)) + levdims
@@ -493,6 +512,9 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
 #    elif returnits:
 #        return arr,itrs
     else:
+        meta = dict((k.lower(),v) for k,v in metaref.items())
+        arr.metadata = meta
+        arr.iters = itrs
         return arr
 
 
