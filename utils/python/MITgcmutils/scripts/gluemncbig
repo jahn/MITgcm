@@ -1270,7 +1270,14 @@ if __name__ == '__main__':
         m = iterpatt.search(base)
         if m:
             it = m.group(1)
-            itfiles.setdefault(it, {})[tn] = fname
+            itfiles.setdefault(it, {})
+            if tn in itfiles[it]:
+                sys.stderr.write(
+                    'WARNING: Multiple files for iteration {} tile {}:\n'.format(
+                        it[1:], tn) +
+                    '  ' + itfiles[it][tn] + '  (will be discarded)\n' +
+                    '  ' + fname + '\n')
+            itfiles[it][tn] = fname
         else:
             files0[tn] = fname
 
