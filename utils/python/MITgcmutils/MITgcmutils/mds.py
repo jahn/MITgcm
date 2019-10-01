@@ -292,7 +292,7 @@ def findmds(fnamearg,itrs=-1,verbose=False):
 
 def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
           returnmeta=False,astype=float,region=None,lev=(),fld=None,
-          usememmap=False,mm=False,squeeze=True,verbose=False):
+          usememmap=False,mm=False,squeeze=True,verbose=False, asdict=False):
     """
     Read meta-data files as written by MITgcm.
 
@@ -351,6 +351,8 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
         if True, use a memory map for reading data (default False)
         recommended when using lev, or region with global files
         to save memory and, possibly, time
+    asdict : bool
+        return dictionary of variables instead of a single array
 
     Returns
     -------
@@ -598,6 +600,9 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
             squeezed = tuple( d for d,keep in zip(dims, keepers) if keep )
 
         arr = arr.reshape(squeezed+arr.shape[2+nlev:])
+
+    if asdict and 'fldList' in meta:
+        arr = dict(zip(meta['fldList'], arr))
 
     if returnmeta:
         meta = dict((k.lower(),v) for k,v in metaref.items())
