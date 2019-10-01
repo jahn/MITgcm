@@ -636,7 +636,7 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
 
 def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
           times=None, fields=None, simulation=None, machineformat='b',
-          deltat=None, dimlist=None):
+          deltat=None, dimlist=None, missingvalue=None, meta=None):
     '''Write an array to an mds meta/data file set.
 
     If itr is given, the files will be named fbase.0000000itr.data and
@@ -674,12 +674,25 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
     dimlist : tuple
         dimensions as will be stored in file (only useful when passing
         meta data from an existing file to wrmds as keyword args)
+    missingvalue : float
+        replace masked data by this value
+    meta : dict
+        take metadata from this dictionary (usually taken from rdmds output)
     '''
+    if meta is not None:
+        if dataprec is None: dataprec = meta['dataprec']
+        if fields is None: fields = meta['fldlist']
+        if missingvalue is None: missingvalue = meta['missingvalue']
+        if ndims is None: ndims = meta['ndims']
+        if nrecords is None: nrecords = meta['nrecords']
+        if times is None: times, = meta['timeinterval']
+
     if type(dataprec) == type([]): dataprec, = dataprec
     if type(ndims) == type([]): ndims, = ndims
     if type(nrecords) == type([]): nrecords, = nrecords
     if type(simulation) == type([]): simulation, = simulation
     if type(machineformat) == type([]): machineformat, = machineformat
+    if type(missingvalue) == type([]): missingvalue, = missingvalue
     if type(deltat) == type([]): deltat, = deltat
 
     tp = _typeprefixes[machineformat]
@@ -761,6 +774,9 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
                     "".join("{:20.12E}".format(t) for t in times) +
                     " ];\n")
 
+        if missingvalue is not None:
+            f.write(" missingValue = [{:22.14E} ];\n".format(missingvalue))
+
         if fields is not None:
             nflds = len(fields)
             f.write(" nFlds = [ {:4d} ];\n".format(nflds))
@@ -770,6 +786,9 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
                     f.write(" '{:<8s}'".format(field))
                 f.write("\n")
             f.write(" };\n")
+
+    if missingvalue is not None and np.ma.isMA(arr):
+        arr = arr.filled(missingvalue)
 
     arr.astype(tp).tofile(fbase + '.data')
 
