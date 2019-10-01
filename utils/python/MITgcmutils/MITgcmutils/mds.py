@@ -497,9 +497,16 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
 
                 assert nlev+2 <= len(gdims)
                 rdims = levdims + gdims[len(levdims):-2] + (rje-rj0,rie-ri0)
-                # always include itrs and rec dimensions and squeeze later
-                arr = np.empty((len(itrs),len(reclist))+rdims, astype).view(MdsArray)
-                arr[...] = fill_value
+                prealloc = not (recsatonce and map2gl is None and len(itrs) == 1)
+                if not prealloc:
+                    for d, i0, ie in zip(gdims, i0s, ies):
+                        if i0 != 0 or ie != d:
+                            prealloc = True
+                            break
+                if prealloc:
+                    # always include itrs and rec dimensions and squeeze later
+                    arr = np.empty((len(itrs),len(reclist))+rdims, astype).view(MdsArray)
+                    arr[...] = fill_value
                 metaref = meta
             else:
                 if meta != metaref:
@@ -527,12 +534,18 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
                 else:
                     raise NotImplementedError('Region selection is not implemented for map2glob != [0,1]')
 
-            sl = tuple( slice(i0,ie) for i0,ie in zip(i0s,ies) )
+            sl = (len(i0s)-2)*(slice(None),) + (slice(i0s[-2], ies[-2]), slice(i0s[-1], ies[-1]))
             if map2gl is None:
                 # part of arr that will receive tile (all records)
-                arrtile = arr[(iit,slice(None))+sl]
+                if prealloc:
+                    arrtile = arr[(iit,slice(None))+sl]
+                else:
+                    assert i0s[-2] == 0
+                    assert ies[-2] == rdims[-2]
+                    assert i0s[-1] == 0
+                    assert ies[-1] == rdims[-1]
             else:
-                ny,nx = arr.shape[-2:]
+                ny,nx = arr.shape[-2]
                 i0 = i0s[-1]
                 j0 = i0s[-2]
                 ie = ies[-1]
@@ -554,11 +567,16 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
 
             if recsatonce:
                 if region is None:
-                    arrtile[...] = readdata(datafile, tp, shape=tileshape)[recinds]
+                    arrread = readdata(datafile, tp, shape=tileshape)[recinds]
                 else:
                     if Ie > I0 and Je > J0:
                         if debug: message(datafile, I0,Ie,J0,Je)
-                        arrtile[...] = readdata(datafile, tp, shape=tileshape)[recinds + np.s_[...,J0:Je,I0:Ie]]
+                        arrread = readdata(datafile, tp, shape=tileshape)[recinds + np.s_[...,J0:Je,I0:Ie]]
+                if prealloc:
+                    arrtile[:] = arrread
+                else:
+                    # add time dimension
+                    arr = arrread[None].view(MdsArray)
             else:
                 f = open(datafile)
                 for irec,recnum in enumerate(reclist):
