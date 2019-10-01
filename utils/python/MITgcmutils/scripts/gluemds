@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+'''
+Usage: gluemds [-o <outfileprefix>] <infileprefix>
+'''
+import sys
+import MITgcmutils as mit
+
+args = sys.argv[1:]
+if '-o' in args:
+    i = args.index('-o')
+    args.pop(i)
+    oname = args.pop(i)
+else:
+    oname = args[0]
+
+iname, = args
+
+a = mit.rdmds(iname)
+print(a.metadata)
+mit.wrmds(oname, a, meta=a.metadata)
+

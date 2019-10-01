@@ -634,7 +634,7 @@ def rdmds(fnamearg,itrs=-1,machineformat='b',rec=None,fill_value=0,
         return arr
 
 
-def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
+def wrmds(fbase, arr, itr=None, dataprec=None, ndims=None, nrecords=None,
           times=None, fields=None, simulation=None, machineformat='b',
           deltat=None, dimlist=None, missingvalue=None, meta=None):
     '''Write an array to an mds meta/data file set.
@@ -679,13 +679,15 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
     meta : dict
         take metadata from this dictionary (usually taken from rdmds output)
     '''
+    timestepnumber = itr
     if meta is not None:
         if dataprec is None: dataprec = meta['dataprec']
-        if fields is None: fields = meta['fldlist']
-        if missingvalue is None: missingvalue = meta['missingvalue']
+        if fields is None: fields = meta.get('fldlist', None)
+        if missingvalue is None: missingvalue = meta.get('missingvalue', None)
         if ndims is None: ndims = meta['ndims']
         if nrecords is None: nrecords = meta['nrecords']
         if times is None: times, = meta['timeinterval']
+        if timestepnumber is None: timestepnumber, = meta['timestepnumber']
 
     if type(dataprec) == type([]): dataprec, = dataprec
     if type(ndims) == type([]): ndims, = ndims
@@ -694,6 +696,13 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
     if type(machineformat) == type([]): machineformat, = machineformat
     if type(missingvalue) == type([]): missingvalue, = missingvalue
     if type(deltat) == type([]): deltat, = deltat
+
+    arr = np.asanyarray(arr)
+    if dataprec is None:
+        if arr.dtype.itemsize > 4:
+            dataprec = 'float64'
+        else:
+            dataprec = 'float32'
 
     tp = _typeprefixes[machineformat]
     try:
@@ -766,8 +775,8 @@ def wrmds(fbase, arr, itr=None, dataprec='float32', ndims=None, nrecords=None,
 
         f.write(" nrecords = [ {:5d} ];\n".format(nrec))
 
-        if itr is not None:
-            f.write(" timeStepNumber = [ {:10d} ];\n".format(itr))
+        if timestepnumber is not None:
+            f.write(" timeStepNumber = [ {:10d} ];\n".format(timestepnumber))
 
         if times is not None:
             f.write(" timeInterval = [" +
