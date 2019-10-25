@@ -154,6 +154,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O             count0, count1,
      I             myTime, myIter, myThid )
 #endif /* ALLOW_CAL */
+        ELSEIF ( useCAL .AND. uvecperiod .EQ. -1.) THEN
+#ifdef ALLOW_CAL
+C-    each yearly input file contains 12 monthly means
+          CALL cal_GetMonthYearRec(
+     O             fac, first, changed,
+     O             count0, count1, year0, year1,
+     I             myTime, myIter, myThid )
+#endif /* ALLOW_CAL */
         ELSEIF ( uVecPeriod .LT. 0. ) THEN
           j = ILNBLNK(uVecFile)
           WRITE(msgBuf,'(4A,1PE16.8,2A)') 'EXF_SET_UV: ',

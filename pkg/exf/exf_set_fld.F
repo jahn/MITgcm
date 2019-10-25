@@ -132,6 +132,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O           count0, count1,
      I           myTime, myIter, myThid )
 #endif /* ALLOW_CAL */
+         ELSEIF ( useCal .AND. fldperiod .EQ. -1.) THEN
+C-    each yearly input file contains 12 monthly means
+#ifdef ALLOW_CAL
+            CALL cal_GetMonthYearRec(
+     O           fac, first, changed,
+     O           count0, count1, year0, year1,
+     I           myTime, myIter, myThid )
+#endif /* ALLOW_CAL */
          ELSEIF ( fldPeriod .LT. 0. ) THEN
            j = ILNBLNK(fldFile)
            WRITE(msgBuf,'(4A,1PE16.8,2A)') 'EXF_SET_FLD: ',
