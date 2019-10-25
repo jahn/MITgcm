@@ -290,6 +290,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O              count0, count1,
      I              myTime, myIter, myThid )
 # endif /* ALLOW_CAL */
+      ELSEIF ( useCal .AND. obcsPeriod .EQ. -1. _d 0 ) THEN
+C-    each yearly input file contains 12 monthly means
+# ifdef ALLOW_CAL
+        CALL cal_GetMonthYearRec(
+     O              fac, first, changed,
+     O              count0, count1, year0, year1,
+     I              myTime, myIter, myThid )
+# endif /* ALLOW_CAL */
       ELSEIF ( obcsPeriod .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(A,1PE16.8,3A)')
      &     'OBCS_EXF_READ_XZ: Invalid obcsPeriod=', obcsPeriod,
@@ -370,6 +378,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O              count0, count1,
      I              myTime, myIter, myThid )
 #  endif /* ALLOW_CAL */
+       ELSEIF ( useCal .AND. siobPeriod .EQ. -1. _d 0 ) THEN
+C-    each yearly input file contains 12 monthly means
+# ifdef ALLOW_CAL
+        CALL cal_GetMonthYearRec(
+     O              fac, first, changed,
+     O              count0, count1, year0, year1,
+     I              myTime, myIter, myThid )
+# endif /* ALLOW_CAL */
        ELSEIF ( siobPeriod .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(A,1PE16.8,3A)')
      &     'OBCS_EXF_READ_XZ: Invalid siobPeriod=', siobPeriod,
@@ -565,6 +581,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O              count0, count1,
      I              myTime, myIter, myThid )
 # endif /* ALLOW_CAL */
+      ELSEIF ( useCal .AND. obcsPeriod .EQ. -1. _d 0 ) THEN
+C-    each yearly input file contains 12 monthly means
+# ifdef ALLOW_CAL
+        CALL cal_GetMonthYearRec(
+     O              fac, first, changed,
+     O              count0, count1, year0, year1,
+     I              myTime, myIter, myThid )
+# endif /* ALLOW_CAL */
       ELSEIF ( obcsPeriod .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(A,1PE16.8,3A)')
      &     'OBCS_EXF_READ_YZ: Invalid obcsPeriod=', obcsPeriod,
@@ -645,6 +669,14 @@ C     records, corresponding to Jan. (rec=1) through Dec. (rec=12)
      O              count0, count1,
      I              myTime, myIter, myThid )
 #  endif /* ALLOW_CAL */
+       ELSEIF ( useCal .AND. siobPeriod .EQ. -1. _d 0 ) THEN
+C-    each yearly input file contains 12 monthly means
+# ifdef ALLOW_CAL
+        CALL cal_GetMonthYearRec(
+     O              fac, first, changed,
+     O              count0, count1, year0, year1,
+     I              myTime, myIter, myThid )
+# endif /* ALLOW_CAL */
        ELSEIF ( siobPeriod .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(A,1PE16.8,3A)')
      &     'OBCS_EXF_READ_YZ: Invalid siobPeriod=', siobPeriod,
