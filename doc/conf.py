@@ -37,6 +37,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinxcontrib.bibtex',
     'sphinxcontrib.programoutput',
+    'sphinxcontrib.youtube',
     'mitgcm']
 
 autodoc_mock_imports = ['matplotlib', 'mpl_toolkits']

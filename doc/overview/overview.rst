@@ -114,6 +114,9 @@ We begin by briefly showing some of the results of the model in action to
 give a feel for the wide range of problems that can be addressed using it.
 
 
+.. youtube:: HrxwPj_Qs5c
+
+
 Illustrations of the model in action
 ====================================
 MITgcm has been designed and used to model a wide range of phenomena,
