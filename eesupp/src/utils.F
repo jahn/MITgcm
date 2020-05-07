@@ -9,9 +9,9 @@ C-- U DATE            - Returns date and time.
 C--   IFNBLNK         - Returns index of first non-blank string character.
 C--   ILNBLNK         - Returns index of last non-blank string character.
 C--   IO_ERRCOUNT     - Reads IO error counter.
-C--   LCASE           - Translates to lower case.
+C--   LCASEMIT        - Translates to lower case.
 C--UM MACHINE         - Returns character string identifying computer.
-C--   UCASE           - Translates to upper case.
+C--   UCASEMIT        - Translates to upper case.
 C--   Routines marked "M" contain specific machine dependent code.
 C--   Routines marked "U" contain UNIX OS calls.
 
@@ -187,15 +187,15 @@ CEOP
 
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 CBOP
-C     !ROUTINE: LCASE
+C     !ROUTINE: LCASEMIT
 
 C     !INTERFACE:
-      SUBROUTINE LCASE ( string )
+      SUBROUTINE LCASEMIT ( string )
       IMPLICIT NONE
 
 C     !DESCRIPTION:
 C     *==========================================================*
-C     | SUBROUTINE LCASE                                         |
+C     | SUBROUTINE LCASEMIT                                      |
 C     | o Convert character string to all lower case.            |
 C     *==========================================================*
 
@@ -308,10 +308,10 @@ CEOP
 
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 CBOP
-C     !ROUTINE: UCASE
+C     !ROUTINE: UCASEMIT
 
 C     !INTERFACE:
-      SUBROUTINE UCASE ( string )
+      SUBROUTINE UCASEMIT ( string )
       IMPLICIT NONE
 
 C     !DESCRIPTION:

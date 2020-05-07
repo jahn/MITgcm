@@ -63,9 +63,9 @@ CEOP
       IF ( iLen1.GE.4 ) THEN
         iLen = iLen1 - 3
         pkgLwc = sw_name(4:iLen1)
-        CALL LCASE(pkgLwc(1:iLen))
+        CALL LCASEMIT(pkgLwc(1:iLen))
         pkgUpc = sw_name(4:iLen1)
-        CALL UCASE(pkgUpc(1:iLen))
+        CALL UCASEMIT(pkgUpc(1:iLen))
           WRITE(data_file,'(2A)') 'data.', sw_name(4:iLen1)
       ELSE
         iLen = 7

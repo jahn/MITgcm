@@ -230,7 +230,7 @@ C
       IF ( IEND - ISTART + 1 .GT. maxString ) GOTO 901
       IF ( ISTART .NE. 0 ) THEN
         tmpName = name(ISTART:IEND)
-        CALL UCASE( tmpName )
+        CALL UCASEMIT( tmpName )
       ELSE
         tmpName = ' '
       ENDIF
@@ -239,7 +239,7 @@ C
       IF ( ISTART            .EQ. 0         ) GOTO 902
       IF ( IEND - ISTART + 1 .GT. maxString ) GOTO 903
       tmpAction = action(ISTART:IEND)
-      CALL UCASE( tmpAction )
+      CALL UCASEMIT( tmpAction )
 C
       iTimer=TIMER_INDEX(tmpName,timerNames(1,myThreadId),
      &       maxTimers,nTimers(myThreadId))
