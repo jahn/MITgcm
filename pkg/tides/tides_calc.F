@@ -45,7 +45,7 @@ C bi,bj     :: Tile indices
       CHARACTER*20 timestr
       REAL*8 time, posrec(3), rkm, lt, flat, alt, rng, rasc, dec
       REAL*8 lon, lat
-      _RL muSU, muMO, rSU, rMO, xi, VSU, VMO
+      _RL muSU, muMO, rSU, rMO, xi, VSU, VMO, Vperm, cent
 
       _BEGIN_MASTER(myThid)
 
@@ -80,6 +80,10 @@ C     convert to m
       xi = tides_earthRadius/rMO
       aMO = -tides_moonGM/rMO*(xi*xi)
 
+C     time is already relative to J2000 epoch, convert to centuries
+      cent = time/36525 _d 0/86400 _d 0
+      tides_permC = tides_permC0 + tides_permC1*cent
+
       _END_MASTER(myThid)
       _BARRIER
 
@@ -93,7 +97,9 @@ C     convert to m
           muMO = MUZEN(lon, lat, lonMO, latMO)
           VSU = aSU*LEGENDRE2(muSU)
           VMO = aMO*LEGENDRE2(muMO)
-          phiTide2d(i,j,bi,bj)=(1 _d 0+tides_k2-tides_h2)*(VSU+VMO)
+          Vperm = tides_permC*SQRT(5 _d 0)*LEGENDRE2(SIN(lat))
+          phiTide2d(i,j,bi,bj) = (1 _d 0 + tides_k2 - tides_h2)
+     &                          *(VSU + VMO - Vperm)
          ENDDO
         ENDDO
        ENDDO
