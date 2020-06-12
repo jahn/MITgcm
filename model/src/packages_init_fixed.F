@@ -116,6 +116,8 @@ C       |-- OASIS_INIT_FIXED
 C       |
 C       |-- EMBED_FILES_INIT
 C       |
+C       |-- TIDES_INIT_FIXED
+C       |
 C       |-- MYPACKAGE_INIT_FIXED
 C       |
 C       |-- CTRL_INIT
@@ -606,6 +608,15 @@ C--   needs to be called after the OASIS_INIT
         IF (debugMode) CALL DEBUG_CALL('EMBED_FILES_INIT',myThid)
 # endif
         CALL EMBED_FILES_INIT( myThid )
+      ENDIF
+#endif
+
+#ifdef ALLOW_TIDES
+      IF (useTIDES) THEN
+# ifdef ALLOW_DEBUG
+        IF (debugMode) CALL DEBUG_CALL('TIDES_INIT_FIXED',myThid)
+# endif
+        CALL TIDES_INIT_FIXED(myThid)
       ENDIF
 #endif
 

@@ -116,6 +116,8 @@ C       |-- OFFLINE_GET_DIFFUS
 C       |
 C       |-- BBL_CALC_RHS
 C       |
+C       |-- TIDES_CALC
+C       |
 C       |-- MYPACKAGE_CALC_RHS
 C       |
 C       |-- GMREDI_DO_EXCH
@@ -1144,6 +1146,12 @@ C---  if fluid Is Water: end
      I                          myTime, myIter, myThid )
       ENDIF
 #endif /* ALLOW_BBL */
+
+#ifdef ALLOW_TIDES
+      IF (useTIDES) THEN
+        CALL TIDES_CALC(myTime, myIter, myThid)
+      ENDIF
+#endif /* ALLOW_TIDES */
 
 #ifdef ALLOW_MYPACKAGE
       IF ( useMYPACKAGE ) THEN
