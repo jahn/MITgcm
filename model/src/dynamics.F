@@ -688,6 +688,7 @@ Cml)
 
        CALL DIAGNOSTICS_FILL(totPhihyd,'PHIHYD  ',0,Nr,0,1,1,myThid)
        CALL DIAGNOSTICS_FILL(phiHydLow,'PHIBOT  ',0, 1,0,1,1,myThid)
+       CALL DIAGNOSTICS_FILL(phiTide2d,'phiTid2d',0, 1,0,1,1,myThid)
 
        tmpFac = 1. _d 0
        CALL DIAGNOSTICS_SCALE_FILL(totPhihyd,tmpFac,2,
