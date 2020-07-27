@@ -106,6 +106,12 @@ should always be to your development branch, not the master branch.
 If you prefer, you can rebase rather than merge in the final step above;
 just be careful regarding your rebase syntax!
 
+**8.** If your pull request modifies the documentation, rtf-bot will
+automatically build the updated docs and a link to them will be added
+to the pull request.
+
+
+
 Detailed guide for those less familiar with Git and GitHub
 ----------------------------------------------------------
 
