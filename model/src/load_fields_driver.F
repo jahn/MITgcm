@@ -80,8 +80,9 @@ C     myThid :: thread number for this instance of the routine.
       INTEGER myThid
 
 C     !LOCAL VARIABLES:
+      INTEGER i,j,bi,bj
 #if (defined ALLOW_ADDFLUID) || (defined ALLOW_FRICTION_HEATING)
-      INTEGER i,j,k,bi,bj
+      INTEGER k
 #endif
 CEOP
 
@@ -90,6 +91,16 @@ CEOP
 #endif
 
 C--   Initialise forcing arrays that may receive multiple contributions
+      DO bj = myByLo(myThid), myByHi(myThid)
+       DO bi = myBxLo(myThid), myBxHi(myThid)
+        DO j=1-OLy,sNy+OLy
+         DO i=1-OLx,sNx+OLx
+          phiTide2d(i,j,bi,bj) = 0. _d 0
+         ENDDO
+        ENDDO
+       ENDDO
+      ENDDO
+
 #ifdef ALLOW_ADDFLUID
       IF ( selectAddFluid.NE.0 .AND. addMassFile.EQ.' ' ) THEN
         DO bj=myByLo(myThid),myByHi(myThid)
