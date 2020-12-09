@@ -869,6 +869,13 @@ C LOCAL VARIABLES
         _RL  dk
         _RL  pfactor
         _RL  bigR
+c add Bennington
+        _RL  P1atm
+        _RL  Rgas
+        _RL  RT
+        _RL  delta
+        _RL  B1
+        _RL  B
 #ifdef CARBONCHEM_TOTALPHSCALE
 c pH scale converstions
         _RL total2free_surf
@@ -935,6 +942,18 @@ C salinity
            scl=s/1.80655 _d 0
 
            bigR = 83.14472 _d 0
+C -----------------------------------------------------------------------
+C added by Val Bennington Nov 2010
+C Fugacity Factor needed for non-ideality in ocean
+C ff used for atmospheric correction for water vapor and pressure
+C Weiss (1974) Marine Chemistry
+           P1atm = pressc ! bars
+           Rgas = 83.1451 _d 0 ! bar*cm3/(mol*K)
+           RT = Rgas*tk
+           delta = (57.7 _d 0 - 0.118 _d 0*tk)
+           B1 = -1636.75 _d 0 + 12.0408 _d 0*tk - 0.0327957 _d 0*tk*tk
+           B = B1 + 3.16528 _d 0*tk*tk*tk*(0.00001 _d 0)
+           fugf(i,j,bi,bj) = exp( (B+2. _d 0*delta) * P1atm / RT)
 C------------------------------------------------------------------------
 C f = k0(1-pH2O)*correction term for non-ideality
 C Weiss & Price (1980, Mar. Chem., 8, 347-359;  Eq 13 with table 6 values)
