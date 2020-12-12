@@ -9,12 +9,30 @@ jobs:
    strategy:
      matrix:
       include:
+        - exp: "offline_exf_seaice"
+          precs: "16 16 16 16 16"
+        - exp: "global_ocean.cs32x15"
+          precs: "16 16 16 16 16"
         - exp: "tutorial_deep_convection"
           precs: "16 16"
-        - exp: "isomip"
-          precs: "16 16 16 16"
         - exp: "aim.5l_cs"
           precs: "14 16"
+        - exp: "isomip"
+          precs: "16 16 16 16"
+        - exp: "global_ocean.90x40x15"
+          precs: "16 16 16"
+        - exp: "tutorial_plume_on_slope"
+          precs: "16"
+        - exp: "tutorial_advection_in_gyre"
+          precs: "16"
+        - exp: "hs94.cs-32x32x5"
+          precs: "13 16"
+        - exp: "tutorial_global_oce_biogeo"
+          precs: "16"
+        - exp: "tutorial_global_oce_in_p"
+          precs: "16"
+        - exp: "tutorial_cfc_offline"
+          precs: "16"
 
    continue-on-error: true
 
@@ -43,6 +61,8 @@ jobs:
  doc_test_html:
    runs-on: ubuntu-latest
 
+   continue-on-error: true
+
    steps:
      - name: Checkout
        uses: actions/checkout@v2.2.0
@@ -63,6 +83,8 @@ jobs:
 
  doc_test_latex:
    runs-on: ubuntu-latest
+
+   continue-on-error: true
 
    steps:
      - name: Checkout
