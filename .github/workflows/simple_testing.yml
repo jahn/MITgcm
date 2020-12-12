@@ -22,7 +22,7 @@ jobs:
    
      - name: Checkout
        uses: actions/checkout@v2.2.0
-   
+
      - name: Set up compilers
        run: |
          sudo apt-get update
@@ -39,4 +39,23 @@ jobs:
         MITGCM_PRECS: ${{ matrix.precs }}
        run: |
          . tools/ci/runtr.sh
-    
+ 
+ doc_test:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v2.2.0
+
+     - name: Set up Python
+       uses: actions/setup-python@v2
+       with:
+         python-version: 3.6
+
+     - name: install dependencies
+       run: tools/ci/install_doc_dependencies.sh
+
+     - name: build docs
+       run: |
+         cd doc
+         sphinx-build -Wa -b html -d _build_doctrees . _build/html
+
