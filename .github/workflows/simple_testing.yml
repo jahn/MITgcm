@@ -18,6 +18,8 @@ jobs:
         - exp: "aim.5l_cs"
           precs: "14 16"
 
+   continue-on-error: true
+
    steps:
    
      - name: Checkout
