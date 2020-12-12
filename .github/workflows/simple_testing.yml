@@ -16,7 +16,7 @@ jobs:
         - exp: "isomip"
           precs: "16 16 16 16"
         - exp: "aim.5l_cs"
-          precs: "14 16"
+          precs: "16 16"
 
    continue-on-error: true
 
