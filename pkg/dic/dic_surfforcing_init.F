@@ -171,14 +171,16 @@ C       Read pH from a pickup file if needed
 C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
-#ifdef DIC_BIOTIC
-           surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
-           surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
-#else /* DIC_BIOTIC */
-           surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/35 _d 0
-           surfphos(i,j) = 5.1225 _d -4
-#endif /* DIC_BIOTIC */
-C FOR NON-INTERACTIVE Si
+           IF (iALK .GT. 0) THEN
+            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+           ELSE
+            surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/35 _d 0
+           ENDIF
+           IF (iPO4 .GT. 0) THEN
+            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
+           ELSE
+            surfphos(i,j) = 5.1225 _d -4
+           ENDIF
            IF (iSiO2 .GT. 0) THEN
             surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSiO2)
            ELSE

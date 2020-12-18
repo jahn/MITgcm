@@ -83,14 +83,16 @@ C =================================================================
 C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
-#ifdef DIC_BIOTIC
-           surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
-           surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
-#else /* DIC_BIOTIC */
-           surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
+           IF (iALK .GT. 0) THEN
+            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+           ELSE
+            surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
+           ENDIF
+           IF (iPO4 .GT. 0) THEN
+            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
+           ELSE
            surfphos(i,j) = 5.1225 _d -4
-#endif /* DIC_BIOTIC */
-C FOR NON-INTERACTIVE Si
+           ENDIF
            IF (iSi .GT. 0) THEN
             surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)
            ELSE
@@ -99,7 +101,6 @@ C FOR NON-INTERACTIVE Si
            surftemp(i,j) = theta(i,j,kLev,bi,bj)
            surfsalt(i,j) = salt(i,j,kLev,bi,bj)
            surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)
-#endif
 C apply bounds
 #ifdef DIC_BOUNDS
            surfdic(i,j) =MAX(dic_CO2Min, MIN(dic_CO2Max, surfdic(i,j)))
