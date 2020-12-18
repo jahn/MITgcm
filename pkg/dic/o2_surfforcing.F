@@ -129,6 +129,12 @@ C update surface tendencies
 #endif
 #endif
 
+#ifdef ALLOW_DIAGNOSTICS
+      IF ( useDiagnostics ) THEN
+        CALL DIAGNOSTICS_FILL(SGO2,'DICOFLX ',0,1 ,2,bi,bj,myThid)
+      ENDIF
+#endif
+
 
         RETURN
         END
