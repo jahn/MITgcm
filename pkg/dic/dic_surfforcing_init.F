@@ -6,7 +6,7 @@ C !ROUTINE: DIC_SURFFORCING_INIT
 
 C !INTERFACE: ==========================================================
       SUBROUTINE DIC_SURFFORCING_INIT(
-     I          iDIC, iALK, iPO4, iSiO2,
+     I          iDIC, iALK, iPO4, iSiO2, ptr2mM,
      O          pHC_isLoaded,
      I          myThid)
 
@@ -31,6 +31,7 @@ C !INPUT PARAMETERS: ===================================================
 C  myThid               :: thread number
       INTEGER iDIC, iALK, iPO4, iSiO2
       INTEGER  myThid
+      _RL ptr2mM
 
 C !OUTPUT PARAMETERS: ==================================================
       LOGICAL pHC_isLoaded
@@ -178,23 +179,23 @@ C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
            IF (iALK .GT. 0) THEN
-            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)*ptr2mM
            ELSE
             surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/35 _d 0
            ENDIF
            IF (iPO4 .GT. 0) THEN
-            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
+            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)*ptr2mM
            ELSE
             surfphos(i,j) = 5.1225 _d -4
            ENDIF
            IF (iSiO2 .GT. 0) THEN
-            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSiO2)
+            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSiO2)*ptr2mM
            ELSE
             surfsi(i,j) = SILICA(i,j,bi,bj)
            ENDIF
            surftemp(i,j) = theta(i,j,kLev,bi,bj)
            surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iDIC)
+           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iDIC)*ptr2mM
 C apply bounds
 #ifdef DIC_BOUNDS
            surfdic(i,j) =MAX(dic_CO2Min, MIN(dic_CO2Max, surfdic(i,j)))

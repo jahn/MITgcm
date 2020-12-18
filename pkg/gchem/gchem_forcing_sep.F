@@ -164,6 +164,7 @@ C carbon air-sea interaction
           CALL DIC_ABIOTIC_FORCING(
      O                       SURC, SURA, SURO,
      I                       1, 2, 3, 0, 5,
+     I                       ptr2mM,
      I                       bi, bj, iMin, iMax, jMin, jMax,
      I                       myIter, myTime, myThid )
 

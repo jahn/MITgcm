@@ -6,6 +6,7 @@ C !ROUTINE: DIC_SURFFORCING
 C !INTERFACE: ==========================================================
       SUBROUTINE DIC_SURFFORCING( iCO2 , iALK, iPO4, iSi,
      O           GDC,
+     I           ptr2mM,
      I           bi,bj,iMin,iMax,jMin,jMax,
      I           myIter,myTime,myThid)
 
@@ -31,10 +32,11 @@ C  myThid               :: thread number
 C  myIter               :: current timestep
 C  myTime               :: current time
 c  PTR_CO2              :: DIC tracer field
-      INTEGER myIter, myThid
-      _RL myTime
       INTEGER iCO2, iALK, iPO4, iSi
       INTEGER iMin,iMax,jMin,jMax, bi, bj
+      INTEGER myIter, myThid
+      _RL ptr2mM
+      _RL myTime
 
 C !OUTPUT PARAMETERS: ===================================================
 c GDC                   :: tendency due to air-sea exchange
@@ -84,23 +86,23 @@ C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
            IF (iALK .GT. 0) THEN
-            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)*ptr2mM
            ELSE
             surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
            ENDIF
            IF (iPO4 .GT. 0) THEN
-            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
+            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)*ptr2mM
            ELSE
            surfphos(i,j) = 5.1225 _d -4
            ENDIF
            IF (iSi .GT. 0) THEN
-            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)
+            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)*ptr2mM
            ELSE
             surfsi(i,j) = SILICA(i,j,bi,bj)
            ENDIF
            surftemp(i,j) = theta(i,j,kLev,bi,bj)
            surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)
+           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)*ptr2mM
 C apply bounds
 #ifdef DIC_BOUNDS
            surfdic(i,j) =MAX(dic_CO2Min, MIN(dic_CO2Max, surfdic(i,j)))
@@ -255,7 +257,7 @@ c Flux = kw*rho*(ff*pCO2atm-k0*FugFac*pCO2ocean)
               FluxCO2(i,j,bi,bj) = 0. _d 0
           ENDIF
 C convert flux (mol kg-1 m s-1) to (mol m-2 s-1)
-            FluxCO2(i,j,bi,bj) = FluxCO2(i,j,bi,bj)/permil
+            FluxCO2(i,j,bi,bj) = FluxCO2(i,j,bi,bj)/permil/ptr2mM
 
 #ifdef ALLOW_OLD_VIRTUALFLUX
             IF (maskC(i,j,kLev,bi,bj).NE.0. _d 0) THEN

@@ -6,6 +6,7 @@ C !ROUTINE: O2_SURFFORCING
 C !INTERFACE: ==========================================================
       SUBROUTINE O2_SURFFORCING( iO2,
      O           SGO2,
+     I           ptr2mM,
      I           bi,bj,iMin,iMax,jMin,jMax,
      I           myIter, myTime, myThid )
 
@@ -30,10 +31,11 @@ C  myThid               :: thread number
 C  myIter               :: current timestep
 C  myTime               :: current time
 C  PTR_O2               :: oxygen tracer field
-      _RL myTime
       INTEGER iO2
       INTEGER iMin,iMax,jMin,jMax, bi, bj
       INTEGER myIter, myThid
+      _RL ptr2mM
+      _RL myTime
 
 c  !OUTPUT PARAMETERS: ===================================================
 C  SGO2                  :: air-sea exchange of oxygen
@@ -109,7 +111,7 @@ c Convert from ml/l to mol/m^3
 
 C Determine flux, inc. correction for local atmos surface pressure
               FluxO2(i,j) = Kwexch(i,j)*
-     &                     (AtmosP(i,j,bi,bj)*O2sat(i,j)
+     &                     (AtmosP(i,j,bi,bj)*O2sat(i,j)/ptr2mM
      &                      - pTracer(i,j,k,bi,bj,iO2))
             ELSE
               FluxO2(i,j) = 0. _d 0

@@ -70,7 +70,7 @@ C--   Initialise other Geo-Chemistry pkg variables:
          CALL DIC_INIT_VARIA(myThid)
          CALL DIC_INI_FORCING(myThid)
          CALL DIC_SURFFORCING_INIT(
-     I                              1, 2, 3, 0,
+     I                              1, 2, 3, 0, ptr2mM,
      O                              pHC_isLoaded,
      I                              myThid)
          IF ( .NOT.pHC_isLoaded )
