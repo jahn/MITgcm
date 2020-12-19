@@ -7,6 +7,7 @@ C !ROUTINE: DIC_SURFFORCING_INIT
 C !INTERFACE: ==========================================================
       SUBROUTINE DIC_SURFFORCING_INIT(
      I          iDIC, iALK, iPO4, iSiO2,
+     O          pHC_isLoaded,
      I          myThid)
 
 C !DESCRIPTION:
@@ -30,6 +31,9 @@ C !INPUT PARAMETERS: ===================================================
 C  myThid               :: thread number
       INTEGER iDIC, iALK, iPO4, iSiO2
       INTEGER  myThid
+
+C !OUTPUT PARAMETERS: ==================================================
+      LOGICAL pHC_isLoaded
 
 #ifdef ALLOW_DIC
 
@@ -156,12 +160,14 @@ C =================================================================
       ENDDO
 
       pH_isLoaded = .FALSE.
+      pHC_isLoaded = .FALSE.
       IF ( nIter0.GT.PTRACERS_Iter0 .OR.
      &    (nIter0.EQ.PTRACERS_Iter0 .AND. pickupSuff.NE.' ')
      &   ) THEN
 C       Read pH from a pickup file if needed
         CALL DIC_READ_PICKUP(
      O                        pH_isLoaded,
+     O                        pHC_isLoaded,
      I                        nIter0, myThid )
       ENDIF
 

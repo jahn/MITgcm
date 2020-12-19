@@ -46,6 +46,9 @@ C Include self-shading effect by phytoplankton
 C Include iron sediment source using DOP flux
 #undef SEDFE
 
+C keep track of 3d pH; needed for DICPHAVC and DICPCO2C diagnostics
+#undef DIC_ALLOW_3D_PH
+
 #endif /* ALLOW_DIC */
 #endif /* DIC_OPTIONS_H */
 

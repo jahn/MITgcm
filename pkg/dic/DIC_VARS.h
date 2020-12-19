@@ -21,6 +21,8 @@ C     Silica      :: Surface ocean concentration of silicate for
 C                       pCO2 calculations. Read in from file (mol/m3).
 C     Kwexch_Pre  :: Common part of piston velocity used for
 C                       for air-sea CO2 and O2 flux calculations.
+C     pHC         :: pH (acidity) at grid center for calcite
+C                       calculations.
 C     dic_CO2Min  :: lower CO2 bound for pCO2 solver
 C     dic_CO2Max  :: upper CO2 bound for pCO2 solver
 C     dic_ALKMin  :: lower ALK bound for pCO2 solver
@@ -34,6 +36,9 @@ C     dic_tempMax :: upper temp bound for pCO2 solver
 C     dic_saltMin :: lower salt bound for pCO2 solver
 C     dic_saltMax :: upper salt bound for pCO2 solver
        COMMON /CARBON_NEEDS/
+#ifdef DIC_ALLOW_3D_PH
+     &              pHC,
+#endif
      &              AtmospCO2, AtmosP, pH, pCO2, FluxCO2,
      &              wind, FIce, Silica, Kwexch_Pre,
      &              dic_CO2Min, dic_CO2Max,
@@ -42,6 +47,9 @@ C     dic_saltMax :: upper salt bound for pCO2 solver
      &              dic_SiMin, dic_SiMax,
      &              dic_tempMin, dic_tempMax,
      &              dic_saltMin, dic_saltMax
+#ifdef DIC_ALLOW_3D_PH
+      _RL  pHC(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
+#endif
       _RL  AtmospCO2(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  AtmosP(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  pH(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)

@@ -41,7 +41,6 @@ C     == Local variables ==
       INTEGER ioUnit
       _RL tmpFld(2)
       _RS dummyRS(1)
-#ifdef DIC_BIOTIC
       LOGICAL glf
       _RL     timList(1)
       INTEGER j, nj
@@ -49,7 +48,6 @@ C     == Local variables ==
       PARAMETER( listDim = 2 )
       CHARACTER*(8) wrFldList(listDim)
       CHARACTER*(MAX_LEN_MBUF) msgBuf
-#endif
 
 c     IF ( DIC_pickup_write_mdsio ) THEN
         prec = precFloat64
@@ -72,11 +70,15 @@ c     IF ( DIC_pickup_write_mdsio ) THEN
 #endif
         ENDIF
 
-#ifdef DIC_BIOTIC
         WRITE(fn,'(A,A)') 'pickup_dic.',suff
         j = 0
 
 C     Firstly, write 3-D fields as consecutive records,
+#ifdef DIC_ALLOW_3D_PH
+        j = j + 1
+        CALL WRITE_REC_3D_RL( fn, prec, Nr, pHC, -j, myIter, myThid )
+        IF (j.LE.listDim) wrFldList(j) = 'DIC_pHC'
+#endif
 
 C-    switch to 2-D fields:
         nj = -j*Nr
@@ -117,8 +119,6 @@ C     files
      &                         nj, myIter, myThid )
 #endif /* ALLOW_MDSIO */
 C--------------------------
-
-#endif /* DIC_BIOTIC  */
 
 c     ENDIF /* DIC_pickup_write_mdsio */
 

@@ -34,6 +34,7 @@ CEOP
 C !LOCAL VARIABLES: ====================================================
 C  i,j,k,bi,bj          :: loop indices
 C  jTr                  :: ptracer number
+      LOGICAL pHC_isLoaded
 #ifdef GCHEM_ADD2TR_TENDENCY
       INTEGER i,j,k
       INTEGER bi,bj
@@ -68,7 +69,12 @@ C--   Initialise other Geo-Chemistry pkg variables:
 # endif /* ALLOW_AUTODIFF */
          CALL DIC_INIT_VARIA(myThid)
          CALL DIC_INI_FORCING(myThid)
-         CALL DIC_SURFFORCING_INIT(1, 2, 3, 0, myThid)
+         CALL DIC_SURFFORCING_INIT(
+     I                              1, 2, 3, 0,
+     O                              pHC_isLoaded,
+     I                              myThid)
+         IF ( .NOT.pHC_isLoaded )
+     &     CALL DIC_DEEP_INIT(iDIC,iALK,iPO4,iSiO2,ptr2mM,myThid)
          CALL DIC_BIOTIC_INIT(myThid)
 # ifdef ALLOW_CTRL
          CALL DIC_SET_CONTROL(myThid)
