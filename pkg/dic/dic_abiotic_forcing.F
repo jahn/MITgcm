@@ -52,9 +52,21 @@ C  myThid               :: thread number
 
 #ifdef ALLOW_DIC
 
+#ifdef ALLOW_DIAGNOSTICS
+C     !FUNCTIONS:
+      LOGICAL  DIAGNOSTICS_IS_ON
+      EXTERNAL DIAGNOSTICS_IS_ON
+#endif
+
 C !LOCAL VARIABLES: ====================================================
-C  i,j :: loop indices
-      INTEGER i,j
+C  i,j,k :: loop indices
+      INTEGER i,j,k
+      INTEGER nDEEPstep
+      LOGICAL restart
+#ifdef CAR_DISS
+      _RL calcium
+#endif
+      _RL carbonate(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
 CEOP
 
 #ifdef ALLOW_DEBUG
@@ -102,6 +114,55 @@ C oxygen air-sea interaction
      I                       ptr2mM,
      I                       bi, bj, iMin, iMax, jMin, jMax,
      I                       myIter, myTime, myThid )
+      ENDIF
+
+C     don't compute deep pH, etc by default
+      nDEEPstep = 0
+#ifdef CAR_DISS
+      nDEEPstep = 3600
+#endif
+#ifdef ALLOW_DIAGNOSTICS
+      IF (useDiagnostics) THEN
+       IF (DIAGNOSTICS_IS_ON('DICPHAVC',myThid) .OR.
+     &     DIAGNOSTICS_IS_ON('DICPCO2C',myThid)) THEN
+        nDEEPstep = 1
+       ENDIF
+      ENDIF
+#endif
+      IF(nDEEPstep .GT. 0 .AND. (myIter .LT. (nIter0+5) .OR.
+     &                        MOD(myIter,MAX(1,nDEEPstep)) .EQ. 0))THEN
+#ifdef ALLOW_DEBUG
+       IF (debugMode) CALL DEBUG_CALL('CALCITE_SATURATION',myThid)
+#endif
+       restart = nDEEPstep .GT. 1
+       DO k=1,Nr
+        CALL DIC_DEEP(
+     I                 iDIC, iALK, iPO4, iSi,
+     O                 carbonate,
+     I                 ptr2mM, restart,
+     I                 bi, bj, iMin, iMax, jMin, jMax, k,
+     I                 myIter, myTime, myThid )
+
+#ifdef CAR_DISS
+        DO j=jMin,jMax
+         DO i=iMin,iMax
+           IF ( maskC(i,j,k,bi,bj).EQ.oneRS ) THEN
+#ifdef CARBONCHEM_SOLVESAPHE
+             calcium = cat(i,j,bi,bj)
+#else
+             calcium = 1.028 _d -2*salt(i,j,k,bi,bj)/35. _d 0
+#endif
+             omegaC(i,j,k,bi,bj) = calcium * carbonate /
+     &                          Ksp_TP_Calc(i,j,bi,bj)
+           ELSE
+             omegaC(i,j,k,bi,bj) = 0. _d 0
+           ENDIF
+         ENDDO
+        ENDDO
+#endif /* CAR_DISS */
+C      end k loop
+       ENDDO
+C      endif myIter
       ENDIF
 
 #ifdef ALLOW_DEBUG
