@@ -56,10 +56,13 @@ C!LOCAL VARIABLES: ====================================================
 C  i,j                  :: loop indices
 C  bi,bj                :: tile indices
 C  k                    :: vertical level
-      INTEGER bi,bj,iMin,iMax,jMin,jMax
+      INTEGER i,j,bi,bj,iMin,iMax,jMin,jMax
 c     INTEGER i,j
       PARAMETER( iMin = 1 , iMax = sNx )
       PARAMETER( jMin = 1 , jMax = sNy )
+      _RL SURA(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
+      _RL SURC(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
+      _RL SURO(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
 #if (defined ALLOW_OBCS) || (defined ALLOW_DIAGNOSTICS)
       INTEGER iTr
 #endif
@@ -138,6 +141,14 @@ C$taf loop = parallel
 C$taf loop = parallel
        DO bi=myBxLo(myThid),myBxHi(myThid)
 
+        DO j=1-OLy,sNy+OLy
+         DO i=1-OLx,sNx+OLx
+          SURA(i,j) = 0 _d 0
+          SURC(i,j) = 0 _d 0
+          SURO(i,j) = 0 _d 0
+         ENDDO
+        ENDDO
+
 ccccccccccccccccccccccccccc DIC cccccccccccccccccccccccccccccccc
 #ifdef ALLOW_DIC
 # ifdef ALLOW_AUTODIFF
@@ -145,6 +156,17 @@ ccccccccccccccccccccccccccc DIC cccccccccccccccccccccccccccccccc
 # else /* ALLOW_AUTODIFF */
         IF ( useDIC ) THEN
 # endif /* ALLOW_AUTODIFF */
+
+C carbon air-sea interaction
+#ifdef ALLOW_DEBUG
+          IF (debugMode) CALL DEBUG_CALL('DIC_ABIOTIC_FORCING',myThid)
+#endif
+          CALL DIC_ABIOTIC_FORCING(
+     O                       SURC, SURA, SURO,
+     I                       1, 2, 3, 0, 5,
+     I                       bi, bj, iMin, iMax, jMin, jMax,
+     I                       myIter, myTime, myThid )
+
 #ifdef ALLOW_DEBUG
           IF (debugMode) CALL DEBUG_CALL('DIC_BIOTIC_FORCING',myThid)
 #endif
@@ -155,6 +177,7 @@ ccccccccccccccccccccccccccc DIC cccccccccccccccccccccccccccccccc
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,4),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,5),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,6),
+     &                          SURC, SURA, SURO,
      &                          bi, bj, iMin, iMax, jMin, jMax,
      &                          myIter, myTime, myThid )
 #else
@@ -164,6 +187,7 @@ ccccccccccccccccccccccccccc DIC cccccccccccccccccccccccccccccccc
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,3),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,4),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,5),
+     &                          SURC, SURA, SURO,
      &                          bi, bj, iMin, iMax, jMin, jMax,
      &                          myIter, myTime, myThid )
 #else
@@ -171,6 +195,7 @@ ccccccccccccccccccccccccccc DIC cccccccccccccccccccccccccccccccc
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,2),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,3),
      &                          pTracer(1-OLx,1-OLy,1,bi,bj,4),
+     &                          SURC, SURA, SURO,
      &                          bi, bj, iMin, iMax, jMin, jMax,
      &                          myIter, myTime, myThid )
 #endif

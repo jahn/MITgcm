@@ -12,6 +12,10 @@ C !INTERFACE: ==========================================================
 #ifdef ALLOW_FE
      U                      PTR_FE,
 #endif
+     I                      SURC, SURA,
+#ifdef ALLOW_O2
+     U                      SURO,
+#endif
      I                      bi, bj, iMin, iMax, jMin, jMax,
      I                      myIter, myTime, myThid )
 
@@ -37,10 +41,17 @@ C  PTR_PO4              :: phosphate
 c  PTR_DOP              :: dissolve organic phosphurous
 c  PTR_O2               :: oxygen
 C  PTR_FE               :: iron
+C  SURA              :: tendency of alkalinity due to freshwater
+C  SURC              :: tendency of DIC due to air-sea exchange
+C                       and virtual flux
+C  SURO              :: tendency of O2 due to air-sea exchange
 c  bi, bj               :: current tile indices
 C  myIter               :: current timestep
 C  myTime               :: current time
 C  myThid               :: thread number
+      _RL  SURA(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
+      _RL  SURC(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
+      _RL  SURO(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
       _RL  PTR_DIC(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  PTR_ALK(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  PTR_PO4(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
@@ -62,10 +73,6 @@ C  myThid               :: thread number
 C !LOCAL VARIABLES: ====================================================
 C  i,j,k                  :: loop indices
 C  G*                     :: tendency term for the tracers
-C  SURA                   :: tendency of alkalinity due to freshwater
-C  SURC                   :: tendency of DIC due to air-sea exchange
-C                            and virtual flux
-C  SURO                   :: tendency of O2 due to air-sea exchange
 C  GPO4                   :: tendency of PO4 due to biological productivity,
 C                            exchange with DOP pool and reminerization
 C  CAR                    :: carbonate changes due to biological
@@ -80,9 +87,6 @@ C  freefe                 :: iron not bound to ligand
       _RL  GALK(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  GPO4(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  GDOP(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
-      _RL  SURA(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
-      _RL  SURC(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
-      _RL  SURO(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
       _RL  CAR(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  BIOac(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       _RL  RDOP(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
@@ -112,14 +116,6 @@ CEOP
       IF (debugMode) CALL DEBUG_ENTER('DIC_BIOTIC_FORCING',myThid)
 #endif
 
-      IF ( useThSIce .OR. useSEAICE .OR. useCoupler ) THEN
-#ifdef ALLOW_DEBUG
-        IF (debugMode) CALL DEBUG_CALL('DIC_FIELDS_UPDATE',myThid)
-#endif
-        CALL DIC_FIELDS_UPDATE(
-     I                    bi, bj, myTime, myIter, myThid )
-      ENDIF
-
        DO k=1,Nr
          DO j=1-OLy,sNy+OLy
           DO i=1-OLx,sNx+OLx
@@ -145,45 +141,6 @@ c          freefe(i,j,k)  =0. _d 0
           ENDDO
          ENDDO
        ENDDO
-       DO j=1-OLy,sNy+OLy
-         DO i=1-OLx,sNx+OLx
-           SURA(i,j)   =0. _d 0
-           SURC(i,j)   =0. _d 0
-           SURO(i,j)   =0. _d 0
-         ENDDO
-       ENDDO
-
-C carbon air-sea interaction
-#ifdef ALLOW_DEBUG
-       IF (debugMode) CALL DEBUG_CALL('DIC_SURFFORCING',myThid)
-#endif
-       CALL DIC_SURFFORCING(
-     I                    PTR_DIC, PTR_ALK, PTR_PO4,
-     O                    SURC,
-     I                    bi, bj, iMin, iMax, jMin, jMax,
-     I                    myIter, myTime, myThid )
-
-C alkalinity air-sea interaction
-#ifdef ALLOW_DEBUG
-       IF (debugMode) CALL DEBUG_CALL('ALK_SURFFORCING',myThid)
-#endif
-       CALL ALK_SURFFORCING(
-     I                    PTR_ALK,
-     O                    SURA,
-     I                    bi, bj, iMin, iMax, jMin, jMax,
-     I                    myIter, myTime, myThid )
-
-#ifdef ALLOW_O2
-C oxygen air-sea interaction
-#ifdef ALLOW_DEBUG
-       IF (debugMode) CALL DEBUG_CALL('O2_SURFFORCING',myThid)
-#endif
-       CALL O2_SURFFORCING(
-     I                    PTR_O2,
-     O                    SURO,
-     I                    bi, bj, iMin, iMax, jMin, jMax,
-     I                    myIter, myTime, myThid )
-#endif
 
 #ifdef ALLOW_FE
 C find free iron

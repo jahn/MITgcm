@@ -6,6 +6,7 @@ C !ROUTINE: DIC_SURFFORCING_INIT
 
 C !INTERFACE: ==========================================================
       SUBROUTINE DIC_SURFFORCING_INIT(
+     I          iDIC, iALK, iPO4, iSiO2,
      I          myThid)
 
 C !DESCRIPTION:
@@ -27,6 +28,7 @@ C !USES: ===============================================================
 
 C !INPUT PARAMETERS: ===================================================
 C  myThid               :: thread number
+      INTEGER iDIC, iALK, iPO4, iSiO2
       INTEGER  myThid
 
 #ifdef ALLOW_DIC
@@ -173,15 +175,15 @@ C determine inorganic carbon chem coefficients
 #ifdef DIC_BIOTIC
 #ifdef DIC_BOUNDS
              surfalk(i,j) = max(0.4 _d 0,
-     &                          min(10. _d 0,PTRACER(i,j,kLev,bi,bj,2)))
+     &                       min(10. _d 0,PTRACER(i,j,kLev,bi,bj,iALK)))
      &                          * maskC(i,j,kLev,bi,bj)
              surfphos(i,j)  = max(1.0 _d -11,
-     &                          min(1. _d -1,PTRACER(i,j,kLev,bi,bj,3)))
+     &                       min(1. _d -1,PTRACER(i,j,kLev,bi,bj,iPO4)))
      &                          * maskC(i,j,kLev,bi,bj)
 #else
-             surfalk(i,j) = PTRACER(i,j,kLev,bi,bj,2)
+             surfalk(i,j) = PTRACER(i,j,kLev,bi,bj,iALK)
      &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)= PTRACER(i,j,kLev,bi,bj,3)
+             surfphos(i,j)= PTRACER(i,j,kLev,bi,bj,iPO4)
      &                          * maskC(i,j,kLev,bi,bj)
 #endif
 #else /* DIC_BIOTIC */
@@ -197,11 +199,11 @@ C FOR NON-INTERACTIVE Si
             surfsalt(i,j) = max(4. _d 0,
      &                          min(50. _d 0, salt(i,j,kLev,bi,bj)))
             surfdic(i,j)  = max(0.4 _d 0,
-     &                         min(10. _d 0, PTRACER(i,j,kLev,bi,bj,1)))
+     &                      min(10. _d 0, PTRACER(i,j,kLev,bi,bj,iDIC)))
 #else
             surftemp(i,j) = theta(i,j,kLev,bi,bj)
             surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-            surfdic(i,j)  = PTRACER(i,j,kLev,bi,bj,1)
+            surfdic(i,j)  = PTRACER(i,j,kLev,bi,bj,iDIC)
      &                    * maskC(i,j,kLev,bi,bj)
 #endif
          ENDDO

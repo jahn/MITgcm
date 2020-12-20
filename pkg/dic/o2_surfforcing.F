@@ -4,7 +4,8 @@ CBOP
 C !ROUTINE: O2_SURFFORCING
 
 C !INTERFACE: ==========================================================
-      SUBROUTINE O2_SURFFORCING( PTR_O2, SGO2,
+      SUBROUTINE O2_SURFFORCING( iO2,
+     O           SGO2,
      I           bi,bj,iMin,iMax,jMin,jMax,
      I           myIter, myTime, myThid )
 
@@ -19,6 +20,9 @@ C !USES: ===============================================================
 #include "PARAMS.h"
 #include "GRID.h"
 #include "FFIELDS.h"
+#include "PTRACERS_SIZE.h"
+#include "PTRACERS_PARAMS.h"
+#include "PTRACERS_FIELDS.h"
 #include "DIC_VARS.h"
 
 c  !INPUT PARAMETERS: ===================================================
@@ -27,7 +31,7 @@ C  myIter               :: current timestep
 C  myTime               :: current time
 C  PTR_O2               :: oxygen tracer field
       _RL myTime
-      _RL  PTR_O2(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
+      INTEGER iO2
       INTEGER iMin,iMax,jMin,jMax, bi, bj
       INTEGER myIter, myThid
 
@@ -106,7 +110,7 @@ c Convert from ml/l to mol/m^3
 C Determine flux, inc. correction for local atmos surface pressure
               FluxO2(i,j) = Kwexch(i,j)*
      &                     (AtmosP(i,j,bi,bj)*O2sat(i,j)
-     &                      - PTR_O2(i,j,K))
+     &                      - pTracer(i,j,k,bi,bj,iO2))
             ELSE
               FluxO2(i,j) = 0. _d 0
             ENDIF

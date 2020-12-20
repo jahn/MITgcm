@@ -4,7 +4,8 @@ CBOP
 C !ROUTINE: ALK_SURFFORCING
 
 C !INTERFACE: ==========================================================
-      SUBROUTINE ALK_SURFFORCING( PTR_ALK , GALK,
+      SUBROUTINE ALK_SURFFORCING(
+     O           GALK,
      I           bi,bj,imin,imax,jmin,jmax,
      I           myIter,myTime,myThid)
 
@@ -30,7 +31,6 @@ C  bi,bj                :: tile indices
 C  PTR_ALK              :: alkalinity field
       INTEGER myIter, myThid
       _RL myTime
-      _RL  PTR_ALK(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
       INTEGER iMin,iMax,jMin,jMax, bi, bj
 
 C !OUTPUT PARAMETERS: ==================================================
@@ -38,7 +38,6 @@ C  GALK                 :: tendency term of alkalinity
       _RL  GALK(1-OLx:sNx+OLx,1-OLy:sNy+OLy)
 
 #ifdef ALLOW_PTRACERS
-#ifdef DIC_BIOTIC
 
 #ifdef ALLOW_OLD_VIRTUALFLUX
 C !LOCAL VARIABLES: ====================================================
@@ -69,6 +68,6 @@ c
 #endif /* ALLOW_OLD_VIRTUALFLUX */
 
 #endif
-#endif
+
         RETURN
         END

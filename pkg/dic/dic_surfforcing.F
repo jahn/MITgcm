@@ -4,7 +4,8 @@ CBOP
 C !ROUTINE: DIC_SURFFORCING
 
 C !INTERFACE: ==========================================================
-      SUBROUTINE DIC_SURFFORCING( PTR_CO2 , PTR_ALK, PTR_PO4, GDC,
+      SUBROUTINE DIC_SURFFORCING( iCO2 , iALK, iPO4, iSi,
+     O           GDC,
      I           bi,bj,iMin,iMax,jMin,jMax,
      I           myIter,myTime,myThid)
 
@@ -20,6 +21,9 @@ C !USES: ===============================================================
 #include "PARAMS.h"
 #include "GRID.h"
 #include "FFIELDS.h"
+#include "PTRACERS_SIZE.h"
+#include "PTRACERS_PARAMS.h"
+#include "PTRACERS_FIELDS.h"
 #include "DIC_VARS.h"
 
 C !INPUT PARAMETERS: ===================================================
@@ -29,9 +33,7 @@ C  myTime               :: current time
 c  PTR_CO2              :: DIC tracer field
       INTEGER myIter, myThid
       _RL myTime
-      _RL  PTR_CO2(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
-      _RL  PTR_ALK(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
-      _RL  PTR_PO4(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr)
+      INTEGER iCO2, iALK, iPO4, iSi
       INTEGER iMin,iMax,jMin,jMax, bi, bj
 
 C !OUTPUT PARAMETERS: ===================================================
@@ -83,39 +85,34 @@ C determine inorganic carbon chem coefficients
          DO i=iMin,iMax
 
 #ifdef DIC_BIOTIC
-cQQQQ check ptracer numbers
-#ifdef DIC_BOUNDS
-             surfalk(i,j) = max(0.4 _d 0,
-     &                          min(10. _d 0,PTR_ALK(i,j,klev)))
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)  = max(1.0 _d -11,
-     &                          min(1. _d -1,PTR_PO4(i,j,klev)))
-     &                          * maskC(i,j,kLev,bi,bj)
-#else
-             surfalk(i,j) = PTR_ALK(i,j,klev)
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)  = PTR_PO4(i,j,klev)
-     &                          * maskC(i,j,kLev,bi,bj)
-#endif
+            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
 #else /* DIC_BIOTIC */
-             surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)  = 5.1225 _d -4 * maskC(i,j,kLev,bi,bj)
+            surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
+            surfphos(i,j) = 5.1225 _d -4
 #endif /* DIC_BIOTIC */
 C FOR NON-INTERACTIVE Si
-             surfsi(i,j)   = SILICA(i,j,bi,bj) * maskC(i,j,kLev,bi,bj)
-#ifdef DIC_BOUNDS
-            surftemp(i,j) = max(-4. _d 0,
-     &                          min(50. _d 0, theta(i,j,kLev,bi,bj)))
-            surfsalt(i,j) = max(4. _d 0,
-     &                          min(50. _d 0, salt(i,j,kLev,bi,bj)))
-            surfdic(i,j)  = max(0.4 _d 0,
-     &                          min(10. _d 0, PTR_CO2(i,j,kLev)))
-#else
+            IF (iSi .GT. 0) THEN
+             surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)
+            ELSE
+             surfsi(i,j) = SILICA(i,j,bi,bj)
+            ENDIF
             surftemp(i,j) = theta(i,j,kLev,bi,bj)
             surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-            surfdic(i,j)  = PTR_CO2(i,j,kLev)
+            surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)
 #endif
+C apply bounds
+#ifdef DIC_BOUNDS
+            surfalk(i,j)  = max(0.4 _d 0,  min(10. _d 0,surfalk(i,j)))
+            surfphos(i,j) = max(1. _d -11, min(1. _d -1,surfphos(i,j)))
+            surftemp(i,j) = max(-4. _d 0,  min(50. _d 0,surftemp(i,j)))
+            surfsalt(i,j) = max(4. _d 0,   min(50. _d 0,surfsalt(i,j)))
+            surfdic(i,j)  = max(0.4 _d 0,  min(10. _d 0,surfdic(i,j)))
+#endif
+C apply mask
+            surfalk(i,j)  = surfalk(i,j) * maskC(i,j,kLev,bi,bj)
+            surfphos(i,j) = surfphos(i,j) * maskC(i,j,kLev,bi,bj)
+            surfsi(i,j)   = surfsi(i,j) * maskC(i,j,kLev,bi,bj)
           ENDDO
          ENDDO
 

@@ -68,7 +68,7 @@ C--   Initialise other Geo-Chemistry pkg variables:
 # endif /* ALLOW_AUTODIFF */
          CALL DIC_INIT_VARIA(myThid)
          CALL DIC_INI_FORCING(myThid)
-         CALL DIC_SURFFORCING_INIT(myThid)
+         CALL DIC_SURFFORCING_INIT(1, 2, 3, 0, myThid)
          CALL DIC_BIOTIC_INIT(myThid)
 # ifdef ALLOW_CTRL
          CALL DIC_SET_CONTROL(myThid)
