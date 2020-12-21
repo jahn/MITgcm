@@ -83,36 +83,36 @@ C =================================================================
 C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
-
 #ifdef DIC_BIOTIC
-            surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
-            surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
+           surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+           surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
 #else /* DIC_BIOTIC */
-            surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
-            surfphos(i,j) = 5.1225 _d -4
+           surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/gsm_s
+           surfphos(i,j) = 5.1225 _d -4
 #endif /* DIC_BIOTIC */
 C FOR NON-INTERACTIVE Si
-            IF (iSi .GT. 0) THEN
-             surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)
-            ELSE
-             surfsi(i,j) = SILICA(i,j,bi,bj)
-            ENDIF
-            surftemp(i,j) = theta(i,j,kLev,bi,bj)
-            surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-            surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)
+           IF (iSi .GT. 0) THEN
+            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSi)
+           ELSE
+            surfsi(i,j) = SILICA(i,j,bi,bj)
+           ENDIF
+           surftemp(i,j) = theta(i,j,kLev,bi,bj)
+           surfsalt(i,j) = salt(i,j,kLev,bi,bj)
+           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iCO2)
 #endif
 C apply bounds
 #ifdef DIC_BOUNDS
-            surfalk(i,j)  = max(0.4 _d 0,  min(10. _d 0,surfalk(i,j)))
-            surfphos(i,j) = max(1. _d -11, min(1. _d -1,surfphos(i,j)))
-            surftemp(i,j) = max(-4. _d 0,  min(50. _d 0,surftemp(i,j)))
-            surfsalt(i,j) = max(4. _d 0,   min(50. _d 0,surfsalt(i,j)))
-            surfdic(i,j)  = max(0.4 _d 0,  min(10. _d 0,surfdic(i,j)))
+           surfdic(i,j) =MAX(dic_CO2Min, MIN(dic_CO2Max, surfdic(i,j)))
+           surfalk(i,j) =MAX(dic_ALKMin, MIN(dic_ALKMax, surfalk(i,j)))
+           surfphos(i,j)=MAX(dic_PO4Min, MIN(dic_PO4Max, surfphos(i,j)))
+           surfsi(i,j)  =MAX(dic_SiMin,  MIN(dic_SiMax,  surfsi(i,j)))
+           surftemp(i,j)=MAX(dic_tempMin,MIN(dic_tempMax,surftemp(i,j)))
+           surfsalt(i,j)=MAX(dic_saltMin,MIN(dic_saltMax,surfsalt(i,j)))
 #endif
 C apply mask
-            surfalk(i,j)  = surfalk(i,j) * maskC(i,j,kLev,bi,bj)
-            surfphos(i,j) = surfphos(i,j) * maskC(i,j,kLev,bi,bj)
-            surfsi(i,j)   = surfsi(i,j) * maskC(i,j,kLev,bi,bj)
+           surfalk(i,j)  = surfalk(i,j) * maskC(i,j,kLev,bi,bj)
+           surfphos(i,j) = surfphos(i,j) * maskC(i,j,kLev,bi,bj)
+           surfsi(i,j)   = surfsi(i,j) * maskC(i,j,kLev,bi,bj)
           ENDDO
          ENDDO
 

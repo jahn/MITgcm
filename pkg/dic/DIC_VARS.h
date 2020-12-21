@@ -21,9 +21,27 @@ C     Silica      :: Surface ocean concentration of silicate for
 C                       pCO2 calculations. Read in from file (mol/m3).
 C     Kwexch_Pre  :: Common part of piston velocity used for
 C                       for air-sea CO2 and O2 flux calculations.
+C     dic_CO2Min  :: lower CO2 bound for pCO2 solver
+C     dic_CO2Max  :: upper CO2 bound for pCO2 solver
+C     dic_ALKMin  :: lower ALK bound for pCO2 solver
+C     dic_ALKMax  :: upper ALK bound for pCO2 solver
+C     dic_PO4Min  :: lower PO4 bound for pCO2 solver
+C     dic_PO4Max  :: upper PO4 bound for pCO2 solver
+C     dic_SiMin   :: lower Si bound for pCO2 solver
+C     dic_SiMax   :: upper Si bound for pCO2 solver
+C     dic_tempMin :: lower temp bound for pCO2 solver
+C     dic_tempMax :: upper temp bound for pCO2 solver
+C     dic_saltMin :: lower salt bound for pCO2 solver
+C     dic_saltMax :: upper salt bound for pCO2 solver
        COMMON /CARBON_NEEDS/
      &              AtmospCO2, AtmosP, pH, pCO2, FluxCO2,
-     &              wind, FIce, Silica, Kwexch_Pre
+     &              wind, FIce, Silica, Kwexch_Pre,
+     &              dic_CO2Min, dic_CO2Max,
+     &              dic_ALKMin, dic_ALKMax,
+     &              dic_PO4Min, dic_PO4Max,
+     &              dic_SiMin, dic_SiMax,
+     &              dic_tempMin, dic_tempMax,
+     &              dic_saltMin, dic_saltMax
       _RL  AtmospCO2(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  AtmosP(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  pH(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
@@ -33,6 +51,12 @@ C                       for air-sea CO2 and O2 flux calculations.
       _RL  FIce(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  Silica(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  Kwexch_Pre(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
+      _RL  dic_CO2Min, dic_CO2Max
+      _RL  dic_ALKMin, dic_ALKMax
+      _RL  dic_PO4Min, dic_PO4Max
+      _RL  dic_SiMin, dic_SiMax
+      _RL  dic_tempMin, dic_tempMax
+      _RL  dic_saltMin, dic_saltMax
 
 C Store dissociation and carbon chemistry coefficients for
 C    pCO2 solvers (see carbon_chem.F).

@@ -171,41 +171,35 @@ C       Read pH from a pickup file if needed
 C determine inorganic carbon chem coefficients
         DO j=jMin,jMax
          DO i=iMin,iMax
-
 #ifdef DIC_BIOTIC
-#ifdef DIC_BOUNDS
-             surfalk(i,j) = max(0.4 _d 0,
-     &                       min(10. _d 0,PTRACER(i,j,kLev,bi,bj,iALK)))
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)  = max(1.0 _d -11,
-     &                       min(1. _d -1,PTRACER(i,j,kLev,bi,bj,iPO4)))
-     &                          * maskC(i,j,kLev,bi,bj)
-#else
-             surfalk(i,j) = PTRACER(i,j,kLev,bi,bj,iALK)
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)= PTRACER(i,j,kLev,bi,bj,iPO4)
-     &                          * maskC(i,j,kLev,bi,bj)
-#endif
+           surfalk(i,j) = pTracer(i,j,kLev,bi,bj,iALK)
+           surfphos(i,j) = pTracer(i,j,kLev,bi,bj,iPO4)
 #else /* DIC_BIOTIC */
-             surfalk(i,j) = 2.366595 _d 0 *salt(i,j,kLev,bi,bj)/35. _d 0
-     &                          * maskC(i,j,kLev,bi,bj)
-             surfphos(i,j)= 5.1225 _d -4 * maskC(i,j,kLev,bi,bj)
+           surfalk(i,j) = 2.366595 _d 0 * salt(i,j,kLev,bi,bj)/35 _d 0
+           surfphos(i,j) = 5.1225 _d -4
 #endif /* DIC_BIOTIC */
 C FOR NON-INTERACTIVE Si
-             surfsi(i,j)   =  Silica(i,j,bi,bj) * maskC(i,j,kLev,bi,bj)
+           IF (iSiO2 .GT. 0) THEN
+            surfsi(i,j) = pTracer(i,j,kLev,bi,bj,iSiO2)
+           ELSE
+            surfsi(i,j) = SILICA(i,j,bi,bj)
+           ENDIF
+           surftemp(i,j) = theta(i,j,kLev,bi,bj)
+           surfsalt(i,j) = salt(i,j,kLev,bi,bj)
+           surfdic(i,j)  = pTracer(i,j,kLev,bi,bj,iDIC)
+C apply bounds
 #ifdef DIC_BOUNDS
-            surftemp(i,j) = max(-4. _d 0,
-     &                          min(50. _d 0, theta(i,j,kLev,bi,bj)))
-            surfsalt(i,j) = max(4. _d 0,
-     &                          min(50. _d 0, salt(i,j,kLev,bi,bj)))
-            surfdic(i,j)  = max(0.4 _d 0,
-     &                      min(10. _d 0, PTRACER(i,j,kLev,bi,bj,iDIC)))
-#else
-            surftemp(i,j) = theta(i,j,kLev,bi,bj)
-            surfsalt(i,j) = salt(i,j,kLev,bi,bj)
-            surfdic(i,j)  = PTRACER(i,j,kLev,bi,bj,iDIC)
-     &                    * maskC(i,j,kLev,bi,bj)
+           surfdic(i,j) =MAX(dic_CO2Min, MIN(dic_CO2Max, surfdic(i,j)))
+           surfalk(i,j) =MAX(dic_ALKMin, MIN(dic_ALKMax, surfalk(i,j)))
+           surfphos(i,j)=MAX(dic_PO4Min, MIN(dic_PO4Max, surfphos(i,j)))
+           surfsi(i,j)  =MAX(dic_SiMin,  MIN(dic_SiMax,  surfsi(i,j)))
+           surftemp(i,j)=MAX(dic_tempMin,MIN(dic_tempMax,surftemp(i,j)))
+           surfsalt(i,j)=MAX(dic_saltMin,MIN(dic_saltMax,surfsalt(i,j)))
 #endif
+C apply mask
+           surfalk(i,j)  = surfalk(i,j) * maskC(i,j,kLev,bi,bj)
+           surfphos(i,j) = surfphos(i,j) * maskC(i,j,kLev,bi,bj)
+           surfsi(i,j)   = surfsi(i,j) * maskC(i,j,kLev,bi,bj)
          ENDDO
         ENDDO
 

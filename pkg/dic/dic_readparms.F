@@ -79,7 +79,13 @@ C----
      &  permil, Pa2Atm,
      &  selectBTconst, selectFTconst,
      &  selectHFconst, selectK1K2const,
-     &  selectPHsolver
+     &  selectPHsolver,
+     &  dic_CO2Min, dic_CO2Max,
+     &  dic_ALKMin, dic_ALKMax,
+     &  dic_PO4Min, dic_PO4Max,
+     &  dic_SiMin, dic_SiMax,
+     &  dic_tempMin, dic_tempMax,
+     &  dic_saltMin, dic_saltMax
 
 #ifdef DIC_BIOTIC
 C-- Biotic dic parameters:
@@ -141,6 +147,18 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
        selectHFconst   = UNSET_I
        selectK1K2const = UNSET_I
        selectPHsolver  = UNSET_I
+       dic_CO2Min  = 0.4 _d 0
+       dic_CO2Max  = 10 _d 0
+       dic_ALKMin  = 0.4 _d 0
+       dic_ALKMax  = 10 _d 0
+       dic_PO4Min  = 1 _d -11
+       dic_PO4Max  = 1 _d -1
+       dic_SiMin   = 0 _d 0
+       dic_SiMax   = 1 _d 10
+       dic_tempMin = -4 _d 0
+       dic_tempMax = 50 _d 0
+       dic_saltMin = 4 _d 0
+       dic_saltMax = 50 _d 0
 
 #ifdef DIC_BIOTIC
        DOPfraction = 0.67 _d 0
