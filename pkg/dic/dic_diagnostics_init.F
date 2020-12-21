@@ -78,6 +78,20 @@ C     Define diagnostics Names :
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
+      diagName  = 'DICPCO2C'
+      diagTitle = 'Partial Pressure of CO2 at grid center (atm)'
+      diagUnits = 'atm             '
+      diagCode  = 'SMRP    MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'DICPHAVC'
+      diagTitle = 'pH at grid center (dimensionless)'
+      diagUnits = 'dimensionless   '
+      diagCode  = 'SMR     MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
 #endif /* ALLOW_DIAGNOSTICS */

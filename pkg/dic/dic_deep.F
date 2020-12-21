@@ -225,6 +225,13 @@ CMIKC - CAN AFFORD TO MAKE SEVERAL ITERATIONS...
         ENDDO
        ENDDO
 
+#ifdef ALLOW_DIAGNOSTICS
+      IF ( useDiagnostics ) THEN
+       CALL DIAGNOSTICS_FILL(pHlocal  ,'DICPHAVC',kLev,1,2,bi,bj,myThid)
+       CALL DIAGNOSTICS_FILL(pCO2local,'DICPCO2C',kLev,1,2,bi,bj,myThid)
+      ENDIF
+#endif /* ALLOW_DIAGNOSTICS */
+
 #endif /* ALLOW_DIC */
 
       RETURN
