@@ -25,6 +25,9 @@ C !USES: ===============================================================
 #include "GCHEM.h"
 #include "GCHEM_SIZE.h"
 #include "GCHEM_FIELDS.h"
+#ifdef ALLOW_DIC
+# include "DIC_INDICES.h"
+#endif
 
 C !INPUT PARAMETERS: ===================================================
 C  myThid               :: thread number
@@ -70,7 +73,7 @@ C--   Initialise other Geo-Chemistry pkg variables:
          CALL DIC_INIT_VARIA(myThid)
          CALL DIC_INI_FORCING(myThid)
          CALL DIC_SURFFORCING_INIT(
-     I                              1, 2, 3, 0, ptr2mM,
+     I                              iDIC, iALK, iPO4, iSiO2, ptr2mM,
      O                              pHC_isLoaded,
      I                              myThid)
          IF ( .NOT.pHC_isLoaded )
