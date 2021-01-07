@@ -9,7 +9,14 @@ def verification_parser(filename, threshold, input_dir_pat):
     # function should be given a threshold value for each sub test
     (directory, _) = os.path.split(filename)
     # how many additional tests are run with tweaks to this configuration
-    num_exps = len(glob.glob(directory+input_dir_pat))+1
+    num_exps = 1
+    # find extra input directories
+    for idir in glob.glob(directory+input_dir_pat):
+        # and check that reference output exists for it
+        (_, sfx) = os.path.splitext(idir)
+        output_filename = os.path.join(directory, 'results', 'output'+sfx+'.txt')
+        if os.path.exists(output_filename):
+            num_exps += 1
 
     # check that the correct number of values for `threshold` have been given
     if len(threshold) != num_exps:
