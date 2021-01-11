@@ -60,11 +60,18 @@ jobs:
        run: |
          . tools/ci/runtr.sh
 
-     - name: Upload artifacts
+     - name: Upload diagstats
        uses: actions/upload-artifact@v2
        with:
          name: diagstats
          path: verification/*/*run*/*StDiag*
+         if-no-files-found: ignore
+
+     - name: Upload mnc output
+       uses: actions/upload-artifact@v2
+       with:
+         name: mnc
+         path: verification/*/*run*/mnc_test_*/*.nc
          if-no-files-found: ignore
 
  python:
@@ -97,7 +104,7 @@ jobs:
        run: |
          pip install --upgrade pip
          pip install tox
-     - name: Download artifacts
+     - name: Download diagstats output
        uses: actions/download-artifact@v2
        with:
          name: diagstats
@@ -105,6 +112,21 @@ jobs:
      - name: Show artifacts
        shell: bash
        run: ls utils/python/MITgcmutils/diagstats
+     - name: Download netCDF output
+       uses: actions/download-artifact@v2
+       with:
+         name: mnc
+         path: utils/python/MITgcmutils/tests/data
+     - name: Show artifacts
+       shell: bash
+       run: ls utils/python/MITgcmutils/tests/data
+     - name: Make baseline image directory
+       run: mkdir baseline_images
+       working-directory: utils/python/MITgcmutils/tests
+     - name: Download baseline images
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/cs_pcol.png -o utils/python/MITgcmutils/tests/baseline_images/cs_pcol.png
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
