@@ -60,6 +60,13 @@ jobs:
        run: |
          . tools/ci/runtr.sh
 
+     - name: Upload artifacts
+       uses: actions/upload-artifact@v2
+       with:
+         name: diagstats
+         path: |
+           verification/*/*run*/*StDiag*
+
  openad:
    runs-on: ubuntu-latest
 
