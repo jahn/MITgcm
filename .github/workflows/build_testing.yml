@@ -83,13 +83,15 @@ jobs:
          pip install tox
      - name: Download artifacts
        uses: actions/download-artifact@v2
+       with:
+         name: diagstats
+         path: utils/python/MITgcmutils/diagstats
      - name: Show artifacts
        shell: bash
        run: ls diagstats
      - name: Run Tox
-       run: |
-         cd utils/python/MITgcmutils
-         tox -e py38
+       run: tox -e py38
+       working-directory: utils/python/MITgcmutils
 
  openad:
    runs-on: ubuntu-latest
