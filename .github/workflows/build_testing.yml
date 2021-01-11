@@ -70,13 +70,29 @@ jobs:
  python:
    needs: forward
    runs-on: ubuntu-latest
+   strategy:
+     matrix:
+       python: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
+       include:
+         - python: 2.7
+           env: py27
+         - python: 3.5
+           env: py35
+         - python: 3.6
+           env: py36
+         - python: 3.7
+           env: py37
+         - python: 3.8
+           env: py38
+         - python: 3.9
+           env: py39
    steps:
      - name: Checkout
        uses: actions/checkout@v2.2.0
      - name: Setup Python
        uses: actions/setup-python@v2
        with:
-         python-version: 3.8
+         python-version: ${{ matrix.python }}
      - name: Install Tox and other packages
        run: |
          pip install --upgrade pip
@@ -90,7 +106,7 @@ jobs:
        shell: bash
        run: ls utils/python/MITgcmutils/diagstats
      - name: Run Tox
-       run: tox -e py38
+       run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
 
  openad:
