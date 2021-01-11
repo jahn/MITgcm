@@ -71,11 +71,25 @@ jobs:
    needs: forward
    runs-on: ubuntu-latest
    steps:
+     - name: Checkout
+       uses: actions/checkout@v2.2.0
+     - name: Setup Python
+       uses: actions/setup-python@v2
+       with:
+         python-version: 3.8
+     - name: Install Tox and other packages
+       run: |
+         pip install --upgrade pip
+         pip install tox
      - name: Download artifacts
        uses: actions/download-artifact@v2
      - name: Show artifacts
        shell: bash
        run: ls diagstats
+     - name: Run Tox
+       run: |
+         cd utils/python/MITgcmutils
+         tox -e py38
 
  openad:
    runs-on: ubuntu-latest
