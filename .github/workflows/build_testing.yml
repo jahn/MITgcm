@@ -64,8 +64,18 @@ jobs:
        uses: actions/upload-artifact@v2
        with:
          name: diagstats
-         path: |
-           verification/*/*run*/*StDiag*
+         path: verification/*/*run*/*StDiag*
+         if-no-files-found: ignore
+
+ python:
+   needs: forward
+   runs-on: ubuntu-latest
+   steps:
+     - name: Download artifacts
+       uses: actions/download-artifact@v2
+     - name: Show artifacts
+       shell: bash
+       run: ls diagstats
 
  openad:
    runs-on: ubuntu-latest
