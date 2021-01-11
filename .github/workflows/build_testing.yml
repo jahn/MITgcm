@@ -88,7 +88,7 @@ jobs:
          path: utils/python/MITgcmutils/diagstats
      - name: Show artifacts
        shell: bash
-       run: ls diagstats
+       run: ls utils/python/MITgcmutils/diagstats
      - name: Run Tox
        run: tox -e py38
        working-directory: utils/python/MITgcmutils
