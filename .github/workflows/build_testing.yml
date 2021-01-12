@@ -67,6 +67,13 @@ jobs:
          path: verification/*/*run*/*StDiag*
          if-no-files-found: ignore
 
+     - name: Upload mds output
+       uses: actions/upload-artifact@v2
+       with:
+         name: mds
+         path: verification/global_ocean.90x40x15/run/pickup.ckptA*
+         if-no-files-found: ignore
+
      - name: Upload mnc output
        uses: actions/upload-artifact@v2
        with:
@@ -109,10 +116,15 @@ jobs:
        with:
          name: diagstats
          path: utils/python/MITgcmutils/diagstats
+     - name: Download mds output
+       uses: actions/download-artifact@v2
+       with:
+         name: mds
+         path: utils/python/MITgcmutils/tests/data/global_ocean.90x40x15
      - name: Show artifacts
        shell: bash
-       run: ls utils/python/MITgcmutils/diagstats
-     - name: Download netCDF output
+       run: ls utils/python/MITgcmutils/tests/data
+     - name: Download mnc output
        uses: actions/download-artifact@v2
        with:
          name: mnc
