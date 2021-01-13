@@ -132,13 +132,25 @@ jobs:
      - name: Show artifacts
        shell: bash
        run: ls utils/python/MITgcmutils/tests/data
-     - name: Make baseline image directory
-       run: mkdir baseline_images
+     - name: Create download directories
+       run: mkdir -p baseline_images data/llc90 data/aste data/eccov3
        working-directory: utils/python/MITgcmutils/tests
      - name: Download baseline images
        uses: wei/curl@v1.1.1
        with:
          args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/{cs_pcol,cs_pcol_sphere,cs_pcol_sphere_old,llc_contour,llc_contourf,llc_pcol,llc_pcol_basemap,llc_pcol_stere,llc_pcol_xg}.png -o utils/python/MITgcmutils/tests/baseline_images/#1.png
+     - name: Download mds test data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mds/llc90/{Eta.0000000008,hFacC,XC,XG,YC,YG}.{data,meta} -o utils/python/MITgcmutils/tests/data/llc90/#1.#2
+     - name: Download aste test data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mnc/aste/grid.t0{01,02,04,05,07,08,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,36,37,38,39,41,42,43,44,45}.nc -o utils/python/MITgcmutils/tests/data/aste/grid.t0#1.nc
+     - name: Download eccov3 test data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mnc/eccov3/dic_tave.0000025920.t[001-032].nc -o utils/python/MITgcmutils/tests/data/eccov3/dic_tave.0000025920.t#1.nc
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
