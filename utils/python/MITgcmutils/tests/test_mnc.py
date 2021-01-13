@@ -31,7 +31,7 @@ def test_mnc_files_aste():
 def test_rdmnc_eccov3():
     a = mit.rdmnc(pjoin(TEST_DATA_PATH, 'eccov3', 'dic_tave.*.nc'))
     assert sorted(a) == '''
-    T X Y dic_SUR_ave dic_SURC_ave dic_SURO_ave dic_pH_ave dic_pCO2_ave iter
+    T X Y dic_SURC_ave dic_SURO_ave dic_SUR_ave dic_pCO2_ave dic_pH_ave iter
     '''.split()
     p = a['dic_pH_ave']
     assert p.shape == (1, 160, 360)
