@@ -100,6 +100,7 @@ jobs:
            env: py38
          - python: 3.9
            env: py39
+   continue-on-error: true
    steps:
      - name: Checkout
        uses: actions/checkout@v2.2.0
