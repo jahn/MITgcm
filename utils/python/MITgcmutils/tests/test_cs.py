@@ -52,3 +52,53 @@ if havematplotlib:
             if err:
                 raise AssertionError(err)
 
+
+    def test_pcol_sphere(tmpdir):
+        with tmpdir.as_cwd():
+            ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15', 'run',
+                                 'mnc_test_0001', 'state.0000072000.*.nc'),
+                           ['XG', 'YG', 'Eta'])
+            x = ds['XG']
+            y = ds['YG']
+            e = ds['Eta'][-1]
+            e = np.squeeze(e)
+            e = np.ma.masked_where(e==0., e)
+
+            fig = plt.figure(figsize=(6.4, 4.8))
+            plt.clf()
+            h = pcol(x, y, e, projection = 'sphere', cmap = 'jet')
+            pngname = 'cs_pcol_sphere.png'
+            if version.parse(mpl.__version__) < version.parse('3.3.0'):
+                pngname = 'cs_pcol_sphere_old.png'
+            plt.savefig(pngname)
+            err = compare_images(pjoin(BASELINE_PATH, pngname), pngname, 13)
+            if err:
+                raise AssertionError(err)
+
+    if havebasemap:
+        def test_pcol_basemap(tmpdir):
+            with tmpdir.as_cwd():
+                ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15', 'run',
+                                     'mnc_test_0001', 'state.0000072000.*.nc'),
+                               ['XG', 'YG', 'Eta'])
+                x = ds['XG']
+                y = ds['YG']
+                e = ds['Eta'][-1]
+                e = np.squeeze(e)
+                e = np.ma.masked_where(e==0., e)
+
+                fig = plt.figure(figsize=(6.4, 4.8))
+                mp = Basemap(projection='moll', lon_0 = 0.,
+                             resolution = 'l', area_thresh = 1000.)
+                plt.clf()
+                h = pcol(x, y, e, projection = mp, cmap = 'jet')
+                mp.fillcontinents(color = 'grey')
+                mp.drawmapboundary()
+                mp.drawmeridians(np.arange(0, 360, 30))
+                mp.drawparallels(np.arange(-90, 90, 30))
+                pngname = 'cs_pcol_basemap.png'
+                plt.savefig(pngname)
+                err = compare_images(pjoin(BASELINE_PATH, pngname), pngname, 13)
+                if err:
+                    raise AssertionError(err)
+

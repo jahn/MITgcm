@@ -138,7 +138,7 @@ jobs:
      - name: Download baseline images
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/cs_pcol.png -o utils/python/MITgcmutils/tests/baseline_images/cs_pcol.png
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/{cs_pcol,cs_pcol_sphere,cs_pcol_sphere_old,llc_contour,llc_contourf,llc_pcol,llc_pcol_basemap,llc_pcol_stere,llc_pcol_xg}.png -o utils/python/MITgcmutils/tests/baseline_images/#1.png
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
