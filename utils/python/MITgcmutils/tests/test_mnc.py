@@ -35,8 +35,8 @@ def test_rdmnc_eccov3():
     '''.split()
     p = a['dic_pH_ave']
     assert p.shape == (1, 160, 360)
-    assert p.std(dtype=np.float64) == 14.666781019324926
-    assert np.diff(p, 1, -2).std(dtype=np.float64) == 5.2839897375324201
+    assert p.std(dtype=np.float64) == 3.904461562683459
+    assert np.diff(p, 1, -2).std(dtype=np.float64) == 1.5623648860736261
 
 
 def test_rdmnc_cs32():
