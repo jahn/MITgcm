@@ -20,5 +20,6 @@ def test_rdmds_large(tmp_path):
     np.zeros((20,42,320,2160), ">f4").tofile(str(data))
     base = tmp_path / 'UVEL'
     u = mit.rdmds(str(base), rec=19)
+    data.unlink()
     assert u.shape == (42,320,2160)
 
