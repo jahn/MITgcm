@@ -1,0 +1,33 @@
+#!/bin/bash
+v="$1"
+if test -z "$v"; then
+  echo "run-scripts <python-version>"
+  exit 1
+fi
+
+. .tox/$v/bin/activate
+
+err=0
+for f in \
+  global_ocean.cs32x15/run/mnc_test_0001/grid \
+  global_ocean.cs32x15/run/mnc_test_0001/state.0000072000 \
+  global_ocean.cs32x15/run/mnc_test_0001/oceDiag.0000072000 \
+  global_ocean.cs32x15/run/mnc_test_0001/phiHyd.0000072000 \
+  global_ocean.cs32x15/run/mnc_test_0001/phiHydLow.0000072000 \
+  eccov3/dic_tave.0000025920
+  do
+  echo "# $f"
+  o="$(basename $f)"
+  scripts/gluemncbig -o $o.nc tests/data/$f.*.nc
+  md5sum $o.nc > $o.md5
+  diff tests/md5/$f.md5 $o.md5 || (echo "Glued file doesn't match reference: $f" && err=1)
+done
+#for f in grid state_2d_set1.0000000000
+#do
+#  echo "# tests/data/extra/llc90/mnc/mnc_*/$f"
+#  scripts/gluemncbig -o t.nc tests/data/extra/llc90/mnc/mnc_*/$f.*.nc
+#  cmp tests/data/extra/ref_output/llc90/mnc/$f.nc t.nc || exit ERROR
+#done
+if [ "$err" = 1 ]; then
+  exit 1
+fi
