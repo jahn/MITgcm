@@ -17,8 +17,8 @@ def test_rdmds_large(tmp_path):
     meta = tmp_path / 'UVEL.meta'
     meta.symlink_to(pjoin(TEST_DATA_PATH, 'sose/UVEL.0000000060.meta'))
     data = tmp_path / 'UVEL.data'
-    np.zeros((40,42,320,2160), ">f4").tofile(str(data))
+    np.zeros((20,42,320,2160), ">f4").tofile(str(data))
     base = tmp_path / 'UVEL'
-    u = mit.rdmds(str(base), rec=38)
+    u = mit.rdmds(str(base), rec=19)
     assert u.shape == (42,320,2160)
 
