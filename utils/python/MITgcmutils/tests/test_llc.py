@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from __future__ import print_function
 import sys
 from os.path import join as pjoin, dirname
