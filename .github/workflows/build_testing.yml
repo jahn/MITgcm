@@ -155,6 +155,9 @@ jobs:
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
+     - name: Show test output
+       run: ls /tmp/pytest-of-runner/pytest-0/test_rdmds_large0
+       if: ${{ always() }}
 
  openad:
    runs-on: ubuntu-latest
