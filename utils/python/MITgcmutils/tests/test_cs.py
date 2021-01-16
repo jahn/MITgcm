@@ -69,7 +69,7 @@ if havematplotlib:
             h = pcol(x, y, e, projection = 'sphere', cmap = 'jet')
             pngname = 'cs_pcol_sphere.png'
             if version.parse(mpl.__version__) < version.parse('3.3.0'):
-                pngname = 'cs_pcol_sphere_old.png'
+                pngname = 'cs_pcol_sphere_pre330.png'
             plt.savefig(pngname)
             err = compare_images(pjoin(BASELINE_PATH, pngname), pngname, 13)
             if err:
