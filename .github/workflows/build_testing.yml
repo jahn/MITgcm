@@ -152,6 +152,12 @@ jobs:
      - name: Run scripts
        run: tests/run-scripts ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
+     - name: Upload gluemncbig output
+       uses: actions/upload-artifact@v2
+       with:
+         name: gluemncbig
+         path: utils/python/MITgcmutils/*.nc
+       if: ${{ always() }}
 
  openad:
    runs-on: ubuntu-latest
