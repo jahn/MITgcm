@@ -20,7 +20,10 @@ for f in \
   o="$(basename $f)"
   scripts/gluemncbig -o $o.nc tests/data/$f.*.nc
   md5sum $o.nc > $o.md5
-  diff tests/md5/$f.md5 $o.md5 || (echo "Glued file doesn't match reference: $f" && err=1)
+  if ! diff tests/md5/$f.md5 $o.md5; then
+    echo "Glued file doesn't match reference: $f"
+    err=1
+  fi
 done
 #for f in grid state_2d_set1.0000000000
 #do
@@ -29,5 +32,6 @@ done
 #  cmp tests/data/extra/ref_output/llc90/mnc/$f.nc t.nc || exit ERROR
 #done
 if [ "$err" = 1 ]; then
+  echo "Some comparisons failed."
   exit 1
 fi
