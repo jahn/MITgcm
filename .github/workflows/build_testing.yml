@@ -149,6 +149,9 @@ jobs:
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
+     - name: Run scripts
+       run: tests/run-scripts ${{ matrix.env }}
+       working-directory: utils/python/MITgcmutils
 
  openad:
    runs-on: ubuntu-latest
