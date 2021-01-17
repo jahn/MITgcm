@@ -19,9 +19,14 @@ for f in \
   echo "# $f"
   o="$(basename $f)"
   scripts/gluemncbig -o $o.nc tests/data/$f.*.nc
-  md5sum $o.nc > $o.md5
+  ncdump -h $o.nc | grep -v build_ > $o.cdl
+  ncdump $o.nc | grep -v build_ | md5sum > $o.md5
+  if ! diff tests/md5/$f.cdl $o.cdl; then
+    echo "Metadata doesn't match reference: $f"
+    err=1
+  fi
   if ! diff tests/md5/$f.md5 $o.md5; then
-    echo "Glued file doesn't match reference: $f"
+    echo "Checksum doesn't match reference: $f"
     err=1
   fi
 done
