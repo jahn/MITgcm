@@ -45,7 +45,7 @@ def verification_parser(filename, threshold, input_dir_pat):
                     break
 
         # loop through each of the subexperiments:
-        for j in xrange(len(threshold)):
+        for j in range(len(threshold)):
             test_results = lines[output_line+2+j]
 
             # split test_results into a list with values for each number. 
