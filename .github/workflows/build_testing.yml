@@ -55,6 +55,13 @@ jobs:
        run: |
          . tools/ci/runtr.sh
 
+     - name: Upload mnc output
+       uses: actions/upload-artifact@v2
+       with:
+         name: mnc
+         path: verification/*/*run*/mnc_test_*/*.nc
+         if-no-files-found: ignore
+
  openad:
    runs-on: ubuntu-latest
 
