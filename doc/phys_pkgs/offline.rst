@@ -103,13 +103,12 @@ where
 | :math:`{\Delta t_{\text{offline}}}` = :varlink:`deltaToffline`
 
 
-Example 1: Time averages
-########################
+Example 1: Time averages, non-repeating
+#######################################
 
 The following example :code:`data.off` illustrates how to read time averages
-as written by MITgcm.
-It assumes that iteration 0 of the current simulation corresponds to
-iteration 10000 of the dynamical simulation that produced the velocity fields.
+as written by MITgcm.  It assumes that the current simulation start at the
+same time as the dynamical simulation that produced the velocity fields.
 Forcing fields are daily averages and the timestep of the dynamical simulation
 was 1 hour.
 
@@ -121,6 +120,51 @@ was 1 hour.
    /
    &OFFLINE_PARM02
    offlineForcingPeriod = 86400.,
+   offlineForcingCycle = 0.,
+   offlineTimeOffset = 0.,
+   offlineIter0 = 0,
+   deltaToffline = 3600.,
+   /
+
+The following table shows which forcing fields are used at which model times:
+
+.. table::
+
+   +------------------+--------------------------+------------------------------------------------+
+   | **model time**   | **filename**             | comment                                        |
+   +==================+==========================+================================================+
+   | 43200.0          | uVeltave.0000000024.data | average over first day is placed at 12h        |
+   +------------------+--------------------------+------------------------------------------------+
+   | 129600.0         | uVeltave.0000000048.data | average over second day is placed at 1.5 days  |
+   +------------------+--------------------------+------------------------------------------------+
+   | 216600.0         | uVeltave.0000000072.data | ...                                            |
+   +------------------+--------------------------+------------------------------------------------+
+   | 302400.0         | uVeltave.0000000096.data |                                                |
+   +------------------+--------------------------+------------------------------------------------+
+
+Fields read from the files in column 2 will be used at the model times given in
+column 1.  For other model times, the forcing fields are interpolated linearly.
+
+
+Example 2: Time averages, repeating, offset
+###########################################
+
+This example shows how to use fields from an arbitrary time interval of the
+dynamical simulation, cycling repeatedly over them.
+It assumes that iteration 0 of the current simulation corresponds to
+iteration 10000 of the dynamical simulation that produced the velocity fields,
+and forcing repeats after 5 days.  Again, forcing fields are daily averages
+and the timestep of the dynamical simulation was 1 hour.
+
+::
+
+   &OFFLINE_PARM01
+   UvelFile = 'uVeltave',
+   ...
+   /
+   &OFFLINE_PARM02
+   offlineForcingPeriod = 86400.,
+   offlineForcingCycle = 432000.,
    offlineTimeOffset = 0.,
    offlineIter0 = 10000,
    deltaToffline = 3600.,
@@ -130,36 +174,31 @@ The following table shows which forcing fields are used at which model times:
 
 .. table::
 
-   +------------------+--------------------------+-------------------------------+
-   | **model time**   | **filename**                                             |
-   +------------------+--------------------------+-------------------------------+
-   |                  | offlineForcingCycle = 0  | offlineForcingCycle = 432000. |
-   +==================+==========================+===============================+
-   | 43200.0          | uVeltave.0000010024.data | uVeltave.0000010024.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 129600.0         | uVeltave.0000010048.data | uVeltave.0000010048.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 216600.0         | uVeltave.0000010072.data | uVeltave.0000010072.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 302400.0         | uVeltave.0000010096.data | uVeltave.0000010092.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 388800.0         | uVeltave.0000010120.data | uVeltave.0000010120.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 475200.0         | uVeltave.0000010144.data | uVeltave.0000010024.data      |
-   +------------------+--------------------------+-------------------------------+
-   | 561600.0         | uVeltave.0000010168.data | uVeltave.0000010048.data      |
-   +------------------+--------------------------+-------------------------------+
-
-For non-repeating forcing, fields read from the files in column 2 will be used
-at the model times given in column 1.
-For other model times, the forcing fields are interpolated linearly.
-Column 3 is for forcing repeating every 5 days.
+   +------------------+-------------------------------+---------------------------------------------+
+   | **model time**   | **filename**                  | comment                                     |
+   +==================+===============================+=============================================+
+   | 43200.0          | uVeltave.0000010024.data      | start after iteration 10000 of original run |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 129600.0         | uVeltave.0000010048.data      |                                             |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 216600.0         | uVeltave.0000010072.data      |                                             |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 302400.0         | uVeltave.0000010092.data      |                                             |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 388800.0         | uVeltave.0000010120.data      |                                             |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 475200.0         | uVeltave.0000010024.data      | repeat after 5 days                         |
+   +------------------+-------------------------------+---------------------------------------------+
+   | 561600.0         | uVeltave.0000010048.data      |                                             |
+   +------------------+-------------------------------+---------------------------------------------+
 
 
-Example 2: Snapshots
+
+Example 3: Snapshots
 ####################
 
-These settings are appropriate for reading snapshots:
+These settings are appropriate for reading snapshots (or files labeled
+at the midpoint of the time-averaging interval):
 
 ::
 
