@@ -42,13 +42,18 @@ and '.data'.
    :varlink:`KPP_ghatKFile` & :kbd:`' '` & Filename prefix for non-local vertical mixing (kpp package)
    :varlink:`SFluxFile`     & :kbd:`' '` & Filename prefix for salt flux
 
-:varlink:`UvelFile` and :varlink:`VvelFile` provide horizontal velocity fields
-and are always required.  The files must contain velocities in m/s without the
-:varlink:`hFacW` and :varlink:`hFacS` factors.  Note, however, that the vertical
-stretching factors related to the :ref:`nonlinear-freesurface` are removed when
-applying these velocities, so, effectively, `hfacW0*drF*dyG*Uvel`, where `hFacW0`
-is the unstretched lopped-cell fraction computed from bathymetry, is used as a
-transport in this case (and similarly for Vvel).
+:varlink:`UvelFile` and :varlink:`VvelFile` provide horizontal velocity fields.
+The files must contain velocities in m/s without the :varlink:`hFacW` and
+:varlink:`hFacS` factors.  These would be provided by the ``UVEL`` and ``VVEL``
+diagnostics, as opposed to ``UVELMASS`` and ``VVELMASS``.  Note, however, that the
+vertical stretching factors related to the :ref:`nonlinear-freesurface` are
+removed when applying these velocities, so, effectively, ``h0facW*drF*dyG*Uvel``,
+where :varlink:`h0FacW` is the unstretched lopped-cell fraction computed from
+bathymetry, is used as a volume transport in this case (and similarly for Vvel).
+For this reason, with a non-linear free surface, it may be preferable to use
+``UVELMASS`` and ``VVELMASS`` diagnostics but process the files, dividing by
+``h0FacW`` resp. ``h0FacS``, before using them as input for :varlink:`UvelFile`
+and :varlink:`VvelFile`.
 
 If :varlink:`WvelFile` is not given, :varlink:`exact_conserv` is turned on and
 the vertical velocity is computed via the continuity equation.
@@ -70,7 +75,7 @@ fields also need to be provided.
 Without the kpp package, vertical mixing is given as a mean convection count in
 :varlink:`ConvFile`.
 
-The surface salt flux file, :varlink:`SFluxFile` needs to be provided for the
+The surface salt flux file, :varlink:`SFluxFile`, needs to be provided for the
 dic and darwin packages when :varlink:`ALLOW_OLD_VIRTUALFLUX` is defined, as it
 is needed to correct the surface carbon and alkalinity fluxes.
 
