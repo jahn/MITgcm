@@ -42,6 +42,38 @@ and '.data'.
    :varlink:`KPP_ghatKFile` & :kbd:`' '` & Filename prefix for non-local vertical mixing (kpp package)
    :varlink:`SFluxFile`     & :kbd:`' '` & Filename prefix for salt flux
 
+:varlink:`UvelFile` and :varlink:`VvelFile` provide horizontal velocity fields
+and are always required.  The files must contain velocities in m/s without the
+:varlink:`hFacW` and :varlink:`hFacS` factors.  Note, however, that the vertical
+stretching factors related to the :ref:`nonlinear-freesurface` are removed when
+applying these velocities, so, effectively, `hfacW0*drF*dyG*Uvel`, where `hFacW0`
+is the unstretched lopped-cell fraction computed from bathymetry, is used as a
+transport in this case (and similarly for Vvel).
+
+If :varlink:`WvelFile` is not given, :varlink:`exact_conserv` is turned on and
+the vertical velocity is computed via the continuity equation.
+
+Files for temperature and salinity, :varlink:`ThetFile` and :varlink:`SaltFile`,
+may be given for use by biogeochemistry packages and for the case when kpp
+mixing coefficients are computed online (see below).
+
+When the gmredi package was used for the online simulation, it needs to be turned
+on also for the offline run and the mixing coefficients must be provided in
+:varlink:`GMwxFile`, :varlink:`GMwyFile` and :varlink:`GMwzFile`.
+
+When the kpp package was used, it needs to be turned on for the offline run.
+The vertical mixing coefficients can be read in from :varlink:`KPP_DiffSFile`
+and :varlink:`KPP_ghatKFile` or, if these files are not given, will be computed
+from the offline dynamical fields.  In this case, the relevant surface forcing
+fields also need to be provided.
+
+Without the kpp package, vertical mixing is given as a mean convection count in
+:varlink:`ConvFile`.
+
+The surface salt flux file, :varlink:`SFluxFile` needs to be provided for the
+dic and darwin packages when :varlink:`ALLOW_OLD_VIRTUALFLUX` is defined, as it
+is needed to correct the surface carbon and alkalinity fluxes.
+
 The parameters in :numref:`pkg_offline_parm02` control the timing of the
 forcing fields, see the following section.
 
