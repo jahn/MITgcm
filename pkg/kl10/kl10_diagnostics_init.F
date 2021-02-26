@@ -56,7 +56,7 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
         diagName  = 'KLeps   '
         diagTitle = 'KL10 Turbulent dissipation rate'
-        diagUnits = 'm^2/s^3           '
+        diagUnits = 'm^2/s^3         '
         diagCode  = 'SM P    LR      '
         CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )

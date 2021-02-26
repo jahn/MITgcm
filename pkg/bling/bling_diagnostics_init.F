@@ -199,7 +199,7 @@ c biology
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
-      diagName  = 'BLGSI2N  '
+      diagName  = 'BLGSI2N '
       diagTitle = 'Si to N stoichiometric ratio'
       diagUnits = '-               '
       diagCode  = 'SM P    MR      '
