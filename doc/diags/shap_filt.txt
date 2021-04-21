@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+SHAP_dT |SMR     MR|K/s             |Temperature Tendency due to Shapiro Filter
+SHAP_dS |SMR     MR|kg/kg/s         |Specific Humidity Tendency due to Shapiro Filter
+SHAP_dU |UUR     MR|m/s^2           |Zonal Wind Tendency due to Shapiro Filter
+SHAP_dV |VVR     MR|m/s^2           |Meridional Wind Tendency due to Shapiro Filter
+SHAP_dKE|SMr     MR|m^2/s^3         |Kinetic Energy Tendency due to Shapiro Filter (Mass Weighted)

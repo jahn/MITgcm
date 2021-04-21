@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+LaTr#<L>|SMR     MR|kg/m^3          |Pot. density (minus 1000) for layer averaging
+LaUH#<L>|UU      MX|[r].m/s         |Layer Integrated  zonal Transport (UH, m^2/s)
+LaVH#<L>|VV      MX|[r].m/s         |Layer Integrated merid. Transport (VH, m^2/s)
+LaHw#<L>|SU      MX|[r]             |Layer Thickness at U points (m)
+LaHs#<L>|SV      MX|[r]             |Layer Thickness at V points (m)
+LaPw#<L>|SU      MX|1               |Layer Probability at U points [-]
+LaPs#<L>|SV      MX|1               |Layer Probability at V points [-]
+LaUa#<L>|UU      MX|m/s             |Layer-averaged U velocity (non-weighted) (m/s)
+LaVa#<L>|VV      MX|m/s             |Layer-averaged V velocity (non-weighted) (m/s)
+LaHc#<L>|SM      MX|[r]             |Layer Thickness at tracer points (m)
+LaTs#<L>|SM      MX|m/s             |Layer thickness tendency due to THETA surf. forc.
+LaTh#<L>|SM      MX|m/s             |Layer thickness tendency due to THETA horiz. diff.
+LaTz#<L>|SM      MX|m/s             |Layer thickness tendency due to THETA vert. diff.
+LTha#<L>|SM      MX|m/s             |Layer thickness tendency due to THETA horiz. adv.
+LTza#<L>|SM      MX|m/s             |Layer thickness tendency due to THETA vert. adv.
+LTto#<L>|SM      MX|m/day           |Layer thickness tendency due to all THETA terms.
+LaSs#<L>|SM      MX|m/s             |Layer thickness tendency due to SALT surf. forc.
+LaSh#<L>|SM      MX|m/s             |Layer thickness tendency due to SALT horiz. diff.
+LaSz#<L>|SM      MX|m/s             |Layer thickness tendency due to SALT vert. diff.
+LSha#<L>|SM      MX|m/s             |Layer thickness tendency due to SALT horiz. adv.
+LSza#<L>|SM      MX|m/s             |Layer thickness tendency due to SALT vert. adv.
+LSto#<L>|SM      MX|m/day           |Layer thickness tendency due to all SALT terms.
+LaPc#<L>|SM      MX|1               |Layer Probability at tracer points [-]
+
+# = layer number
+<L> = layers_name(#)
+[r] = Pa if usingPCoords, m else

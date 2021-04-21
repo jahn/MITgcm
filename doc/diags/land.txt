@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+GrdSurfT|SM      Lg|degC            |Surface Temperature over land
+GrdTemp |SM      MG|degC            |Ground Temperature at each level
+GrdEnth |SM      MG|J/m3            |Ground Enthalpy at each level
+GrdWater|SM P    MG|0-1             |Ground Water (vs Field Capacity) Fraction at each level
+LdSnowH |SM P    Lg|m               |Snow Thickness over land
+LdSnwAge|SM P    Lg|s               |Snow Age over land
+RUNOFF  |SM      L1|kg/m2/s         |Run-Off per surface unit
+EnRunOff|SM      L1|W/m^2           |Energy flux associated with run-Off
+landHFlx|SM      Lg|W/m^2           |net surface downward Heat flux over land
+landPmE |SM      Lg|kg/m^2/s        |Precipitation minus Evaporation over land
+ldEnFxPr|SM      Lg|W/m^2           |Energy flux (over land) associated with Precip (snow,rain)

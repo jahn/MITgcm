@@ -1,0 +1,6 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+MYVISCAR|SM P    LR|m^2/s           |MY vertical eddy viscosity coefficient
+MYDIFFKR|SM P    LR|m^2/s           |Vertical diffusion coefficient for salt & tracers
+MYHBL   |SM P     1|m               |MY82 boundary layer depth

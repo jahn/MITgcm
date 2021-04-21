@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+SI_Fract|SM P    M1|0-1             |Sea-Ice fraction  [0-1]
+SI_Thick|SM PC   M1|m               |Sea-Ice thickness (area weighted average)
+SI_SnowH|SM PC   M1|m               |Snow thickness over Sea-Ice (area weighted)
+SI_Tsrf |SM  C   M1|degC            |Surface Temperature over Sea-Ice (area weighted)
+SI_Tice1|SM  C   M1|degC            |Sea-Ice Temperature, 1srt layer (area weighted)
+SI_Tice2|SM  C   M1|degC            |Sea-Ice Temperature, 2nd  layer (area weighted)
+SI_Qice1|SM  C   M1|J/kg            |Sea-Ice enthalpy, 1srt layer (mass weighted)
+SI_Qice2|SM  C   M1|J/kg            |Sea-Ice enthalpy, 2nd  layer (mass weighted)
+SIsnwAge|SM P    M1|s               |snow age over Sea-Ice
+SI_FrcFx|SM P    M1|0-1             |Sea-Ice fraction [0-1], synchro. with fluxes
+SIalbedo|SM PC   M1|0-1             |Sea-Ice Albedo [0-1] (area weighted average)
+SIsnwPrc|SM  C   M1|kg/m^2/s        |snow precip. (+=dw) over Sea-Ice (area weighted)
+SIflxAtm|SM      M1|W/m^2           |net heat flux from the Atmosphere (+=dw)
+SIfrwAtm|SM      M1|kg/m^2/s        |fresh-water flux to the Atmosphere (+=up)
+SIflx2oc|SM      M1|W/m^2           |heat flux out of the ocean (+=up)
+SIfrw2oc|SM      M1|kg/m^2/s        |fresh-water flux out of the ocean (+=up)
+SIsaltFx|SM      M1|g/m^2/s         |salt flux out of the ocean (+=up)
+SItOcMxL|SM      M1|degC            |ocean mixed layer temperature
+SIsOcMxL|SM P    M1|g/kg            |ocean mixed layer salinity
+ADVxSIfr|UU      M1|m^2/s           |Zonal      Advective Flux of SeaIce Fraction
+ADVySIfr|VV      M1|m^2/s           |Meridional Advective Flux of SeaIce Fraction
+ADVxSIhs|UU      M1|m^3/s           |Zonal      Advective Flux of Snow Thickness
+ADVySIhs|VV      M1|m^3/s           |Meridional Advective Flux of Snow Thickness
+ADVxSIhi|UU      M1|m^3/s           |Zonal      Advective Flux of SeaIce Thickness
+ADVySIhi|VV      M1|m^3/s           |Meridional Advective Flux of SeaIce Thickness
+ADVxSIq1|UU      M1|J/kg.m^3/s      |Zonal      Advective Flux of Ice enthalpy l=1
+ADVySIq1|VV      M1|J/kg.m^3/s      |Meridional Advective Flux of Ice enthalpy l=1
+ADVxSIq2|UU      M1|J/kg.m^3/s      |Zonal      Advective Flux of Ice enthalpy l=2
+ADVySIq2|VV      M1|J/kg.m^3/s      |Meridional Advective Flux of Ice enthalpy l=2
+SI_AdvFr|SM P    M1|0-1             |Sea-Ice fraction  [0-1] (before advection)
+SI_AdvHi|SM PC   M1|m               |Sea-Ice thickness (before advection)
+SI_AdvHs|SM PC   M1|m               |Snow thickness over Sea-Ice (before advection)
+SI_AdvQ1|SM  C   M1|J/kg            |Sea-Ice enthalpy, 1srt layer (before advection)
+SI_AdvQ2|SM  C   M1|J/kg            |Sea-Ice enthalpy, 2nd  layer (before advection)

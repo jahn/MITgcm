@@ -1,0 +1,38 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+EXFhs   |SM      U1|W/m^2           |Sensible heat flux into ocean, >0 increases theta
+EXFhl   |SM      U1|W/m^2           |Latent heat flux into ocean, >0 increases theta
+EXFlwnet|SM      U1|W/m^2           |Net upward longwave radiation, >0 decreases theta
+EXFswnet|SM      U1|W/m^2           |Net upward shortwave radiation, >0 decreases theta
+EXFlwdn |SM      U1|W/m^2           |Downward longwave radiation, >0 increases theta
+EXFswdn |SM      U1|W/m^2           |Downward shortwave radiation, >0 increases theta
+EXFqnet |SM      U1|W/m^2           |Net upward heat flux (turb+rad), >0 decreases theta
+EXFtaux |UM      U1|N/m^2           |zonal surface wind stress, >0 increases uVel
+EXFtauy |VM      U1|N/m^2           |meridional surface wind stress, >0 increases vVel
+EXFuwind|UM      U1|m/s             |zonal 10-m wind speed, >0 eastward
+EXFvwind|VM      U1|m/s             |meridional 10-m wind speed, >0 northward
+EXFwspee|SM      U1|m/s             |10-m wind speed modulus ( >= 0 )
+EXFatemp|SM      U1|degK            |surface (2-m) air temperature
+EXFaqh  |SM      U1|kg/kg           |surface (2-m) specific humidity
+EXFevap |SM      U1|m/s             |evaporation, > 0 increases salinity
+EXFpreci|SM      U1|m/s             |precipitation, > 0 decreases salinity
+EXFsnow |SM      U1|m/s             |snow precipitation, > 0 decreases salinity
+EXFempmr|SM      U1|m/s             |net upward freshwater flux, > 0 increases salinity
+EXFpress|SM      U1|N/m^2           |atmospheric pressure field
+EXFroff |SM      U1|m/s             |river runoff, > 0 decreases salinity
+EXFroft |SM      U1|deg C           |river runoff temperature
+EXFsalfx|SM      U1|g/m^2/s         |upward salt flux, > 0 decreases salinity
+ADJustrs|UM A    U1|dJ/(N/m^2)      |dJ/dustress: Senstivity to zonal surface wind stress
+ADJvstrs|VM A    U1|dJ/(N/m^2)      |dJ/dvstrs: Sensitivity to merid. surface wind stress
+ADJhflux|SM A    U1|dJ/(W/m^2)      |dJ/dhflux: Sensitivity to upward heat flux
+ADJsflux|SM A    U1|dJ/(m/s)        |dJ/dhflux: Sensitivity to upward fresh water flux
+ADJatemp|SM A    U1|dJ/K            |dJ/datemp: Sensitivity to atmos. surface temperature
+ADJpreci|SM A    U1|dJ/(m/s)        |dJ/daqh: Sensitivity to precipitation
+ADJroff |SM A    U1|dJ/(m/s)        |dJ/daqh: Sensitivity to river runoff
+ADJswdn |SM A    U1|dJ/(W/m^2)      |dJ/dswdown: Sensitivity to downward SW radiation
+ADJlwdn |SM A    U1|dJ/(W/m^2)      |dJ/dlwdown: Sensitivity to downward LW radiation
+ADJuwind|UM A    U1|dJ/d(m/s)       |dJ/duwind: Senstivity to zonal 10-m wind speed
+ADJvwind|VM A    U1|dJ/d(m/s)       |dJ/dvwind: Senstivity to meridional 10-m wind speed
+ADJclsst|SM A    U1|dJ/K            |dJ/dclimsst: Sensitivity to restoring SST
+ADJclsss|SM A    U1|dJ/(g/kg)       |dJ/dclimsss: Sensitivity to restoring SSS

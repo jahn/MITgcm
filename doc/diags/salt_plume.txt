@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+PLUMEKB |SM      MR|                |fractional plume: [0-1] (unitless)
+oceSPtnd|SM      MR|g/m^2/s         |salt tendency due to salt plume flux >0 increases salinity
+oceSPflx|SM      U1|g/m^2/s         |net surface Salt flux rejected into the ocean during freezing, (+=down),
+oceSPDep|SM      U1|m               |Salt plume depth based on density criterion (>0)
+oceSPvol|SM      U1|m/s             |surf brineVol associated w salt plume flux
+PLUMEKB1|SM      UR|                |fractional plume: [0-1] (unitless)
+oceEPtnd|SM      MR|W/m^2           |temperature tendency due to salt plume flux >0 increases temperature
+SPtd_TH |SM      MR|W/m^2           |Energy tendency associated with salt plume flux >0 increases temperature
+SPtd_SLT|SM      MR|g/m^2/s         |salt tendency associated with salt plume flux >0 increases salinity
+SPforcT1|SM      U1|unitless        | range [1:Nr]
+SPforcS1|SM      U1|unitless        | range [1:Nr]
+SPVsuf2k|SM      MR|m/s             |salt plume volume flux from surface INTO lev k >0 increases volume(k)
+SPVk2m  |SM      MR|m/s             |vol flux LEAVING k to k-1 due to SPVsuf2k&SPVp2k <0 decreases volume(k)

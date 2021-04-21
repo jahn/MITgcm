@@ -1,0 +1,6 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+KLviscAr|SM P    LR|m^2/s           |KL10 vertical eddy viscosity coefficient
+KLdiffKr|SM P    LR|m^2/s           |KL10 Vertical diffusion coefficient for tracers
+KLeps   |SM P    LR|m^2/s^3         |KL10 Turbulent dissipation rate

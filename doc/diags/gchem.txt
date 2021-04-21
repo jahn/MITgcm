@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+GC_Tr## |SMR     MR|[trc]           |<name> concentration before GCHEM
+
+## = ptracer iolabel: 01, 02, ..., 99, 0a, ...
+[trc] = PTRACERS_units(##) or kg/kg if unset

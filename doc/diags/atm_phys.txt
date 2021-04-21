@@ -1,0 +1,41 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+AtPh_SST|SM      L1|K               |Sea Surface Temperature in Atm_Phys package
+AtPhdTdt|SMR     MR|K/s             | Pot.Temp. tendency from package ATM_PHYS
+AtPhdQdt|SMR     MR|1/s             | Spec.Humid tendency from package ATM_PHYS
+AtPhdUdt|UMR     MR|m/s^2           |u-Velocity tendency from package ATM_PHYS
+AtPhdVdt|VMR     MR|m/s^2           |v-Velocity tendency from package ATM_PHYS
+AtPhDifT|WM      LR|unit            |ATM_PHYS: Vertical Diffusion for Temp & Q
+AtPhDifM|WM      LR|unit            |ATM_PHYS: Vertical Diffusion for Momentum
+AtPhCnvP|SM      L1|kg/m^2/s        |ATM_PHYS: Convective Precip
+AtPhLscP|SM      L1|kg/m^2/s        |ATM_PHYS: Large-Scale Precip
+AtPhdTlc|SMR     MR|K/s             |ATM_PHYS: lsc cond. tendency of Temp
+AtPhdTrd|SMR     MR|K/s             |ATM_PHYS: radiation tendency of Temp
+AtPhNSR |SM      LX|W/m^2           |ATM_PHYS: Net Shortwave Radiation (3D,+=dw)
+AtPhNLR |SM      LX|W/m^2           |ATM_PHYS: Net Longwave  Radiation (3D,+=up)
+AtPhDSR |SM P    LX|W/m^2           |ATM_PHYS: Downward Shortwave Radiation (3D,+=dw)
+AtPhDLR |SM P    LX|W/m^2           |ATM_PHYS: Downward Longwave  Radiation (3D,+=dw)
+AtPhInSR|SM P    U1|W/m^2           |ATM_PHYS: Incoming Shortwave Radiation (+=dw)
+AtPhNTSR|SM P    U1|W/m^2           |ATM_PHYS: Net Top Shortwave Radiation (+=dw)
+AtPhOLR |SM P    U1|W/m^2           |ATM_PHYS: Outgoing Longwave  Radiation (+=up)
+AtPhDSSR|SM P    U1|W/m^2           |ATM_PHYS: Downward Surface Shortwave Rad. (+=dw)
+AtPhNSSR|SM P    L1|W/m^2           |ATM_PHYS: Net Surface Shortwave Radiation (+=dw)
+AtPhDSLR|SM P    L1|W/m^2           |ATM_PHYS: Downward Surface Longwave Rad. (+=dw)
+AtPhUSLR|SM P    L1|W/m^2           |ATM_PHYS: Upward Surface Longwave Rad. (+=up)
+AtPhSens|SM      L1|W/m^2           |ATM_PHYS: surface sensible heat flux (+=up)
+AtPhEvap|SM      L1|kg/m^2/s        |ATM_PHYS: surface evaporation
+AtPhTauX|UM      L1|N/m^2           |ATM_PHYS: Zonal comp of surface stress
+AtPhTauY|VM      L1|N/m^2           |ATM_PHYS: Meridional comp of surface stress
+AtPhCAPE|SM      L1|J/kg            |ATM_PHYS: Convective Avail. Pot. Energy: CAPE
+AtPhCnIn|SM      L1|1               |ATM_PHYS: Convection inhibition
+AtPhKlzb|SM      L1|1               |ATM_PHYS: Level of zero buoyancy (=klzb, Convect)
+AtPhConv|SM      L1|1               |ATM_PHYS: B.M. Convection Flag (0:no, 1:shallow, 2:Deep)
+AtPhRlxT|SM      L1|1/s             |ATM_PHYS: Temp. Relax. inv time-scale (Convection)
+AtPhRlxQ|SM      L1|1/s             |ATM_PHYS: Humid Relax. inv time-scale (Convection)
+AtPh_Trf|SM      MR|K               |ATM_PHYS: Ref Temp for convection (Moist Adiabat)
+AtPh_Qrf|SM      MR|kg/kg           |ATM_PHYS: Ref Humid for convection (Saturated)
+AtPhdTcv|SMR     MR|K/s             |ATM_PHYS: convection tendency of Temp
+AtPhdtTg|SMR     MR|K/s             |ATM_PHYS: vertical diff. tendency of Temp.
+AtPhdtQg|SMR     MR|1/s             |ATM_PHYS: vertical diff. tendency of spec.humid
+AtPhDisH|SMR     MR|K/s             |ATM_PHYS: heating from dissipation

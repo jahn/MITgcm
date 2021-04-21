@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+KPPviscA|SM P    LR|m^2/s           |KPP vertical eddy viscosity coefficient
+KPPdiffS|SM P    LR|m^2/s           |Vertical diffusion coefficient for salt & tracers
+KPPdiffT|SM P    LR|m^2/s           |Vertical diffusion coefficient for heat
+KPPghatK|SM P    LR|0-1             |ratio of KPP non-local (salt) flux relative to surface-flux
+KPPhbl  |SM P     1|m               |KPP boundary layer depth, bulk Ri criterion
+KPPfrac |SM P     1|                |Short-wave flux fraction penetrating mixing layer
+KPPdbsfc|SM P    UR|m/s^2           |Buoyancy difference with respect to surface
+KPPbfsfc|SM P    UR|m^2/s^3         |Bo+radiation absorbed to d=hbf*hbl + plume
+KPPRi   |SM P    UR|non-dimensional |Bulk Richardson number
+KPPbo   |SM P     1|m^2/s^3         |Surface turbulent buoyancy forcing
+KPPbosol|SM P     1|m^2/s^3         |surface radiative buoyancy forcing
+KPPdbloc|SM P    UR|m/s^2           |Local delta buoyancy across interfaces
+KPPnuddt|SM P    UR|m^2/s           |Vertical double diffusion coefficient for heat
+KPPnudds|SM P    UR|m^2/s           |Vertical double diffusion coefficient for salt
+KPPg_TH |WM      LR|degC.m^3/s      |KPP non-local Flux of Pot.Temperature
+KPPg_SLT|WM      LR|g/kg.m^3/s      |KPP non-local Flux of Salinity
+KPPpfrac|SM P     1|                |Salt plume flux fraction penetrating mixing layer
+KPPboplm|SM P     1|m^2/s^3         |Surface haline buoyancy forcing

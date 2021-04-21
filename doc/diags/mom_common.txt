@@ -1,0 +1,74 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+VISCAHZ |SZ      MR|m^2/s           |Harmonic Visc Coefficient (m2/s) (Zeta Pt)
+VISCA4Z |SZ      MR|m^4/s           |Biharmonic Visc Coefficient (m4/s) (Zeta Pt)
+VISCAHD |SM      MR|m^2/s           |Harmonic Viscosity Coefficient (m2/s) (Div Pt)
+VISCA4D |SM      MR|m^4/s           |Biharmonic Viscosity Coefficient (m4/s) (Div Pt)
+VISCAHW |WM      LR|m^2/s           |Harmonic Viscosity Coefficient (m2/s) (W Pt)
+VISCA4W |WM      LR|m^4/s           |Biharmonic Viscosity Coefficient (m4/s) (W Pt)
+VAHZMAX |SZ      MR|m^2/s           |CFL-MAX Harm Visc Coefficient (m2/s) (Zeta Pt)
+VA4ZMAX |SZ      MR|m^4/s           |CFL-MAX Biharm Visc Coefficient (m4/s) (Zeta Pt)
+VAHDMAX |SM      MR|m^2/s           |CFL-MAX Harm Visc Coefficient (m2/s) (Div Pt)
+VA4DMAX |SM      MR|m^4/s           |CFL-MAX Biharm Visc Coefficient (m4/s) (Div Pt)
+VAHZMIN |SZ      MR|m^2/s           |RE-MIN Harm Visc Coefficient (m2/s) (Zeta Pt)
+VA4ZMIN |SZ      MR|m^4/s           |RE-MIN Biharm Visc Coefficient (m4/s) (Zeta Pt)
+VAHDMIN |SM      MR|m^2/s           |RE-MIN Harm Visc Coefficient (m2/s) (Div Pt)
+VA4DMIN |SM      MR|m^4/s           |RE-MIN Biharm Visc Coefficient (m4/s) (Div Pt)
+VAHZLTH |SZ      MR|m^2/s           |Leith Harm Visc Coefficient (m2/s) (Zeta Pt)
+VA4ZLTH |SZ      MR|m^4/s           |Leith Biharm Visc Coefficient (m4/s) (Zeta Pt)
+VAHDLTH |SM      MR|m^2/s           |Leith Harm Visc Coefficient (m2/s) (Div Pt)
+VA4DLTH |SM      MR|m^4/s           |Leith Biharm Visc Coefficient (m4/s) (Div Pt)
+VAHZLTHD|SZ      MR|m^2/s           |LeithD Harm Visc Coefficient (m2/s) (Zeta Pt)
+VA4ZLTHD|SZ      MR|m^4/s           |LeithD Biharm Visc Coefficient (m4/s) (Zeta Pt)
+VAHDLTHD|SM      MR|m^2/s           |LeithD Harm Visc Coefficient (m2/s) (Div Pt)
+VA4DLTHD|SM      MR|m^4/s           |LeithD Biharm Visc Coefficient (m4/s) (Div Pt)
+VAHZLTHQ|SZ      MR|m^2/s           |LeithQG Harm Visc Coefficient (m2/s) (Zeta Pt)
+VAHDLTHQ|SM      MR|m^2/s           |LeithQG Harm Visc Coefficient (m2/s) (Div Pt)
+VAHZSMAG|SZ      MR|m^2/s           |Smagorinsky Harm Visc Coefficient (m2/s) (Zeta Pt)
+VA4ZSMAG|SZ      MR|m^4/s           |Smagorinsky Biharm Visc Coeff. (m4/s) (Zeta Pt)
+VAHDSMAG|SM      MR|m^2/s           |Smagorinsky Harm Visc Coefficient (m2/s) (Div Pt)
+VA4DSMAG|SM      MR|m^4/s           |Smagorinsky Biharm Visc Coeff. (m4/s) (Div Pt)
+momKE   |SMR     MR|m^2/s^2         |Kinetic Energy (in momentum Eq.)
+momHDiv |SMR     MR|s^-1            |Horizontal Divergence (in momentum Eq.)
+momVort3|SZR     MR|s^-1            |3rd component (vertical) of Vorticity
+Strain  |SZR     MR|s^-1            |Horizontal Strain of Horizontal Velocities
+Tension |SMR     MR|s^-1            |Horizontal Tension of Horizontal Velocities
+Stretch |SM      MR|s^-1            |Vortex stretching from QG Leith dynamic viscosity
+USidDrag|UUR     MR|m/s^2           |U momentum tendency from Side Drag
+VSidDrag|VVR     MR|m/s^2           |V momentum tendency from Side Drag
+Um_Diss |UUR     MR|m/s^2           |U momentum tendency from Dissipation (Explicit part)
+Vm_Diss |VVR     MR|m/s^2           |V momentum tendency from Dissipation (Explicit part)
+Um_ImplD|UUR     MR|m/s^2           |U momentum tendency from Dissipation (Implicit part)
+Vm_ImplD|VVR     MR|m/s^2           |V momentum tendency from Dissipation (Implicit part)
+Um_Advec|UUR     MR|m/s^2           |U momentum tendency from Advection terms
+Vm_Advec|VVR     MR|m/s^2           |V momentum tendency from Advection terms
+Um_Cori |UUR     MR|m/s^2           |U momentum tendency from Coriolis term
+Vm_Cori |VVR     MR|m/s^2           |V momentum tendency from Coriolis term
+Um_dPhiX|UUR     MR|m/s^2           |U momentum tendency from Pressure/Potential grad
+Vm_dPhiY|VVR     MR|m/s^2           |V momentum tendency from Pressure/Potential grad
+Um_Ext  |UUR     MR|m/s^2           |U momentum tendency from external forcing
+Vm_Ext  |VVR     MR|m/s^2           |V momentum tendency from external forcing
+Um_AdvZ3|UUR     MR|m/s^2           |U momentum tendency from Vorticity Advection
+Vm_AdvZ3|VVR     MR|m/s^2           |V momentum tendency from Vorticity Advection
+Um_AdvRe|UUR     MR|m/s^2           |U momentum tendency from vertical Advection (Explicit part)
+Vm_AdvRe|VVR     MR|m/s^2           |V momentum tendency from vertical Advection (Explicit part)
+Wm_Diss |WMr     LR|m/s^2           |W momentum tendency from Dissipation
+Wm_Advec|WMr     LR|m/s^2           |W momentum tendency from Advection terms
+WSidDrag|WMr     LR|m/s^2           |Vertical momentum tendency from Side Drag
+botTauX |UU      U1|N/m^2           |zonal bottom stress, >0 increases uVel
+botTauY |VV      U1|N/m^2           |meridional bottom stress, >0 increases vVel
+ADVx_Um |UM      MR|m^4/s^2         |Zonal      Advective Flux of U momentum
+ADVy_Um |VZ      MR|m^4/s^2         |Meridional Advective Flux of U momentum
+ADVrE_Um|WU      LR|m^4/s^2         |Vertical   Advective Flux of U momentum (Explicit part)
+ADVx_Vm |UZ      MR|m^4/s^2         |Zonal      Advective Flux of V momentum
+ADVy_Vm |VM      MR|m^4/s^2         |Meridional Advective Flux of V momentum
+ADVrE_Vm|WV      LR|m^4/s^2         |Vertical   Advective Flux of V momentum (Explicit part)
+VISCx_Um|UM      MR|m^4/s^2         |Zonal      Viscous Flux of U momentum
+VISCy_Um|VZ      MR|m^4/s^2         |Meridional Viscous Flux of U momentum
+VISrE_Um|WU      LR|m^4/s^2         |Vertical   Viscous Flux of U momentum (Explicit part)
+VISrI_Um|WU      LR|m^4/s^2         |Vertical   Viscous Flux of U momentum (Implicit part)
+VISCx_Vm|UZ      MR|m^4/s^2         |Zonal      Viscous Flux of V momentum
+VISCy_Vm|VM      MR|m^4/s^2         |Meridional Viscous Flux of V momentum
+VISrE_Vm|WV      LR|m^4/s^2         |Vertical   Viscous Flux of V momentum (Explicit part)
+VISrI_Vm|WV      LR|m^4/s^2         |Vertical   Viscous Flux of V momentum (Implicit part)

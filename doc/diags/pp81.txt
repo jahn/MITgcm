@@ -1,0 +1,5 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+PPviscAr|SM P    LR|m^2/s           |PP81 vertical eddy viscosity coefficient
+PPdiffKr|SM P    LR|m^2/s           |PP81 Vertical diffusion coefficient for tracers

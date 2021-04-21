@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+CPL_MxlD|SM      M1|m               |Ocean mixed-layer depth [m] (recv from Coupler)
+CPL_SST |SM      M1|degC            |Ocean surface temperature (recv from Coupler)
+CPL_SSS |SM      M1|g/kg            |Ocean surface salinity    (recv from Coupler)
+CPL_Vel2|SM      M1|m^2/s^2         |Ocean surface velocity square (recv from Coupler)
+CPL_fCO2|SM      M1|mol/m^2/s       |Ocean air-sea flux of CO2 (+=down)(recv fr Coupler)
+CPL_icFr|SM P    M1|0-1             |Seaice fraction (Ocean, recv from Coupler)
+CPL_iceH|SM PC   M1|m               |Seaice thickness (Ocean, recv from Coupler)
+CPL_snwH|SM PC   M1|m               |Snow thickness over seaice (OCN, recv fr Coupler)
+CPL_Qic1|SM  C   M1|J/kg            |Enthalpy of seaice layer 1 (Ocean, recv fr Coupler)
+CPL_Qic2|SM  C   M1|J/kg            |Enthalpy of seaice layer 2 (Ocean, recv fr Coupler)

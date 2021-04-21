@@ -1,0 +1,148 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+SDIAG1  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #1
+SDIAG2  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #2
+SDIAG3  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #3
+SDIAG4  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #4
+SDIAG5  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #5
+SDIAG6  |SM      L1|user-defined    |User-Defined   Surface   Diagnostic  #6
+SDIAG7  |SU      L1|user-defined    |User-Defined U.pt Surface Diagnostic #7
+SDIAG8  |SV      L1|user-defined    |User-Defined V.pt Surface Diagnostic #8
+SDIAG9  |UU      L1|user-defined    |User-Defined U.vector Surface Diag.  #9
+SDIAG10 |VV      L1|user-defined    |User-Defined V.vector Surface Diag. #10
+UDIAG1  |SM      MR|user-defined    |User-Defined Model-Level Diagnostic  #1
+UDIAG2  |SM      MR|user-defined    |User-Defined Model-Level Diagnostic  #2
+UDIAG3  |SMR     MR|user-defined    |User-Defined Model-Level Diagnostic  #3
+UDIAG4  |SMR     MR|user-defined    |User-Defined Model-Level Diagnostic  #4
+UDIAG5  |SU      MR|user-defined    |User-Defined U.pt Model-Level Diag.  #5
+UDIAG6  |SV      MR|user-defined    |User-Defined V.pt Model-Level Diag.  #6
+UDIAG7  |UUR     MR|user-defined    |User-Defined U.vector Model-Lev Diag.#7
+UDIAG8  |VVR     MR|user-defined    |User-Defined V.vector Model-Lev Diag.#8
+UDIAG9  |SM      ML|user-defined    |User-Defined Phys-Level  Diagnostic  #9
+UDIAG10 |SM      ML|user-defined    |User-Defined Phys-Level  Diagnostic #10
+SDIAGC  |SM  C   L1|user-defined    |User-Defined Counted Surface Diagnostic
+SDIAGCC |SM      L1|count           |User-Defined Surface Diagnostic Counter
+ETAN    |SM      M1|[r]             |<eTitle> <rTitle>  Anomaly
+ETANSQ  |SM P    M1|[r]^2           |Square of <eTitle> <rTitle>  Anomaly
+DETADT2 |SM      M1|[r]^2/s^2       |Square of <eTitle> <rTitle>  Anomaly Tendency
+THETA   |SMR     MR|[t]             |Potential Temperature
+SALT    |SMR     MR|[s]             |<sTitle>
+RELHUM  |SMR     MR|percent         |Relative Humidity
+SALTanom|SMR     MR|[s]             |Salt anomaly (=SALT-35; g/kg)
+UVEL    |UUR     MR|m/s             |Zonal Component of Velocity (m/s)
+VVEL    |VVR     MR|m/s             |Meridional Component of Velocity (m/s)
+WVEL    |WM      LR|[r]/s           |Vertical Component of Velocity (r_units/s)
+THETASQ |SMRP    MR|[t]^2           |Square of Potential Temperature
+SALTSQ  |SMRP    MR|([s])^2         |Square of <sTitle>
+SALTSQan|SMRP    MR|([s])^2         |Square of Salt anomaly (=(SALT-35)^2 (g^2/kg^2)
+UVELSQ  |UURP    MR|m^2/s^2         |Square of Zonal Comp of Velocity (m^2/s^2)
+VVELSQ  |VVRP    MR|m^2/s^2         |Square of Meridional Comp of Velocity (m^2/s^2)
+WVELSQ  |WM P    LR|[r]^2/s^2       |Square of Vertical Comp of Velocity
+UE_VEL_C|UMR     MR|m/s             |Eastward Velocity (m/s) (cell center)
+VN_VEL_C|VMR     MR|m/s             |Northward Velocity (m/s) (cell center)
+UV_VEL_C|UMR     MR|m^2/s^2         |Product of horizontal Comp of velocity (cell center)
+UV_VEL_Z|UZR     MR|m^2/s^2         |Meridional Transport of Zonal Momentum (m^2/s^2)
+WU_VEL  |WU      LR|m.[r]/s^2       |Vertical Transport of Zonal Momentum
+WV_VEL  |WV      LR|m.[r]/s^2       |Vertical Transport of Meridional Momentum
+UVELMASS|UUr     MR|m/s             |Zonal Mass-Weighted Comp of Velocity (m/s)
+VVELMASS|VVr     MR|m/s             |Meridional Mass-Weighted Comp of Velocity (m/s)
+WVELMASS|WM      LR|[r]/s           |Vertical Mass-Weighted Comp of Velocity
+PhiVEL  |SMR P   MR|m^2/s           |Horizontal Velocity Potential (m^2/s)
+PsiVEL  |SZ  P   MR|[r].m^2/s       |Horizontal Velocity Stream-Function
+UTHMASS |UUr     MR|[t].m/s         |Zonal Mass-Weight Transp of Pot Temp
+VTHMASS |VVr     MR|[t].m/s         |Meridional Mass-Weight Transp of Pot Temp
+WTHMASS |WM      LR|[t].[r]/s       |Vertical Mass-Weight Transp of Pot Temp (K.m/s)
+USLTMASS|UUr     MR|[s].m/s         |Zonal Mass-Weight Transp of <sTitle>
+VSLTMASS|VVr     MR|[s].m/s         |Meridional Mass-Weight Transp of <sTitle>
+WSLTMASS|WM      LR|[s].[r]/s       |Vertical Mass-Weight Transp of <sTitle>
+UVELTH  |UUR     MR|[t].m/s         |Zonal Transport of Pot Temp
+VVELTH  |VVR     MR|[t].m/s         |Meridional Transport of Pot Temp
+WVELTH  |WM      LR|[t].[r]/s       |Vertical Transport of Pot Temp
+UVELSLT |UUR     MR|[s].m/s         |Zonal Transport of <sTitle>
+VVELSLT |VVR     MR|[s].m/s         |Meridional Transport of <sTitle>
+WVELSLT |WM      LR|[s].[r]/s       |Vertical Transport of <sTitle>
+UVELPHI |UUr     MR|m^3/s^3         |Zonal Mass-Weight Transp of <pTitle> Anomaly
+VVELPHI |VVr     MR|m^3/s^3         |Merid. Mass-Weight Transp of <pTitle> Anomaly
+RHOAnoma|SMR     MR|kg/m^3          |Density Anomaly (=Rho-rhoConst)
+RHOANOSQ|SMRP    MR|kg^2/m^6        |Square of Density Anomaly (=(Rho-rhoConst)^2)
+URHOMASS|UUr     MR|kg/m^2/s        |Zonal Transport of Density
+VRHOMASS|VVr     MR|kg/m^2/s        |Meridional Transport of Density
+WRHOMASS|WM      LR|kg/m^2/s        |Vertical Transport of Density
+WdRHO_P |WM      LR|kg/m^2/s        |Vertical velocity times delta^k(Rho)_at-const-P
+WdRHOdP |WM      LR|kg/m^2/s        |Vertical velocity times delta^k(Rho)_at-const-T,S
+PHIHYD  |SMR     MR|m^2/s^2         |Hydrostatic <pTitle> Anomaly
+PHIHYDSQ|SMRP    MR|m^4/s^4         |Square of Hyd. <pTitle> Anomaly
+PHIBOT  |SM      M1|m^2/s^2         |<fTitle> <pTitle> Anomaly
+PHIBOTSQ|SM P    M1|m^4/s^4         |Square of <fTitle> <pTitle> Anomaly
+PHI_SURF|SM      M1|m^2/s^2         |Surface Dynamical <pTitle>
+PHIHYDcR|SMR     MR|m^2/s^2         |Hydrostatic <pTitle> Anomaly @ const r
+PHI_NH  |SMR     MR|m^2/s^2         |Non-Hydrostatic <pTitle>
+MXLDEPTH|SM      M1|m               |Mixed-Layer Depth (>0)
+DRHODR  |SM      LR|kg/m^4          |Stratification: d.Sigma/dr (kg/m3/r_unit)
+CONVADJ |SMR     LR|fraction        |Convective Adjustment Index [0-1]
+oceTAUX |UU      U1|N/m^2           |zonal surface wind stress, >0 increases uVel
+oceTAUY |VV      U1|N/m^2           |meridional surf. wind stress, >0 increases vVel
+atmPload|SM      U1|Pa              |Atmospheric pressure loading anomaly (vs surf_pRef)
+sIceLoad|SM      U1|kg/m^2          |sea-ice loading (in Mass of ice+snow / area unit)
+oceFWflx|SM      U1|kg/m^2/s        |net surface Fresh-Water flux into the ocean (+=down), >0 decreases salinity
+oceSflux|SM      U1|g/m^2/s         |net surface Salt flux into the ocean (+=down), >0 increases salinity
+oceQnet |SM      U1|W/m^2           |net surface heat flux into the ocean (+=down), >0 increases theta
+oceQsw  |SM      U1|W/m^2           |net Short-Wave radiation (+=down), >0 increases theta
+oceFreez|SM      U1|W/m^2           |heating from freezing of sea-water (allowFreezing=T)
+TRELAX  |SM      U1|W/m^2           |surface temperature relaxation, >0 increases theta
+SRELAX  |SM      U1|g/m^2/s         |surface salinity relaxation, >0 increases salt
+surForcT|SM      U1|W/m^2           |model surface forcing for Temperature, >0 increases theta
+surForcS|SM      U1|g/m^2/s         |model surface forcing for Salinity, >0 increases salinity
+TFLUX   |SM      U1|W/m^2           |total heat flux (match heat-content variations), >0 increases theta
+SFLUX   |SM      U1|g/m^2/s         |total salt flux (match salt-content variations), >0 increases salt
+RCENTER |SM      MR|[r]             |Cell-Center <rTitle>
+RSURF   |SM      M1|[r]             |<eTitle> <rTitle>
+hFactorC|SMr     MR|1               |Center cell-thickness fraction [-]
+hFactorW|SUr     MR|1               |Western-Edge cell-thickness fraction [-]
+hFactorS|SVr     MR|1               |Southern-Edge cell-thickness fraction [-]
+TOTUTEND|UUR     MR|m/s/day         |Tendency of Zonal Component of Velocity
+TOTVTEND|VVR     MR|m/s/day         |Tendency of Meridional Component of Velocity
+TOTTTEND|SMR     MR|[t]/day         |Tendency of Potential Temperature
+TOTSTEND|SMR     MR|[s]/day         |Tendency of <sTitle>
+MoistCor|SM      MR|W/m^2           |Heating correction due to moist thermodynamics
+HeatDiss|SM      MR|W/m^2           |Heating from frictional dissipation
+gT_Forc |SMR     MR|[t]/s           |Potential Temp. forcing tendency
+gS_Forc |SMR     MR|[s]/s           |<sTitle> forcing tendency
+AB_gT   |SMR     MR|[t]/s           |Potential Temp. tendency from Adams-Bashforth
+AB_gS   |SMR     MR|[s]/s           |<sTitle> tendency from Adams-Bashforth
+gTinAB  |SMR     MR|[t]/s           |Potential Temp. tendency going in Adams-Bashforth
+gSinAB  |SMR     MR|[s]/s           |<sTitle> tendency going in Adams-Bashforth
+AB_gU   |UUR     MR|m/s^2           |U momentum tendency from Adams-Bashforth
+AB_gV   |VVR     MR|m/s^2           |V momentum tendency from Adams-Bashforth
+AB_gW   |WM      LR|[r]/s^2         |W momentum tendency from Adams-Bashforth
+TAUXEDDY|UU      LR|N/m^2           |Zonal Eddy Stress
+TAUYEDDY|VV      LR|N/m^2           |Meridional Eddy Stress
+U_EulerM|UUR     MR|m/s             |Zonal Eulerian-Mean Velocity (m/s)
+V_EulerM|VVR     MR|m/s             |Meridional Eulerian-Mean Velocity (m/s)
+ADJetan |SM A    M1|dJ/m            |dJ/dEtaN: Sensitivity to sea surface height anomaly
+ADJuvel |UURA    MR|dJ/(m/s)        |dJ/dU: Sensitivity to zonal velocity
+ADJvvel |VVRA    MR|dJ/(m/s)        |dJ/dV: Sensitivity to meridional velocity
+ADJwvel |WM A    LR|dJ/(m/s)        |dJ/dW: Sensitivity to vertical velocity
+ADJtheta|SMRA    MR|dJ/degC         |dJ/dTheta: Sensitivity to potential temperature
+ADJsalt |SMRA    MR|dJ/([s])        |dJ/dSalt: Sensitivity to salinity
+ADJtaux |UU A    U1|dJ/(N/m^2)      |dJ/dTaux: Senstivity to zonal surface wind stress
+ADJtauy |VV A    U1|dJ/(N/m^2)      |dJ/dTauy: Sensitivity to merid. surface wind stress
+ADJempmr|SM A    U1|dJ/(kg/m^2/s)   |dJ/dEmPmR: Sensitivity to net surface Fresh-Water flux into the ocean
+ADJqnet |SM A    U1|dJ/(W/m^2)      |dJ/dQnet: Sensitivity to net surface heat fluxinto the ocean
+ADJqsw  |SM A    U1|dJ/(W/m^2)      |dJ/dQsw: Sensitivitiy to net Short-Wave radiation
+ADJsst  |SM A    M1|dJ/K            |dJ/dSST: Sensitivity to Sea Surface Temperature
+ADJsss  |SM A    M1|dJ/([s])        |dJ/dSSS: Sensitivity to Sea Surface Salinity
+ADJbtdrg|SM A    M1|dJ/d()          |dJ/dCd: Sensitivity to bottom drag coefficient
+ADJdifkr|SMRA    MR|dJ/d(m^2/s))    |dJ/dKr: Sensitivity to vertical diffusivity
+ADJepsix|UURA    UR|dJ/(m^2/s)      |dJ/dEddyPsiX: Sensitivity to zonal eddystreamfunction
+ADJepsiy|VVRA    UR|dJ/(m^2/s)      |dJ/dEddyPsiY: Sensitivity to meridional eddystreamfunction
+
+[r] = Pa if usingPCoords, m else
+[t] = K if fluidIsAir, degC if eosType.EQ.'TEOS10', degC else
+[s] = kg/kg if fluidIsAir, g/kg if eosType.EQ.'TEOS10', g/kg else
+<eTitle> = 'Surface' if fluidIsAir, 'Bottom' if usingPCoords, 'Surface' else
+<fTitle> = 'Top' if fluidIsAir, 'Surface' if usingPCoords, 'Bottom' else
+<pTitle> = 'Geopotential' if usingPCoords, 'Pressure Pot.(p/rho)' else
+<rTitle> = 'Pressure' if usingPCoords, 'Height' else
+<sTitle> = 'Specific Humidity' if fluidIsAir, 'Absolute Salinity' if eosType.EQ.'TEOS10', 'Salinity' else

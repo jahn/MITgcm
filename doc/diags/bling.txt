@@ -1,0 +1,81 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+BLGPSM  |SM P    MR|mol C/m3        |Small phytoplankton biomass (mol C/m3/s)
+BLGPLG  |SM P    MR|mol C/m3        |Large phytoplankton biomass (mol C/m3/s)
+BLGPDIA |SM P    MR|mol C/m3        |Diazotroph phytoplankton biomass (mol C/m3/s)
+BLGCHL  |SM P    MR|mg/m3           |Chlorophyll concentration
+BLGCHL2C|SM P    MR|mol Chl/mol C   |Chlorophyll to Carbon ratio
+BLGC2CHL|SM P    MR|g C/g Chl       |Carbon to Chlorophyll ratio
+BLGPOC  |SM P    MR|mol C/m3        |Particulate Organic Carbon concentration
+BLGPOCF |SM P    MR|mol C/m3/s      |Particulate Organic Carbon Flux
+BLGNPP  |SM P    MR|mol C/m3/s      |Net Primary Production
+BLGNCP  |SM P    MR|mol C/m3/s      |Net Community Production
+BLGPCM  |SM P    MR|1/s             |Maximum photosynthesis rate
+BLGMU   |SM P    MR|1/s             |Phytoplankton growth rate
+BLGMUDIA|SM P    MR|1/s             |Diazotroph growth rate
+BLGIRRK |SM P    MR|W/m2            |Nutrient-limited photosynthesis efficiency
+BLGLLIM |SM P    MR|-               |Light limitation
+BLGNLIM |SM P    MR|-               |N limitation
+BLGPLIM |SM P    MR|-               |P limitation
+BLGFELIM|SM P    MR|-               |Fe limitation
+BLGSILIM|SM P    MR|-               |Si limitation
+BLGSIUP |SM P    MR|mol Si/m3/s     |Silica uptake by bio
+BLGSIREM|SM P    MR|mol Si/m3/s     |Silica remin of sinking org matter
+BLGSIREC|SM P    MR|mol Si/m3/s     |Silica recycling
+BLGSIDIS|SM P    MR|mol Si/m3/s     |Silica dissolution fraction
+BLGSI2N |SM P    MR|-               |Si to N stoichiometric ratio
+BLGP2N  |SM P    MR|-               |P to N stoichiometric ratio
+BLGFE2N |SM P    MR|-               |Fe to N stoichiometric ratio
+BLGPCO2 |SM P    M1|atm             |Surface ocean partial pressure of CO2
+BLGPH3D |SM P    MR|dimensionless   |pH
+BLGOMAR |SM P    MR|dimensionless   |Aragonite saturation
+BLGCFLX |SM P    L1|mol/m2/sec      |Flux of CO2 due to air-sea exch (mol/m2/s)
+BLGapco2|SM      U1|10^-6 ppm       |Atmospheric partial pressure of CO2
+BLGOFLX |SM P    L1|mol/m2/sec      |Flux of O2 due to air-sea exch (mol/m2/s)
+BLGO2SAT|SM P    L1|percent         |surface O2 saturation (percent)
+BLGSURFE|SM P    L1|mol/m2/sec      |Surface deposition of Fe (mol/m2/s)
+BLGFEUP |SM P    MR|mol Fe/m3/s     |Iron uptake by bio
+BLGFESPM|SM P    MR|mol Fe/m3/s     |Iron sinking particle flux
+BLGFEREM|SM P    MR|mol Fe/m3/s     |Iron remin of sinking organic matter
+BLGFERD |SM P    MR|mol Fe/m3/s     |Iron remin from Diel Vertical Migration
+BLGFEREC|SM P    MR|mol Fe/m3/s     |Iron recycling
+BLGFEADI|SM P    MR|mol Fe/m3/s     |Iron inorganic adsorption
+BLGFEADO|SM P    MR|mol Fe/m3/s     |Iron organic adsorption
+BLGFESED|SM P    MR|mol Fe/m3/s     |Iron sediment source
+BLGFEBUR|SM P    M1|mol Fe/m3/s     |Iron burial into sediment
+BLGNUP  |SM P    MR|mol N/m3/s      |Nitrogen uptake by bio
+BLGNFIX |SM P    MR|mol N/m3/s      |Nitrogen fixation
+BLGNSPM |SM P    MR|mol N/m3/s      |Nitrogen sinking particle flux
+BLGNREM |SM P    MR|mol N/m3/s      |Nitrogen remin of sinking org matter
+BLGNDVM |SM P    MR|mol N/m3/s      |Nitrogen vertical flux due to DVM
+BLGNRD  |SM P    MR|mol N/m3/s      |Nitrogen remin by Diel Vertical Migration
+BLGNREC |SM P    MR|mol N/m3/s      |Nitrogen recycling
+BLGNDENB|SM P    MR|mol N/m3/s      |Benthic denitrification
+BLGNDENP|SM P    MR|mol N/m3/s      |Pelagic denitrification
+BLGDONP |SM P    MR|mol N/m3/s      |Dissolved Organic Nitrogen Production
+BLGDONR |SM P    MR|mol N/m3/s      |Dissolved Organic Nitrogen Remineralization
+BLGNONEN|SM P    MR|-               |NO3 no neg
+BLGPUP  |SM P    MR|mol P/m3/s      |Phosphorus uptake by bio
+BLGPSPM |SM P    MR|mol P/m3/s      |Phosphorus sinking particle flux
+BLGPREM |SM P    MR|mol P/m3/s      |Phosphorus remin of sinking org matter
+BLGPDVM |SM P    MR|mol P/m3/s      |Phosphorus vertical flux due to DVM
+BLGPRD  |SM P    MR|mol P/m3/s      |Phosphorus remin by Diel Vertical Migration
+BLGPREC |SM P    MR|mol P/m3/s      |Phosphorus recycling
+BLGDOPP |SM P    MR|mol P/m3/s      |Dissolved Organic Phosphorus Production
+BLGDOPR |SM P    MR|mol P/m3/s      |Dissolved Organic Phosphorus Remineralization
+BLGMLD  |SM P    L1|m               |Diagnosed mixed layer depth
+BLGIRRIS|SM P    MR|W/m2            |Local irradiance
+BLGIEFF |SM P    MR|W/m2            |Effective irradiance
+BLGIMEM |SM P    MR|W/m2            |Irradiance memory
+BLGBIOC |SMRP    MR|mol C/m3/sec    |Tendency of DIC due to biology (mol C/m3/s)
+BLGBIOAL|SMRP    MR|mol alk/m3/sec  |Tendency of alkalinity due to biology (mol alk/m3/s)
+BLGBIOO2|SMRP    MR|mol O/m3/sec    |Tendency of oxygen due to biology (mol O/m3/s)
+BLGBION |SMRP    MR|mol N/m3/sec    |Tendency of nitrate due to biology (mol N/m3/s)
+BLGBIOP |SMRP    MR|mol P/m3/sec    |Tendency of phosphate due to biology (mol P/m3/s)
+BLGBIOFE|SMRP    MR|mol Fe/m3/sec   |Tendency of iron due to biology (mol Fe/m3/s)
+BLGNSED |SM P    M1|mol N/m3/s      |Nitrogen flux in/out of sediments
+BLGPSED |SM P    M1|mol P/m3/s      |Phosphorus flux in/out of sediments
+BLGOSED |SM P    M1|mol O/m3/s      |Oxygen flux in/out of sediments
+BLGCCdis|SM P    MR|mol C/m3/s      |Calcium carbonate dissolution
+BLGCCpro|SM P    MR|mol C/m3/s      |Calcium carbonate production

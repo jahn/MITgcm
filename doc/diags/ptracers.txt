@@ -1,0 +1,25 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+TRAC##  |SMR     MR|[trc]           |<longname> concentration
+UTRAC## |UUr     MR|[trc].m/s       |Zonal Mass-Weighted Transp of <name>
+VTRAC## |VVr     MR|[trc].m/s       |Merid Mass-Weighted Transp of <name>
+WTRAC## |WM      MR|[trc].m/s       |Vert  Mass-Weighted Transp of <name>
+ForcTr##|SMR     MR|[trc]/s         |<name> forcing tendency
+AB_gTr##|SMR     MR|[trc]/s         |<name> tendency from Adams-Bashforth
+Tp_gTr##|SMR     MR|[trc]/s         |<name> total transport tendency (before gchem_forcing_sep)
+ADVrTr##|WM      LR|[trc].[flx]     |Vertical   Advective Flux of <name>
+ADVxTr##|UU      MR|[trc].[flx]     |Zonal      Advective Flux of <name>
+ADVyTr##|VV      MR|[trc].[flx]     |Meridional Advective Flux of <name>
+DFrETr##|WM      LR|[trc].[flx]     |Vertical Diffusive Flux of <name> (Explicit part)'
+DFxETr##|UU      MR|[trc].[flx]     |Zonal      Diffusive Flux of <name>
+DFyETr##|VV      MR|[trc].[flx]     |Meridional Diffusive Flux of <name>
+DFrITr##|WM      LR|[trc].[flx]     |Vertical Diffusive Flux of <name> (Implicit part)'
+KPPgTr##|WM      LR|[trc].[flx]     |KPP non-local Flux of <name>
+DSLPTr##|SMR     MR|[trc]/s         |<name> tendency from Down-Slope package
+ADJptr##|SMRA    MR|dJ/[trc]        |sensitivity to <longname> concentration
+Add2EmP |SM      U1|kg/m^2/s        |additional EmP from salt relaxation
+
+## = ptracer iolabel: 01, 02, ..., 99, 0a, ...
+[trc] = PTRACERS_units(##) or kg/kg if unset
+[flx] = 'Pa.m^2/s' if usingPCoords, 'm^3/s' else

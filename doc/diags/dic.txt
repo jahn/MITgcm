@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+DICBIOA |SMRP    MR|mol/m3/sec      |Biological Productivity (mol/m3/s)
+DICCARB |SMRP    MR|mol eq/m3/sec   |Carbonate chg-biol prod and remin (mol eq/m3/s)
+DICTFLX |SM P    L1|mol/m3/sec      |Tendency of DIC due to air-sea exch (mol/m3/s)
+DICOFLX |SM P    L1|mol/m3/sec      |Tendency of O2 due to air-sea exch (mol/m3/s)
+DICCFLX |SM P    L1|mol/m2/sec      |Flux of CO2 - air-sea exch (mol/m2/s)
+DICPCO2 |SM P    M1|atm             |Partial Pressure of CO2 (atm)
+DICPHAV |SM P    M1|dimensionless   |pH (dimensionless)

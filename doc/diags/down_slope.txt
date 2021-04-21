@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+DSLPuFlw|UU      M1|m^3/s           |Zonal  Down-Sloping Transport (u-component)
+DSLPvFlw|VV      M1|m^3/s           |Merid. Down-Sloping Transport (v-component)
+DSLP_TH |SMR     MR|K/s             |Pot.Temp. tendency from Down-Slope package
+DSLP_SLT|SMR     MR|g/kg/s          |Salinity  tendency from Down-Slope package

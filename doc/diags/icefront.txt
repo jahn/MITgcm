@@ -1,0 +1,5 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+ICFfwFlx|SM      MR|kg/m^2/s        |Ice front freshwater flux (+ve increases ocean salt)
+ICFhtFlx|SM      MR|W/m^2           |Ice front heat flux  (+ve cools ocean)

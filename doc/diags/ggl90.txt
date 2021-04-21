@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+GGL90TKE|SM      LR|m^2/s^2         |GGL90 sub-grid turbulent kinetic energy
+GGL90Lmx|SM      LR|m               |Mixing length scale
+GGL90Prl|SM      LR|1               |Prandtl number used in GGL90
+GGL90ArU|SM      LR|m^2/s           |GGL90 eddy viscosity at U-point
+GGL90ArV|SM      LR|m^2/s           |GGL90 eddy viscosity at V-point
+GGL90Kr |SM      LR|m^2/s           |GGL90 diffusion coefficient for temperature
+GGL90flx|SM      L1|m^3/s^3         |Surface flux of TKE
+GGL90tau|SM      L1|m^3/s^3         |Work done by the wind
+IDEMIX_E|SM      LR|m^2/s^2         |IDEMIX internal wave energy
+IDEMIX_c|SM      LR|m/s             |IDEMIX vertical group velocity
+IDEMIX_v|SM      LR|m/s             |IDEMIX horizontal group velocity
+IDEMIX_t|SM      LR|s/m^2           |IDEMIX dissipation constant
+IDEMIX_K|SM      LR|m^2/s           |IDEMIX vertical diffusivity
+IDEMIX_F|SM      LR|m^2/s^3         |IDEMIX Forcing by gm
+IDEM_F_b|SM      L1|m^3/s^3         |Tidal forcing at bottom
+IDEM_F_s|SM      L1|m^3/s^3         |Wind forcing at surface
+IDEM_F_g|SM      L1|m^3/s^3         |Integrated GM forcing
+ADJtke90|SMRA    MR|dJ/(m^2/s^2)    |dJ/dTKE: Sensitivity to GGL90 TKE

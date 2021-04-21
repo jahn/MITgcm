@@ -1,0 +1,48 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+DIABT   |SMr     MR|K/s             |Pot. Temp.  Tendency (Mass-Weighted) from Diabatic Processes
+DIABQ   |SMr     MR|g/kg/s          |Spec.Humid. Tendency (Mass-Weighted) from Diabatic Processes
+RADSW   |SM      ML|K/s             |Temperature Tendency due to Shortwave Radiation (TT_RSW)
+RADLW   |SM      ML|K/s             |Temperature Tendency due to Longwave  Radiation (TT_RLW)
+DTCONV  |SM      ML|K/s             |Temperature Tendency due to Convection (TT_CNV)
+TURBT   |SM      ML|K/s             |Temperature Tendency due to Turbulence in PBL (TT_PBL)
+DTLS    |SM      ML|K/s             |Temperature Tendency due to Large-scale condens. (TT_LSC)
+DQCONV  |SM      MR|g/kg/s          |Spec. Humidity Tendency due to Convection (QT_CNV)
+TURBQ   |SM      ML|g/kg/s          |Spec. Humidity Tendency due to Turbulence in PBL (QT_PBL)
+DQLS    |SM      ML|g/kg/s          |Spec. Humidity Tendency due to Large-Scale Condens. (QT_LSC)
+RELHUM  |SMR     MR|0-1             |Relative Humidity (fraction)
+TSR     |SM P    U1|W/m^2           |Top-of-atm. net Shortwave Radiation (+=dw)
+OLR     |SM P    U1|W/m^2           |Outgoing Longwave  Radiation (+=up)
+RADSWG  |SM P    L1|W/m^2           |Net Shortwave Radiation at the Ground (+=dw)
+RADLWG  |SM      L1|W/m^2           |Net Longwave  Radiation at the Ground (+=up)
+HFLUX   |SM      L1|W/m^2           |Sensible Heat Flux (+=up)
+EVAP    |SM      L1|g/m^2/s         |Surface Evaporation (g/m2/s)
+PRECON  |SM P    L1|g/m^2/s         |Convective  Precipitation (g/m2/s)
+PRECLS  |SM      M1|g/m^2/s         |Large Scale Precipitation (g/m2/s)
+CLDCLW  |SM P    ML|0-1             |Local Cloud Fraction (0-1)
+CLDFRC  |SM P    M1|0-1             |Total Cloud Fraction (0-1)
+CLDPRS  |SM PC   M1|0-1             |Cloud Top Pressure (normalized)
+CLDMAS  |SM P    L1|kg/m^2/s        |Cloud-base Mass Flux  (kg/m^2/s)
+DRAG    |SM P    L1|kg/m^2/s        |Surface Drag Coefficient (kg/m^2/s)
+WINDS   |SM P    L1|m/s             |Surface Wind Speed  (m/s)
+TS      |SM      L1|K               |near Surface Air Temperature  (K)
+QS      |SM P    L1|g/kg            |near Surface Specific Humidity  (g/kg)
+ENPREC  |SM      M1|W/m^2           |Energy flux associated with precip. (snow, rain Temp)
+ALBVISDF|SM P    L1|0-1             |Surface Albedo (Visible band) (0-1)
+DWNLWG  |SM P    L1|W/m^2           |Downward Component of Longwave Flux at the Ground (+=dw)
+UPSWG   |SM P    L1|W/m^2           |Upward Shortwave Flux at the Ground (+=up)
+SWCLR   |SM      ML|K/s             |Clear Sky Temp. Tendency due to Shortwave Radiation
+LWCLR   |SM      ML|K/s             |Clear Sky Temp. Tendency due to Longwave  Radiation
+TSRCLR  |SM P    U1|W/m^2           |Clear Sky Top-of-atm. net Shortwave Radiation (+=dw)
+OLRCLR  |SM P    U1|W/m^2           |Clear Sky Outgoing Longwave  Radiation  (+=up)
+SWGCLR  |SM P    L1|W/m^2           |Clear Sky Net Shortwave Radiation at the Ground (+=dw)
+LWGCLR  |SM      L1|W/m^2           |Clear Sky Net Longwave  Radiation at the Ground (+=up)
+UPSWGclr|SM P    L1|W/m^2           |Upward Shortwave Flux at the Ground (+=up)
+UFLUX   |UU      L1|N/m^2           |Zonal Wind Surface Stress  (N/m^2)
+VFLUX   |VV      L1|N/m^2           |Meridional Wind Surface Stress  (N/m^2)
+dKE_Ustr|SU      L1|W/m^2           |KE sink due to Zonal Surf. Stress and Strat. drag (<0)
+dKE_Vstr|SV      L1|W/m^2           |KE sink due to Merid. Surf. Stress and Strat. drag (<0)
+DTSIMPL |SM P    L1|K               |Surf. Temp Change after 1 implicit time step
+aim_pCO2|SM P    L1|ppm             |Atmospheric CO2
+FSOL    |SM P    L1|W/m^2           |Incoming Solar radiation

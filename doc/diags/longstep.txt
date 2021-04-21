@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+LSwVel  |WM      LR|m/s             |Vertical Component of Velocity (m/s)
+LSuVel  |UUR     MR|m/s             |Zonal Component of Velocity (m/s)
+LSvVel  |VVR     MR|m/s             |Meridional Component of Velocity (m/s)
+LStheta |SMR     MR|degC            |Potential Temperature
+LSsalt  |SMR     MR|g/kg            |Salinity
+LScnvAdj|SM      LR|fraction        |Convective Adjustment Index [0-1]
+LSqsw   |SM      U1|W/m^2           |net Short-Wave radiation (+=up)
+LSfwFlux|SM      U1|kg/m^2/s        |net surface Fresh-Water flux into the ocean
+LSkwx   |UM      LR|m^2/s           |K_31 element (W.point, X.dir) of GM-Redi tensor
+LSkwy   |VM      LR|m^2/s           |K_32 element (W.point, Y.dir) of GM-Redi tensor
+LSkwz   |WM P    LR|m^2/s           |K_33 element (W.point, Z.dir) of GM-Redi tensor
+LSKPPdfS|SM P    LR|m^2/s           |Vertical diffusion coefficient for salt & tracers
+LSKPPght|SM P    LR|s/m^2           |Nonlocal transport coefficient

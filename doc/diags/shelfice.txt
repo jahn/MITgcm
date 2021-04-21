@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+SHIfwFlx|SM      L1|kg/m^2/s        |Ice shelf fresh water flux (positive upward)
+SHIhtFlx|SM      L1|W/m^2           |Ice shelf heat flux  (positive upward)
+SHI_TauX|UU      L1|N/m^2           |Ice shelf bottom stress, zonal  comp., >0 increases uVel
+SHI_TauY|VV      L1|N/m^2           |Ice shelf bottom stress, merid. comp., >0 increases vVel
+SHIForcT|SM      L1|W/m^2           |Ice shelf forcing for theta, >0 increases theta
+SHIForcS|SM      L1|g/m^2/s         |Ice shelf forcing for salt, >0 increases salt
+SHIgammT|SM      L1|m/s             |Ice shelf exchange coefficient for theta
+SHIgammS|SM      L1|m/s             |Ice shelf exchange coefficient for salt
+SHIuStar|SM      L1|m/s             |Friction velocity at bottom of ice shelf
+SHI_mass|SM      L1|kg/m^2          |dynamic ice shelf mass for surface load anomaly
+SHIRshel|SM      L1|m               |depth of shelfice

@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+SI_Uvel |UZ      L1|m/a             |Ice stream x-velocity
+SI_Vvel |VZ      L1|m/a             |Ice stream y-velocity
+SI_Thick|SM      L1|m               |Ice stream thickness
+SI_area |SM      L1|m^2             |Ice stream cell area coverage
+SI_float|SM      L1|none            |Ice stream grounding ind
+SI_hmask|SM      L1|none            |Ice stream thickness mask
+SI_usurf|SM      L1|none            |Ice stream surface x-vel
+SI_vsurf|SM      L1|none            |Ice stream surface y-vel
+SI_ubase|SM      L1|none            |Ice stream basal x-vel
+SI_vbase|SM      L1|none            |Ice stream basal y-vel
+SI_taubx|SM      L1|none            |Ice stream basal x-stress
+SI_tauby|SM      L1|none            |Ice stream basal y-stress
+SI_selev|SM      L1|none            |Ice stream surface elev
+SI2Dtrac|SM      L1|none            |Ice stream 2d tracer
+BDOT_SI |SM      L1|none            |Ice stream 2d tracer

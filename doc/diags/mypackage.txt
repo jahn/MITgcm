@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+MYPaSta1|SM      MR|unit            |Scalar state variable 1 for package MYPACKAGE
+MYPaSta2|SM      MR|unit            |Scalar state variable 2 for package MYPACKAGE
+MYPaStaU|UM      MR|unit            |uVel-type state variable for package MYPACKAGE
+MYPaStaV|VM      MR|unit            |vVel-type state variable for package MYPACKAGE
+MYPaSur1|SM      L1|unit            |Surface field 1 for package MYPACKAGE
+MYPaSur2|SM      L1|unit            |Surface field 2 for package MYPACKAGE
+MYPadTdt|SMR     MR|K/s             | Pot.Temp. tendency from package MYPACKAGE
+MYPadSdt|SMR     MR|g/kg/s          | Salinity  tendency from package MYPACKAGE
+MYPadUdt|UMR     MR|m/s^2           |u-Velocity tendency from package MYPACKAGE
+MYPadVdt|VMR     MR|m/s^2           |v-Velocity tendency from package MYPACKAGE
+MYPaLev3|SM      MX|unit            |3-levels field for package MYPACKAGE

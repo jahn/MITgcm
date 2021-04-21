@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+CH_TAIR |SM      L1|degres C        |cheapAML Surface Air Temp
+CH_QNET |SM      L1|W/m2            |cheapAML Surface heating
+CH_QAIR |SM      L1|kg/kg           |cheapAML Specific Humidity
+CH_EmP  |SM      L1|kg/m2/s         |cheapAML Evap-Precip
+CH_Trace|SM      L1|Depend on Tracer|cheapAML Passive Tracer
+CH_Uwind|UU      L1|m/s             |cheapAML Zonal Wind
+CH_Vwind|VV      L1|m/s             |cheapAML Meridional Wind
+CH_LH   |SM      L1|W/m2            |cheapAML latent heat
+CH_SH   |SM      L1|W/m2            |cheapAML sensible heat
+CH_Prec |SM      L1|kg/m2/s         |cheapAML precipitation
+CH_q100 |SM      L1|kg/kg           |cheapAML upper Specific Humidity
+CH_ssqt |SM      L1|kg/kg           |cheapAML surf sat Specific Humid.

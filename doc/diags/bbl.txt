@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+BBLtheta|SM      M1|degC            |Bottom boundary layer theta
+BBLsalt |SM      M1|g/kg            |Bottom boundary layer salinity
+BBLeta  |SM      M1|m               |Bottom boundary layer thickness
+BBLtendT|SM      M1|degC/s          |Bottom temperature tendency due to BBL
+BBLtendS|SM      M1|g/kg/s          |Bottom salt tendency due to BBL

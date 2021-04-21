@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+<-Name->|<- code ->|<--  Units   -->|<- Tile (max=80c)
+-------------------------------------------------------------------------------
+ADVr_TH |WM      LR|degC.[flx]      |Vertical   Advective Flux of Pot.Temperature
+ADVx_TH |UU      MR|degC.[flx]      |Zonal      Advective Flux of Pot.Temperature
+ADVy_TH |VV      MR|degC.[flx]      |Meridional Advective Flux of Pot.Temperature
+DFrE_TH |WM      LR|degC.[flx]      |Vertical Diffusive Flux of Pot.Temperature (Explicit part)
+DFxE_TH |UU      MR|degC.[flx]      |Zonal      Diffusive Flux of Pot.Temperature
+DFyE_TH |VV      MR|degC.[flx]      |Meridional Diffusive Flux of Pot.Temperature
+DFrI_TH |WM      LR|degC.[flx]      |Vertical Diffusive Flux of Pot.Temperature (Implicit part)
+SM_x_TH |UM      MR|degC            |Pot.Temp.   1rst Order Moment Sx
+SM_y_TH |VM      MR|degC            |Pot.Temp.   1rst Order Moment Sy
+SM_z_TH |SM      MR|degC            |Pot.Temp.   1rst Order Moment Sz
+SMxx_TH |UM      MR|degC            |Pot.Temp.   2nd Order Moment Sxx
+SMyy_TH |VM      MR|degC            |Pot.Temp.   2nd Order Moment Syy
+SMzz_TH |SM      MR|degC            |Pot.Temp.   2nd Order Moment Szz
+SMxy_TH |SM      MR|degC            |Pot.Temp.   2nd Order Moment Sxy
+SMxz_TH |UM      MR|degC            |Pot.Temp.   2nd Order Moment Sxz
+SMyz_TH |VM      MR|degC            |Pot.Temp.   2nd Order Moment Syz
+SM_v_TH |SM P    MR|(degC)^2        |Pot.Temp.   sub-grid variance
+ADVr_SLT|WM      LR|g/kg.[flx]      |Vertical   Advective Flux of Salinity
+ADVx_SLT|UU      MR|g/kg.[flx]      |Zonal      Advective Flux of Salinity
+ADVy_SLT|VV      MR|g/kg.[flx]      |Meridional Advective Flux of Salinity
+DFrE_SLT|WM      LR|g/kg.[flx]      |Vertical Diffusive Flux of Salinity    (Explicit part)
+DFxE_SLT|UU      MR|g/kg.[flx]      |Zonal      Diffusive Flux of Salinity
+DFyE_SLT|VV      MR|g/kg.[flx]      |Meridional Diffusive Flux of Salinity
+DFrI_SLT|WM      LR|g/kg.[flx]      |Vertical Diffusive Flux of Salinity    (Implicit part)
+SALTFILL|SM      MR|g/kg.[flx]      |Filling of Negative Values of Salinity
+SM_x_SLT|UM      MR|g/kg            |Salinity    1rst Order Moment Sx
+SM_y_SLT|VM      MR|g/kg            |Salinity    1rst Order Moment Sy
+SM_z_SLT|SM      MR|g/kg            |Salinity    1rst Order Moment Sz
+SMxx_SLT|UM      MR|g/kg            |Salinity    2nd Order Moment Sxx
+SMyy_SLT|VM      MR|g/kg            |Salinity    2nd Order Moment Syy
+SMzz_SLT|SM      MR|g/kg            |Salinity    2nd Order Moment Szz
+SMxy_SLT|SM      MR|g/kg            |Salinity    2nd Order Moment Sxy
+SMxz_SLT|UM      MR|g/kg            |Salinity    2nd Order Moment Sxz
+SMyz_SLT|VM      MR|g/kg            |Salinity    2nd Order Moment Syz
+SM_v_SLT|SM P    MR|(g/kg)^2        |Salinity    sub-grid variance
+
+[flx] = 'Pa.m^2/s' if usingPCoords, 'm^3/s' else
