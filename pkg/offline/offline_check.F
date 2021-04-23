@@ -86,7 +86,11 @@ C-    stop if files are specified but not used.
        ENDIF
 #ifndef ALLOW_OLD_VIRTUALFLUX
        IF ( SFluxFile.NE.' ' ) THEN
-        WRITE(msgBuf,'(A)') 'SFluxFile is set but not used'
+        WRITE(msgBuf,'(2A)') 'SFluxFile is set but not used. ',
+     &   'It is only used when'
+        CALL PRINT_ERROR( msgBuf, myThid )
+        WRITE(msgBuf,'(2A)') 'ALLOW_OLD_VIRTUALFLUX is defined in ',
+     &   'DIC_OPTIONS.h or DARWIN_OPTIONS.h'
         CALL PRINT_ERROR( msgBuf, myThid )
         errCount =  errCount + 1
        ENDIF
