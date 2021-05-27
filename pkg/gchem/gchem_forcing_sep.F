@@ -90,7 +90,7 @@ ccccccccccccccccccccccccc
 #ifdef ALLOW_DARWIN
       IF ( useDARWIN ) THEN
         CALL DARWIN_CONSERVE_SURFACE( myTime, myIter, myThid )
-        CALL DARWIN_CONS( myIter, myTime, myThid )
+        CALL DARWIN_CONS( 0, myIter, myTime, myThid )
       ENDIF
 #endif
 
@@ -294,7 +294,7 @@ C--   end bi,bj loops.
 
 #ifdef ALLOW_DARWIN
       IF ( useDARWIN ) THEN
-         CALL DARWIN_CONS( myIter, myTime, myThid )
+         CALL DARWIN_CONS( 1, myIter, myTime, myThid )
          CALL DARWIN_ATMOS( myTime, myIter, myThid )
       ENDIF
 #endif /* ALLOW_DARWIN */

@@ -4,7 +4,7 @@ c=============================================================
 c subroutine DARWIN_cons
 c check conservation in the model
 C==============================================================
-      SUBROUTINE DARWIN_CONS(myIter,myTime,myThid)
+      SUBROUTINE DARWIN_CONS(stage,myIter,myTime,myThid)
 #include "SIZE.h"
 #include "EEPARAMS.h"
 #include "PARAMS.h"
@@ -18,6 +18,7 @@ C==============================================================
 #include "DARWIN_FIELDS.h"
 
 C     === Global variables ===
+      INTEGER stage
       _RL myTime
       INTEGER myIter
       INTEGER myThid
@@ -172,6 +173,19 @@ c oxygem budget !!!!!!!! NOT FULL BUDGET !!!!!!!!!!!
       _GLOBAL_SUM_RL(tmptotNdenit,myThid)
 
       IF ( myProcId.EQ.0 .AND. myThid.EQ.1 ) THEN
+C do not write ecosystem non-conservation terms before they are applied
+        IF ( stage .EQ. 0) THEN
+         tmpsfcflxC = 0 _d 0
+         tmpvirflxC = 0 _d 0
+         tmptotNfix = 0 _d 0
+         tmptotNdenit = 0 _d 0
+         tmpminFeLoss = 0 _d 0
+         tmptotscavFe = 0 _d 0
+         tmpsfcflxFe = 0 _d 0
+         tmpsedflxFe = 0 _d 0
+         tmpsfcflxA = 0 _d 0
+         tmpsfcflxO = 0 _d 0
+        ENDIF
         WRITE(DAR_cons_C_unit,*), myIter, tmptotC, tmptotC/voltot
         WRITE(DAR_cons_P_unit,*), myIter, tmptotP, tmptotP/voltot
         WRITE(DAR_cons_N_unit,'(I12,4E24.16)'), myIter, tmptotN,
