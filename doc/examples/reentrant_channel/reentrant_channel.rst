@@ -857,6 +857,9 @@ Model Solution
 See :filelink:`verification/tutorial_reentrant_channel/analysis/matlab_plots.m` for `MATLAB <https://www.mathworks.com/>`_
 analysis code to compute and plot :numref:`channel_zm_temp_ml` through :numref:`channel_MOC_eddy_layers`.
 
+A Jupyter notebook can be found `here <../../jupyter/reentrant.ipynb>`_.
+
+
 .. _reentrant_channel_solution:
 
 Coarse Resolution Solution
@@ -873,8 +876,9 @@ In this tutorial we use standard :ref:`native Fortan (binary) output <pkg_mdsio>
 rather than `netCDF <http://www.unidata.ucar.edu/software/netcdf>`_  output (as done in tutorial :ref:`Baroclinic Ocean Gyre <tutorial_baroclinic_gyre>`).
 Important note: when using :filelink:`pkg/mdsio`, the statistical diagnostics output is written in plain text,
 NOT binary format. An advantage is that this permits a simple unix ``cat`` or ``more`` command to display the file to the terminal window
-as integration proceeds, i.e., for a quick check that results look reasonable. The disadvantage however is that some additional parsing
-is required to generate some plots using these data. Making use of MITgcm shell script :filelink:`utils/scripts/extract_StD`,
+as integration proceeds, i.e., for a quick check that results look reasonable. The disadvantage however
+is that some additional parsing is required (when using `MATLAB <https://www.mathworks.com/>`_) 
+to generate some plots using these data. Making use of MITgcm shell script :filelink:`utils/scripts/extract_StD`,
 in a terminal window (in the run directory) type
 
 ::
@@ -912,6 +916,19 @@ where
   -  stdiagout = 5 dimensional output array
      ( kLev, time_rec, region_rec, [ave,std,min,max,vol], fld_rec )
      where kLev=1 is depth-average, kLev=2:50 is for depths :varlink:`rC`\ (1:49)
+
+A function to parse statistical diagnostics MITgcm output is also available in the python package :ref:`MITgcmutils`.
+Executing the python command
+
+:: 
+
+   stdiags_bylev,stdiags_2D,iters = readstats('dynStDiag.0000000000.txt')
+
+will load up the level-by-level statistical diagnostics into ``stdiags_bylev`` (e.g., ``stdiags_bylev['THETA'][:,0,0]``
+is the time series for top level average temperature),
+``stdiags_2D`` given column-integrated or 2-D fields (e.g., ``stdiags_2D['TRELAX'][:,0]`` is the time series for surface heat flux),
+and ``iters`` is iteration number for the time series (e.g. ``iters['TRELAX']`` is a series of iteration numbers for the ``THETA`` diagnostic,
+the user is left to convert into time units). See the  :ref:`MITgcmutils` documention for more information.
 
 On the left side of :numref:`channel_soln_stdiags` we show time series of global surface heat flux.
 In the first decade there is rapid adjustment, with a much slower trend in both mean and standard deviation
