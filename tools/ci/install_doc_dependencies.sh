@@ -4,5 +4,6 @@ sudo apt-get install texlive-latex-recommended
 sudo apt-get install texlive-latex-extra
 sudo apt-get install texlive-fonts-recommended
 sudo apt-get install latexmk
+sudo apt-get install pandoc
 pip install -r doc/requirements.txt
 pip install sphinx_rtd_theme
