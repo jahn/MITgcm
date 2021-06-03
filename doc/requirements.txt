@@ -3,6 +3,9 @@ sphinx_rtd_theme
 sphinxcontrib-bibtex<2
 sphinxcontrib-programoutput
 numpy
+matplotlib
+MITgcmutils
+cmocean
 nbsphinx
 ipykernel
 ipython
