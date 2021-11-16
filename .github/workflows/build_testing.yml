@@ -60,7 +60,7 @@ jobs:
         - exp: "global_oce_biogeo_bling"
           precs: "16"
         - exp: "global_with_exf"
-          precs: "13 15"
+          precs: "13 13"
         - exp: "halfpipe_streamice"
           precs: "16"
         - exp: "hs94.128x64x5"
