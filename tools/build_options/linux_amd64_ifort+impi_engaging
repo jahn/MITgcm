@@ -69,7 +69,7 @@ else
     FOPTIM="-O0 -noalign -g -traceback $PROCF"
     NOOPTFLAGS=$FOPTIM
     NOOPTFILES='adread_adwrite.F mdsio_rw_field.F mdsio_rw_slice.F'
-    FOPTIM="$FOPTIM -warn all -warn nounused"
+    FOPTIM="$FOPTIM -warn all -warn noexternal"
     FOPTIM="$FOPTIM -fpe0 -ftz -fp-stack-check -check all -ftrapuv"
   fi
 fi
