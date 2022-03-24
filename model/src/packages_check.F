@@ -89,6 +89,8 @@ C       |-- OASIS_CHECK
 C       |
 C       |-- RUNCLOCK_CHECK
 C       |
+C       |-- SAL_CHECK
+C       |
 C       |-- MYPACKAGE_CHECK
 C       |
 C       |-- GAD_CHECK
@@ -478,6 +480,12 @@ C---  Continue with standard packages (with standard usePKG flag)
 #ifndef ALLOW_EMBED_FILES
       IF (useEMBED_FILES) CALL PACKAGES_ERROR_MSG(
      &                                  'EMBED_FILES',' ',myThid)
+#endif
+
+#ifdef ALLOW_SAL
+      IF (useSAL) CALL SAL_CHECK( myThid )
+#else
+      IF (useSAL) CALL PACKAGES_ERROR_MSG('SAL',' ',myThid)
 #endif
 
 #ifdef ALLOW_MYPACKAGE

@@ -128,6 +128,8 @@ C       |-- GGL90_EXCHANGES
 C       |
 C       |-- CALC_PHIBOT_FV
 C       |
+C       |-- SAL_APPLY
+C       |
 C       |-- DIAGS_RHO_G
 C       |-- DIAGS_OCEANIC_SURF_FLUX
 C       |-- SALT_PLUME_DIAGNOSTICS_FILL
@@ -1089,6 +1091,17 @@ C---  if fluid Is Water: end
 #ifdef INCLUDE_PHIBOT_FV_CODE
       CALL CALC_PHIBOT_FV(myTime, myIter, myThid)
 #endif
+
+#ifdef ALLOW_SAL
+      IF (useSAL) THEN
+# ifdef ALLOW_DEBUG
+        IF (debugMode) CALL DEBUG_CALL('SAL_APPLY',myThid)
+# endif
+        CALL TIMER_START('SAL_APPLY       [DO_OCEANIC_PHYS]', myThid)
+        CALL SAL_APPLY(myTime, myIter, myThid)
+        CALL TIMER_STOP ('SAL_APPLY       [DO_OCEANIC_PHYS]', myThid)
+      ENDIF
+#endif /* ALLOW_SAL */
 #ifdef ALLOW_DIAGNOSTICS
       IF ( useDiagnostics ) THEN
        IF ( fluidIsWater ) THEN

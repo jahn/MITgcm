@@ -99,6 +99,8 @@ C       |-- NEST2W_INIT_VARIA
 C       |
 C       |-- CPL_INI_VARS
 C       |
+C       |-- SAL_INIT_VARIA
+C       |
 C       |-- MYPACKAGE_INIT_VARIA
 C       |
 C       |-- SMOOTH_INIT_VARIA
@@ -468,6 +470,12 @@ C--   Initialise the 2-Way Nesting packages variables
         CALL CPL_INI_VARS( myThid )
       ENDIF
 #endif /* COMPONENT_MODULE */
+
+#ifdef ALLOW_SAL
+      IF ( useSAL ) THEN
+        CALL SAL_INIT_VARIA( myThid )
+      ENDIF
+#endif /* ALLOW_SAL */
 
 #ifdef ALLOW_MYPACKAGE
       IF ( useMYPACKAGE ) THEN

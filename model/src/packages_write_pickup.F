@@ -231,6 +231,13 @@ C     Write pickup file for diagnostics package
       ENDIF
 #endif  /* COMPONENT_MODULE */
 
+#ifdef ALLOW_SAL
+      IF (useSAL) THEN
+        CALL SAL_WRITE_PICKUP( permPickup,
+     I                         suffix, myTime, myIter, myThid )
+      ENDIF
+#endif /* ALLOW_SAL */
+
 #ifdef ALLOW_MYPACKAGE
       IF (useMYPACKAGE) THEN
         CALL MYPACKAGE_WRITE_PICKUP( permPickup,
