@@ -26,7 +26,7 @@ def setup(app):
         filelink('https://github.com/MITgcm/MITgcm/blob/master/%s'))
     app.add_role(
         'varlink',
-        autolink('http://mitgcm.org/lxr/ident/MITgcm?_i=%s'))
+        autolink('https://gud.mit.edu/MITgcm/ident?v=sal;i=%s'))
 
 def filelink(pattern):
     """
