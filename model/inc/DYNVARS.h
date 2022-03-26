@@ -118,11 +118,17 @@ C                     = 0 (not convecting) or 1 (convecting)
      &                rhoInSitu,
      &                totPhiHyd, phiHydLow,
      &                hMixLayer, IVDConvCount
+#ifdef INCLUDE_PHIBOT_FV_CODE
+     &               ,PHIBOTfv
+#endif
       _RL  rhoInSitu(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RL  totPhiHyd(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RL  phiHydLow(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  hMixLayer(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL  IVDConvCount(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
+#ifdef INCLUDE_PHIBOT_FV_CODE
+      _RL  PHIBOTfv(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
+#endif
 
 #if (defined (ALLOW_SIGMAR_COST_CONTRIBUTION) || defined (ALLOW_LEITH_QG))
 C     Leith QG dynamic viscosity scheme requires buoyancy frequency.

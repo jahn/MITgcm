@@ -563,6 +563,15 @@ c     diagTitle = 'Square of ocean bottom pressure / top. geo-Potential'
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I          diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
+#ifdef INCLUDE_PHIBOT_FV_CODE
+      diagName  = 'PHIBOTfv'
+      diagTitle = 'finite-volume ocean bottom pressure'
+      diagUnits = 'm^2/s^2         '
+      diagCode  = 'SM      M1      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I          diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+#endif
+
       diagName  = 'phiTid2d'
       diagTitle = 'Tide-generating geopotential'
       diagUnits = 'm^2/s^2         '

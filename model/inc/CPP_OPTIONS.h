@@ -53,6 +53,9 @@ C   forcing fields, if no specific pkg (e.g., EXF) is used to compute them.
 C o Include/exclude phi_hyd calculation code
 #define INCLUDE_PHIHYD_CALCULATION_CODE
 
+C o Include/exclude computation of finite-volume bottom pressure
+#define INCLUDE_PHIBOT_FV_CODE
+
 C o Include/exclude sound speed calculation code
 C o (Note that this is a diagnostic from Del Grasso algorithm, not derived from EOS)
 #undef INCLUDE_SOUNDSPEED_CALC_CODE

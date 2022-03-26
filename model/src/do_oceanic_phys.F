@@ -126,6 +126,8 @@ C       |-- KPP_DO_EXCH
 C       |
 C       |-- GGL90_EXCHANGES
 C       |
+C       |-- CALC_PHIBOT_FV
+C       |
 C       |-- DIAGS_RHO_G
 C       |-- DIAGS_OCEANIC_SURF_FLUX
 C       |-- SALT_PLUME_DIAGNOSTICS_FILL
@@ -1083,6 +1085,10 @@ C---  if fluid Is Water: end
      &  CALL GGL90_EXCHANGES( myThid )
 #endif /* ALLOW_GGL90 */
 
+
+#ifdef INCLUDE_PHIBOT_FV_CODE
+      CALL CALC_PHIBOT_FV(myTime, myIter, myThid)
+#endif
 #ifdef ALLOW_DIAGNOSTICS
       IF ( useDiagnostics ) THEN
        IF ( fluidIsWater ) THEN
