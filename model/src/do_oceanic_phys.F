@@ -140,6 +140,7 @@ C     == Global variables ===
 #include "PARAMS.h"
 #include "GRID.h"
 #include "DYNVARS.h"
+#include "FFIELDS.h"
 #ifdef ALLOW_TIMEAVE
 # include "TIMEAVE_STATV.h"
 #endif
@@ -152,7 +153,6 @@ C     == Global variables ===
 # ifdef ALLOW_AUTODIFF_TAMC
 #  include "tamc.h"
 # endif
-# include "FFIELDS.h"
 # include "SURFACE.h"
 # include "EOS.h"
 # ifdef ALLOW_GMREDI
@@ -1084,22 +1084,22 @@ C---  if fluid Is Water: end
 #endif /* ALLOW_GGL90 */
 
 #ifdef ALLOW_DIAGNOSTICS
-      IF ( fluidIsWater .AND. useDiagnostics ) THEN
+      IF ( useDiagnostics ) THEN
+       IF ( fluidIsWater ) THEN
         CALL DIAGS_RHO_G(
      I                    rhoInSitu, uVel, vVel, wVel,
      I                    myTime, myIter, myThid )
-      ENDIF
-      IF ( useDiagnostics ) THEN
-        CALL DIAGS_OCEANIC_SURF_FLUX( myTime, myIter, myThid )
-      ENDIF
-      IF ( calcConvect .AND. useDiagnostics ) THEN
+       ENDIF
+       CALL DIAGS_OCEANIC_SURF_FLUX( myTime, myIter, myThid )
+       IF ( calcConvect ) THEN
         CALL DIAGNOSTICS_FILL( IVDConvCount, 'CONVADJ ',
      &                               0, Nr, 0, 1, 1, myThid )
-      ENDIF
+       ENDIF
+       CALL DIAGNOSTICS_FILL(phiTide2d,'phiTid2d',0, 1,0,1,1,myThid)
 #ifdef ALLOW_SALT_PLUME
-      IF ( useDiagnostics )
-     &      CALL SALT_PLUME_DIAGNOSTICS_FILL(bi,bj,myThid)
+       CALL SALT_PLUME_DIAGNOSTICS_FILL(bi,bj,myThid)
 #endif
+      ENDIF
 #endif
 
 #ifdef ALLOW_DEBUG
