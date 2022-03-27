@@ -3,5 +3,6 @@
  useGMRedi=.TRUE.,
 #useMNC=.TRUE.,
  useDiagnostics=.TRUE.,
+ useSAL=.TRUE.,
  &
   

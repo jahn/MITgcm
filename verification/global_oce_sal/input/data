@@ -32,6 +32,7 @@
  hFacMin=.1,
  hFacMindz=50.,
  useCDscheme=.TRUE.,
+#useSingleCPUio=.TRUE.,
  &
 
 # Elliptic solver parameters
@@ -43,7 +44,7 @@
 # Time stepping parameters
  &PARM03
  nIter0=5184000,
- nTimeSteps = 4,
+ nTimeSteps = 8,
  deltaTmom  = 900.,
  tauCD =     321428.,
  deltaTtracer= 43200.,
@@ -51,8 +52,8 @@
  abEps = 0.1,
  pChkptFreq = 216000.,
  chkptFreq  = 216000.,
- dumpFreq   = 216000.,
- taveFreq   = 216000.,
+#dumpFreq   = 216000.,
+#taveFreq   = 216000.,
  monitorFreq= 86400.,
  tauThetaClimRelax = 5184000.,
  tauSaltClimRelax  = 7776000.,

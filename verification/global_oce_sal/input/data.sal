@@ -1,0 +1,15 @@
+ &SAL_PARM01
+ sal_LoveFile= 'Load_Love2_CM.dat',
+ sal_refFile= 'PHIBOTfv_ann.bin',
+#sal_diagIter=1,
+#sal_cilmIter=1,
+ sal_startTime=0.,
+ sal_maskLand=.TRUE.,
+# conservative interpolation from model grid to Gaussian grid
+ sal_model2llFile= '3deg_to_GL128x64XG0_N-S_conservative',
+# bicubic interpolation from Gaussian grid to model grid
+ sal_ll2modelMethod=2,
+# Gaussian grid origin
+ sal_lon_0= 1.40625,
+ sal_loadSaveCfg=.TRUE.,
+ /

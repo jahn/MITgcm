@@ -20,7 +20,7 @@
  &DIAGNOSTICS_LIST
   fields(1:10,1) = 'ETAN    ','ETANSQ  ','DETADT2 ','PHIBOT  ','PHIBOTSQ',
    levels(1,1) = 1.,
-   fileName(1) = 'surfDiag',
+#  fileName(1) = 'surfDiag',
   frequency(1) = 432000.,
   frequency(1) = 172800.,
   fields(1:18,2) = 'UVEL    ','VVEL    ','WVEL    ','PHIHYD  ',
@@ -36,6 +36,26 @@
                    'ADVx_SLT',
 #  fileName(3) = 'flxDiag',
   frequency(3) = 0.,
+#
+  fields(1,4) = 'PHIBOTfv',
+  fileName(4) = 'PHIBOTfv',
+ frequency(4) = 86400.,
+#
+  fields(1,5) = 'PHLSAL  ',
+  fileName(5) = 'PHLSAL',
+ frequency(5) = 86400.,
+#
+  fields(1,6) = 'SAL     ',
+  fileName(6) = 'SAL',
+ frequency(6) = 86400.,
+#
+  fields(1,7) = 'SALptid0',
+  fileName(7) = 'SALptid0',
+ frequency(7) = 86400.,
+#
+  fields(1,8) = 'SALptid1',
+  fileName(8) = 'SALptid1',
+ frequency(8) = 86400.,
  &
 
 #--------------------
