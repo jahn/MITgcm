@@ -71,7 +71,7 @@ usage()
     echo "  (-postclean|-pc)         after each exp. test, clean build-dir & run-dir"
     echo "  (-deloutp|-do)           delete output files after successful run"
     echo "  (-deldir|-dd)            on success, delete the output directory"
-    echo "  (-fail)                  return non-zero exit code if any exp fail"
+    echo "  (-pass)                  return non-zero exit code if any exp do not pass"
     echo
     echo "and where STRING can be a whitespace-delimited list"
     echo "such as:"
@@ -1136,7 +1136,7 @@ EXTRFLG=
 NOCATAD=
 MKSMALLF=
 OADSINGULARITY=
-FAILOPT=f
+PASSOPT=f
 
 #- type of testing (KIND):
 #   KIND=0 : forward (= default) ;  KIND=1 : Tangent Linear with TAF ;
@@ -1228,7 +1228,7 @@ for ac_option ; do
 	-postclean | --postclean | -pc | --pc) POSTCLEAN=2 ;;
 	-deloutp | --deloutp | -do | --do) POSTCLEAN=1 ;;
 
-	-fail) FAILOPT=t ;;
+	-pass) PASSOPT=t ;;
 
 	-mpi | --mpi) MPI=2 ;;
 	-MPI | --MPI) ac_prev=MPI ;;
@@ -1746,8 +1746,8 @@ for dir in $TESTDIRS ; do
 	fres=`formatresults $dir ${genmake:-N} ${makedepend:-N} ${make:-N} ${run:-N} $results`
 	echo "$fres" | sed 's/ 99/ --/g' | sed 's/  > />/' | sed 's/  < /</' >> $SUMMARY
 	echo "fresults='$fres'" | sed 's/ 99/ --/g' >> $locDIR"/summary.txt"
-        if echo "$fres" | grep -q FAIL; then
-          allpass=f
+        if [[ "$fres" != *" pass "* ]]; then
+            allpass=f
         fi
 
 	for ex in $extra_runs ; do
@@ -1773,8 +1773,8 @@ for dir in $TESTDIRS ; do
 	    fres=`formatresults $dir.$ex ${genmake:-N} ${makedepend:-N} ${make:-N} ${run:-N} $results`
 	    echo "$fres" | sed 's/ 99/ --/g' | sed 's/  > />/' | sed 's/  < /</' >> $SUMMARY
 	    echo "fresults='$fres'" | sed 's/ 99/ --/g' >> $locDIR"/summary.txt"
-            if echo "$fres" | grep -q FAIL; then
-              allpass=f
+            if [[ "$fres" != *" pass "* ]]; then
+                allpass=f
             fi
 	    if test "x$POSTCLEAN" = x2 ; then
 		run_clean $dir/$pfxdir.$ex
@@ -1897,7 +1897,7 @@ if test "x$DELDIR" = xt ; then
     rm -rf $DRESULTS
 fi
 
-if test "$FAILOPT" = t && test "$allpass" = f; then
+if test "$PASSOPT" = t && test "$allpass" = f; then
     exit 1
 fi
 
