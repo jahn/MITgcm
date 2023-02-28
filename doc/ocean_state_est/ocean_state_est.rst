@@ -750,10 +750,10 @@ control variables for an optimization. After defining CPP-flags
 <pkg/ctrl/CTRL_OPTIONS.h`, the parameters available for configuring generic
 cost terms in ``data.ctrl`` are given in :numref:`gencost_ctrl_params`.  The
 control variables are stored as fields on the model grid in files
-``$ctrlvar.$iternumber.data/meta``, and corresponding gradients in
-``ad$ctrlvar.$iternumber.data/meta``, where ``$ctrl`` is defined in
+``«ctrlvar».«iternumber».data/meta``, and corresponding gradients in
+``ad«ctrlvar».«iternumber».data/meta``, where «ctrlvar» is defined in
 ``data.ctrl`` (see :numref:`gencost_ctrl_files` for possible options) and
-``$iternumber`` is the 10-digit iteration number of the optimization. Further,
+«iternumber» is the 10-digit iteration number of the optimization. Further,
 :filelink:`ctrl <pkg/ctrl>` maps the gradient fields to a vector that can be
 handed over to an optimization routine (see :numref:`sectionoptim`) and maps
 the resulting new control vector to the model grid unless CPP-flag
@@ -1028,15 +1028,15 @@ specific setup, e.g., with the :ref:`EXF package <ssub_phys_pkg_exf_config>`.
 
 Generic Control Record Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-For each control variable ``$ctrlvar``, three pairs of .data files (and their
+For each control variable «ctrlvar», three pairs of .data files (and their
 corresponding .meta) are required or produced per adjoint run:
 
-1. | a. ``$ctrlvar.$iternumber.data/meta``
-   | b. ``ad$ctrlvar.$iternumber.data/meta``
-2. | a. ``$ctrlvar.tmp.$iternumber.data/meta``
-   | b. ``ad$ctrlvar.tmp.$iternumber.data/meta``
-3. | a. ``$ctrlvar.effective.$iternumber.data/meta``
-   | b. ``ad$ctrlvar.effective.$iternumber.data/meta``
+1. | (a) ``«ctrlvar».«iternumber».data/meta``
+   | (b) ``ad«ctrlvar».«iternumber».data/meta``
+2. | (a) ``«ctrlvar».tmp.«iternumber».data/meta``
+   | (b) ``ad«ctrlvar».tmp.«iternumber».data/meta``
+3. | (a) ``«ctrlvar».effective.«iternumber».data/meta``
+   | (b) ``ad«ctrlvar».effective.«iternumber».data/meta``
 
 In an adjoint run with the 2D time-dependent controls (CPP-flag
 :varlink:`ALLOW_GENTIM2D_CONTROL` defined), three variables
@@ -1049,14 +1049,14 @@ calls ctrl_init, ctrl_init_rec).  These three variables are subsequently
 used to determine the length of the three pairs (1--3) of files above in the
 order as follows:
 
-- First the ``ad$ctrlvar.[,tmp,effective].$iternumber.`` files (1b,2b,3b above
+- First the ``ad«ctrlvar».[,tmp,effective].«iternumber»``. files (1b,2b,3b above
   are produced in packages_init_fixed.F-->ctrl_init.F-->ctrl_init_ctrlvar
   (with yadprefix="ad") and of sizes 1:endrec for 1b, 1:diffrec for 2b and 3b --
   see :numref:`adxx_creation`;
 
-- Second, records startrec:endrec of (1a) ``$ctrvar.$iternumber.data`` are
+- Second, records startrec:endrec of (1a) ``«ctrlvar».«iternumber».data`` are
   accessed in ctrl_get_gen_rec.F
-  and (2a,3a) ``$ctrlvar.{tmp,effective}.data`` of size 1:diffrec are produced in
+  and (2a,3a) ``«ctrlvar».{tmp,effective}.data`` of size 1:diffrec are produced in
   initialize_variamd (inside call adthe_main_loop in taf_ad_output.F) --
   see :numref:`xx_creation`.
 
@@ -1087,9 +1087,9 @@ pkg/exf for surface forcing application.
     :alt: xx_creation
     :name: xx_creation
 
-    ``$ctrlvar`` are read in/created afterward inside
+    «ctrlvar» are read in/created afterward inside
     packages_init_variables[md] / ctrl_map_ini_gentim2d[md]. During the adjoint
-    run, ``ad$ctrlvar`` are read from ctrl_map_ini_gentim2d_ad, requesting
+    run, ad«ctrlvar» are read from ctrl_map_ini_gentim2d_ad, requesting
     records in reverse, and can cause crashing if that last record is
     :varlink:`diffrec` instead of :varlink:`endrec`.  As a result, file 1b
     needs accessible records :varlink:`endrec`:-1::varlink:`startrec` and the
