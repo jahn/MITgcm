@@ -25,16 +25,20 @@ def compare_stats(fname):
         tot = pickle.load(f)
     if type(tot) == type({}):
         for k in tot:
-            assert np.all(totals[k] == tot[k])
+            idxs = list(zip(*np.where(totals[k] != tot[k])))
+            assert len(idxs) == 0
     else:
         if tot.size != 0:
-            assert np.all(totals == tot)
+            idxs = list(zip(*np.where(totals != tot)))
+            assert len(idxs) == 0
     if type(loc) == type({}):
         for k in loc:
-            assert np.all(locals[k] == loc[k])
+            idxs = list(zip(*np.where(locals[k] != loc[k])))
+            assert len(idxs) == 0
     else:
         if loc.size != 0:
-            assert np.all(locals == loc)
+            idxs = list(zip(*np.where(locals != loc)))
+            assert len(idxs) == 0
 
 def test_readstats5():
     compare_stats('diagstats/offline_exf_seaice/tr_run.dyn_paralens/iceStDiag.0000000000.txt')
