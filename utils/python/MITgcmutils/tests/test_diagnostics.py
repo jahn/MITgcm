@@ -15,6 +15,21 @@ def test_readstats():
     assert totals['DETADT2'].shape == (4, 5)
     assert locals['THETA'][1, 4, 1] == 8.4845124949601
 
+
+def cmp(a, b):
+    av = .5*(np.abs(a) + np.abs(b))
+    if np.any(np.isnan(av)):
+        return -1
+    d = np.abs(a - b)
+    w = np.where(av)
+    np.divide.at(d, w, av[w])
+    ld = np.zeros_like(d) + 99
+    w = np.where(d)
+    np.place(ld, d, -np.log10(d[w]))
+    n = np.round(ld.clip(0,99)).astype(int).min()
+    return n
+
+
 def compare_stats(fname):
     locals, totals, itrs = mit.readstats(fname)
     lname = fname[:-4]+'.locals.pkl'
@@ -23,22 +38,24 @@ def compare_stats(fname):
         loc = pickle.load(f)
     with open(tname, 'rb') as f:
         tot = pickle.load(f)
+
     if type(tot) == type({}):
-        for k in tot:
-            idxs = list(zip(*np.where(totals[k] != tot[k])))
-            assert len(idxs) == 0
+        keys = list(tot)
     else:
-        if tot.size != 0:
-            idxs = list(zip(*np.where(totals != tot)))
-            assert len(idxs) == 0
+        keys = tot.dtype.names
+    for k in keys:
+        if tot[k].size != 0:
+            n = cmp(totals[k], tot[k])
+            assert n == 99
+
     if type(loc) == type({}):
-        for k in loc:
-            idxs = list(zip(*np.where(locals[k] != loc[k])))
-            assert len(idxs) == 0
+        keys = list(loc)
     else:
-        if loc.size != 0:
-            idxs = list(zip(*np.where(locals != loc)))
-            assert len(idxs) == 0
+        keys = loc.dtype.names
+    for k in keys:
+        if loc[k].size != 0:
+            n = cmp(locals[k], loc[k])
+            assert n == 99
 
 def test_readstats5():
     compare_stats('diagstats/offline_exf_seaice/tr_run.dyn_paralens/iceStDiag.0000000000.txt')
