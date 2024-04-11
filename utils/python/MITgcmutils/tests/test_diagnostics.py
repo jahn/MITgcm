@@ -10,7 +10,7 @@ def test_readstats():
     assert set(locals) == {'ETAN', 'UVEL', 'VVEL', 'WVEL', 'THETA', 'PHIHYD', 'DETADT2'}
     assert set(totals) == {'ETAN', 'UVEL', 'VVEL', 'WVEL', 'THETA', 'PHIHYD', 'DETADT2'}
     assert locals['THETA'].shape == (4, 5, 5)
-    assert locals['DETADT2'].shape == (4, 1, 5)
+    assert locals['DETADT2'].shape == (4, 0, 5)
     assert totals['THETA'].shape == (4, 5)
     assert totals['DETADT2'].shape == (4, 5)
     assert locals['THETA'][1, 4, 1] == 8.4845124949601
