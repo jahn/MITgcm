@@ -67,7 +67,6 @@ variables:
 		W:coordinates = "XC YC RC iter" ;
 
 // global attributes:
-		:MITgcm_version = "checkpoint67u" ;
 		:MITgcm_URL = "http://mitgcm.org" ;
 		:MITgcm_tag_id = "" ;
 		:MITgcm_mnc_ver = 0.9 ;

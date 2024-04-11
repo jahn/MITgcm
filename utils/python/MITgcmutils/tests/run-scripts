@@ -19,7 +19,7 @@ for f in \
   echo "# $f"
   o="$(basename $f)"
   scripts/gluemncbig -o $o.nc tests/data/$f.*.nc
-  ncdump -h $o.nc | grep -v build_ > $o.cdl
+  ncdump -h $o.nc | grep -v build_ | grep -v MITgcm_version > $o.cdl
   ncdump $o.nc | grep -v build_ | md5sum > $o.md5
   if ! diff tests/md5/$f.cdl $o.cdl; then
     echo "Metadata doesn't match reference: $f"

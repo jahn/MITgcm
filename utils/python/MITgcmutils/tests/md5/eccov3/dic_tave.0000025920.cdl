@@ -32,7 +32,6 @@ variables:
 		dic_pCO2_ave:description = "" ;
 
 // global attributes:
-		:MITgcm_version = "checkpoint63l" ;
 		:MITgcm_URL = "http://mitgcm.org" ;
 		:MITgcm_tag_id = "1.1645 2012/04/04" ;
 		:MITgcm_mnc_ver = 0.9 ;
