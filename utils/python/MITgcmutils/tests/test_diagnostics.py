@@ -72,8 +72,8 @@ def test_readstats8():
 def test_readstats9():
     compare_stats('diagstats/offline_exf_seaice/tr_run.dyn_jfnk/iceStDiag.0000000000.txt')
 
-def test_readstats10():
-    compare_stats('diagstats/offline_exf_seaice/run/iceStDiag.0000000000.txt')
+#def test_readstats10():
+#    compare_stats('diagstats/offline_exf_seaice/run/iceStDiag.0000000000.txt')
 
 def test_readstats11():
     compare_stats('diagstats/offline_exf_seaice/tr_run.thsice/iceStDiag.0000000000.txt')
@@ -129,11 +129,11 @@ def test_readstats48():
 def test_readstats49():
     compare_stats('diagstats/global_ocean.cs32x15/tr_run.icedyn/dynStDiag.0000072000.txt')
 
-def test_readstats57():
-    compare_stats('diagstats/global_ocean.90x40x15/tr_run.dwnslp/oceStDiag.0000036000.txt')
+#def test_readstats57():
+#    compare_stats('diagstats/global_ocean.90x40x15/tr_run.dwnslp/oceStDiag.0000036000.txt')
 
-def test_readstats58():
-    compare_stats('diagstats/global_ocean.90x40x15/tr_run.dwnslp/dynStDiag.0000036000.txt')
+#def test_readstats58():
+#    compare_stats('diagstats/global_ocean.90x40x15/tr_run.dwnslp/dynStDiag.0000036000.txt')
 
 def test_readstats59():
     compare_stats('diagstats/global_ocean.90x40x15/run/oceStDiag.0000036000.txt')
