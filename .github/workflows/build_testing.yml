@@ -102,11 +102,11 @@ jobs:
      - name: Download mnc test data
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/run/mnc_test_0001/{oceDiag,state,phiHyd,phiHydLow}.0000072000.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/run/mnc_test_0001/#1.0000072000.t0#2.nc
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/{oceDiag,state,phiHyd,phiHydLow}.0000072000.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/#1.0000072000.t0#2.nc
      - name: Download mnc grid data
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/run/mnc_test_0001/grid.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/run/mnc_test_0001/grid.t0#1.nc
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/grid.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/grid.t0#1.nc
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils

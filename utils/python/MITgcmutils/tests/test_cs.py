@@ -35,7 +35,7 @@ if havematplotlib:
     def test_pcol(tmpdir):
         with tmpdir.as_cwd():
             ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 
-                'global_ocean.cs32x15/run/mnc_test_0001/state.0000072000.t*.nc'),
+                'global_ocean.cs32x15/state.0000072000.t*.nc'),
                 ['XG', 'YG', 'Eta'])
             x = ds['XG']
             y = ds['YG']
@@ -55,8 +55,8 @@ if havematplotlib:
 
     def test_pcol_sphere(tmpdir):
         with tmpdir.as_cwd():
-            ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15', 'run',
-                                 'mnc_test_0001', 'state.0000072000.*.nc'),
+            ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15',
+                                 'state.0000072000.*.nc'),
                            ['XG', 'YG', 'Eta'])
             x = ds['XG']
             y = ds['YG']
@@ -78,8 +78,8 @@ if havematplotlib:
     if havebasemap:
         def test_pcol_basemap(tmpdir):
             with tmpdir.as_cwd():
-                ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15', 'run',
-                                     'mnc_test_0001', 'state.0000072000.*.nc'),
+                ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15',
+                                     'state.0000072000.*.nc'),
                                ['XG', 'YG', 'Eta'])
                 x = ds['XG']
                 y = ds['YG']

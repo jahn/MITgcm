@@ -40,8 +40,8 @@ def test_rdmnc_eccov3():
 
 
 def test_rdmnc_cs32():
-    ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15', 'run',
-                         'mnc_test_0001', 'oceDiag.*.nc'))
+    ds = mit.rdmnc(pjoin(TEST_DATA_PATH, 'global_ocean.cs32x15',
+                         'oceDiag.*.nc'))
     assert sorted(ds) == '''
     CONVADJ DRHODR GM_Kwx GM_Kwy GM_Kwz GM_PsiX GM_PsiY RHOAnoma T X Xp1 Y Yp1 diag_levels iter
     '''.split()

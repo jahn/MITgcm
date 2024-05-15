@@ -9,11 +9,11 @@ fi
 
 err=0
 for f in \
-  global_ocean.cs32x15/run/mnc_test_0001/grid \
-  global_ocean.cs32x15/run/mnc_test_0001/state.0000072000 \
-  global_ocean.cs32x15/run/mnc_test_0001/oceDiag.0000072000 \
-  global_ocean.cs32x15/run/mnc_test_0001/phiHyd.0000072000 \
-  global_ocean.cs32x15/run/mnc_test_0001/phiHydLow.0000072000 \
+  global_ocean.cs32x15/grid \
+  global_ocean.cs32x15/state.0000072000 \
+  global_ocean.cs32x15/oceDiag.0000072000 \
+  global_ocean.cs32x15/phiHyd.0000072000 \
+  global_ocean.cs32x15/phiHydLow.0000072000 \
   eccov3/dic_tave.0000025920
   do
   echo "# $f"

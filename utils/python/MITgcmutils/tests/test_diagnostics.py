@@ -3,7 +3,7 @@ import numpy as np
 import MITgcmutils as mit
 
 def test_readstats_dims():
-    locals, totals, itrs = mit.readstats('tests/diagstats/hs94.cs-32x32x5/tr_run.impIGW/dynStDiag.0000025920.txt')
+    locals, totals, itrs = mit.readstats('tests/diagstats/hs94.cs-32x32x5.impIGW/dynStDiag.0000025920.txt')
     assert itrs['ETAN'] == [25920, 25923, 25926, 25929]
     assert itrs['UVEL'] == [25920, 25923, 25926, 25929]
     assert set(locals) == {'ETAN', 'UVEL', 'VVEL', 'WVEL', 'THETA', 'PHIHYD', 'DETADT2'}
@@ -17,7 +17,7 @@ def test_readstats_dims():
 
 def test_readstats_regions_dims():
     statsPerLayer, statsVertInt, itrs = mit.readstats(
-        'tests/diagstats/aim.5l_cs/tr_run.thSI/landStDiag.0000000000.txt')
+        'tests/diagstats/aim.5l_cs.thSI/landStDiag.0000000000.txt')
     assert set(statsVertInt) == {'GrdTemp', 'GrdWater', 'LdSnowH', 'GrdSurfT'}
     assert list(itrs) == ['LdSnowH', 'GrdSurfT', 'GrdTemp', 'GrdWater']
     assert itrs['LdSnowH'] == [0, 8]
@@ -35,7 +35,7 @@ def test_readstats_regions_dims():
 
 def test_readstats_fields_regions():
     statsPerLayer, statsVertInt, itrs = mit.readstats(
-        'tests/diagstats/global_ocean.cs32x15/tr_run.thsice/thSIceStDiag.0000036000.txt')
+        'tests/diagstats/global_ocean.cs32x15.thsice/thSIceStDiag.0000036000.txt')
     assert statsVertInt.dtype.names == ('SI_Fract', 'SI_Thick', 'SI_SnowH', 'SI_Tsrf', 'SI_Tice1', 'SI_Tice2', 'SI_Qice1', 'SI_Qice2', 'SIsnwPrc', 'SIalbedo', 'SIsnwAge', 'SIflx2oc', 'SIfrw2oc', 'SIsaltFx', 'SIflxAtm', 'SIfrwAtm')
     assert list(itrs) == ['SI_Fract', 'SI_Thick', 'SI_SnowH', 'SI_Tsrf', 'SI_Tice1', 'SI_Tice2', 'SI_Qice1', 'SI_Qice2', 'SIsnwPrc', 'SIalbedo', 'SIsnwAge', 'SIflx2oc', 'SIfrw2oc', 'SIsaltFx', 'SIflxAtm', 'SIfrwAtm']
     assert itrs['SI_Fract'] == [36010, 36020]
