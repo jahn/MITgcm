@@ -1,2 +1,4 @@
-Install needed python versions systemwide (python3.8, ...)
-Run tox in ..
+1. Download reference data from https://engaging-web.mit.edu/~jahn/MITgcmutils to data/
+2. Install needed python versions systemwide (python3.8, ...)
+3. Run tox in ..
+

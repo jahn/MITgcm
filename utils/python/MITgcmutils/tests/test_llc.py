@@ -27,7 +27,7 @@ else:
         mpl.style.use('classic')
 
     TEST_DATA_PATH = pjoin(dirname(__file__), 'data')
-    BASELINE_PATH = pjoin(dirname(__file__), 'baseline_images')
+    BASELINE_PATH = pjoin(dirname(__file__), 'data', 'baseline_images')
     figsize = (12., 6.)
 
     def test_contourf(tmpdir):
