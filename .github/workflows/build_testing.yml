@@ -42,29 +42,7 @@ jobs:
        run: |
          . tools/ci/runtr.sh
 
-     - name: Upload diagstats
-       uses: actions/upload-artifact@v2
-       with:
-         name: diagstats
-         path: verification/*/*run*/*StDiag*
-         if-no-files-found: ignore
-
-     - name: Upload mds output
-       uses: actions/upload-artifact@v2
-       with:
-         name: mds
-         path: verification/global_ocean.90x40x15/run/pickup.ckptA*
-         if-no-files-found: ignore
-
-     - name: Upload mnc output
-       uses: actions/upload-artifact@v2
-       with:
-         name: mnc
-         path: verification/*/*run*/mnc_test_*/*.nc
-         if-no-files-found: ignore
-
  python:
-   needs: forward
    runs-on: ubuntu-latest
    strategy:
      matrix:
@@ -98,40 +76,37 @@ jobs:
        run: |
          sudo apt-get update
          sudo apt-get -qq install netcdf-bin
-     - name: Download diagstats output
-       uses: actions/download-artifact@v2
-       with:
-         name: diagstats
-         path: utils/python/MITgcmutils/diagstats
-     - name: Download mds output
-       uses: actions/download-artifact@v2
-       with:
-         name: mds
-         path: utils/python/MITgcmutils/tests/data/global_ocean.90x40x15
-     - name: Download mnc output
-       uses: actions/download-artifact@v2
-       with:
-         name: mnc
-         path: utils/python/MITgcmutils/tests/data
      - name: Create download directories
-       run: mkdir -p baseline_images data/llc90 data/aste data/eccov3
-       working-directory: utils/python/MITgcmutils/tests
+       run: mkdir -p baseline_images llc90 aste eccov3 global_ocean.90x40x15 global_ocean.cs32x15/run/mnc_test_0001
+       working-directory: utils/python/MITgcmutils/tests/data
      - name: Download baseline images
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/{cs_pcol,cs_pcol_sphere,cs_pcol_sphere_pre330,llc_contour,llc_contourf,llc_pcol,llc_pcol_basemap,llc_pcol_stere,llc_pcol_xg}.png -o utils/python/MITgcmutils/tests/baseline_images/#1.png
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/baseline_images/{cs_pcol,cs_pcol_sphere,cs_pcol_sphere_pre330,llc_contour,llc_contourf,llc_pcol,llc_pcol_basemap,llc_pcol_stere,llc_pcol_xg}.png -o utils/python/MITgcmutils/tests/data/baseline_images/#1.png
      - name: Download mds test data
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mds/llc90/{Eta.0000000008,hFacC,XC,XG,YC,YG}.{data,meta} -o utils/python/MITgcmutils/tests/data/llc90/#1.#2
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/llc90/{Eta.0000000008,hFacC,XC,XG,YC,YG}.{data,meta} -o utils/python/MITgcmutils/tests/data/llc90/#1.#2
      - name: Download aste test data
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mnc/aste/grid.t0{01,02,04,05,07,08,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,36,37,38,39,41,42,43,44,45}.nc -o utils/python/MITgcmutils/tests/data/aste/grid.t0#1.nc
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/aste/grid.t0{01,02,04,05,07,08,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,36,37,38,39,41,42,43,44,45}.nc -o utils/python/MITgcmutils/tests/data/aste/grid.t0#1.nc
      - name: Download eccov3 test data
        uses: wei/curl@v1.1.1
        with:
-         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/mnc/eccov3/dic_tave.0000025920.t[001-032].nc -o utils/python/MITgcmutils/tests/data/eccov3/dic_tave.0000025920.t#1.nc
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/eccov3/dic_tave.0000025920.t[001-032].nc -o utils/python/MITgcmutils/tests/data/eccov3/dic_tave.0000025920.t#1.nc
+     - name: Download pickup test data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.90x40x15/pickup.ckptA.00{1,2,3,4,5,6,7,8,9}.00{1,2,3,4}.{data,meta} -o utils/python/MITgcmutils/tests/data/global_ocean.90x40x15/pickup.ckptA.00#1.00#2.#3
+     - name: Download mnc test data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/run/mnc_test_0001/{oceDiag,state,phiHyd,phiHydLow}.0000072000.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/run/mnc_test_0001/#1.0000072000.t0#2.nc
+     - name: Download mnc grid data
+       uses: wei/curl@v1.1.1
+       with:
+         args: https://engaging-web.mit.edu/~jahn/MITgcmutils/global_ocean.cs32x15/run/mnc_test_0001/grid.t0{01,02,03,04,05,06,07,08,09,10,11,12}.nc -o utils/python/MITgcmutils/tests/data/global_ocean.cs32x15/run/mnc_test_0001/grid.t0#1.nc
      - name: Run Tox
        run: tox -e ${{ matrix.env }}
        working-directory: utils/python/MITgcmutils
@@ -253,3 +228,5 @@ jobs:
        run: |
          cd doc
          make clean latexpdf LATEXOPTS="-interaction=nonstopmode -halt-on-error"
+
+
