@@ -349,6 +349,29 @@ def _sqData(a):
     b = np.ma.masked_where(np.isnan(b), b)
     return b
 
+
+def _pcolormesh(x, y, d, **kwargs):
+    '''
+    Replace non-finite coordinates and mask data before calling pcolormesh
+    to deal with some Basemap projection issues.
+    '''
+    j, i = np.where(~(np.isfinite(x)&(np.isfinite(y))))
+    if len(i):
+        ny, nx = d.shape
+        iclip = np.clip(i,0,nx-1)
+        jclip = np.clip(j,0,ny-1)
+        im1clip = np.clip(i-1,0,nx-1)
+        jm1clip = np.clip(j-1,0,ny-1)
+        d[jclip,iclip] = np.NaN
+        d[jclip,im1clip] = np.NaN
+        d[jm1clip,iclip] = np.NaN
+        d[jm1clip,im1clip] = np.NaN
+        x[j,i] = 0
+        y[j,i] = 0
+
+    return plt.pcolormesh(x, y, d, **kwargs)
+
+
 def pcol(*arguments, **kwargs):
     """
     Create a pseudo-color plot of a 2-D llc array (with plt.pcolormesh).
@@ -492,13 +515,13 @@ def pcol(*arguments, **kwargs):
     for t in [0,1,3,4]:
         if mapit: x, y = m(_sqCoord(f[0][t]), _sqCoord(f[1][t]))
         else:     x, y =   _sqCoord(f[0][t]), _sqCoord(f[1][t])
-        ph.append(plt.pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
     # plot more lateral faces to be able to select the longitude range later
     for t in [1,3,4]:
         f[0][t] = f[0][t]+ (-1)**t*360.
         if mapit: x, y = m(_sqCoord(f[0][t]), _sqCoord(f[1][t]))
         else:     x, y =   _sqCoord(f[0][t]), _sqCoord(f[1][t])
-        ph.append(plt.pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
 
     # Arctic face is special, because of the rotation of the grid by
     # rangle = 7deg (seems to be the default)
@@ -506,7 +529,7 @@ def pcol(*arguments, **kwargs):
 
     if mapit & stereographicProjection:
         x, y = m(_sqCoord(f[0][t]),_sqCoord(f[1][t]))
-        ph.append(plt.pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(f[2][t]), **kwargs))
     else:
         rangle = 7.
         # first half of Arctic tile
@@ -518,12 +541,12 @@ def pcol(*arguments, **kwargs):
         xx = np.where(xx<rangle,xx+360,xx)
         if mapit: x, y = m(_sqCoord(xx),_sqCoord(yy))
         else:     x, y =   _sqCoord(xx),_sqCoord(yy)
-        ph.append(plt.pcolormesh(x,y,_sqData(zz), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(zz), **kwargs))
         # repeat for xx-360
         xx = xx-360.
         if mapit: x, y = m(_sqCoord(xx),_sqCoord(yy))
         else:     x, y =   _sqCoord(xx),_sqCoord(yy)
-        ph.append(plt.pcolormesh(x,y,_sqData(zz), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(zz), **kwargs))
         # second half of Arctic tile
         nn = nx//2
         xx = np.copy(f[0][t][nn:,:])
@@ -532,12 +555,12 @@ def pcol(*arguments, **kwargs):
         #
         if mapit: x, y = m(_sqCoord(xx),_sqCoord(yy))
         else:     x, y =   _sqCoord(xx),_sqCoord(yy)
-        ph.append(plt.pcolormesh(x,y,_sqData(zz), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(zz), **kwargs))
         # repeat for xx+360
         xx = xx + 360.
         if mapit: x, y = m(_sqCoord(xx),_sqCoord(yy))
         else:     x, y =   _sqCoord(xx),_sqCoord(yy)
-        ph.append(plt.pcolormesh(x,y,_sqData(zz), **kwargs))
+        ph.append(_pcolormesh(x,y,_sqData(zz), **kwargs))
 
     if not mapit:
         plt.xlim([-170,190])
