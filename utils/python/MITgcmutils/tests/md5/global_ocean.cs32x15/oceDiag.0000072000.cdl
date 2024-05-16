@@ -1,0 +1,70 @@
+netcdf oceDiag.0000072000 {
+dimensions:
+	T = UNLIMITED ; // (2 currently)
+	Zmd000015 = 15 ;
+	X = 384 ;
+	Y = 16 ;
+	Zld000015 = 15 ;
+	Xp1 = 385 ;
+	Yp1 = 17 ;
+variables:
+	double diag_levels(Zmd000015) ;
+		diag_levels:description = "Idicies of vertical levels within the source arrays" ;
+	double X(X) ;
+		X:long_name = "i-index of cell center" ;
+		X:units = "none" ;
+	double Y(Y) ;
+		Y:long_name = "j-index of cell center" ;
+		Y:units = "none" ;
+	double Xp1(Xp1) ;
+		Xp1:long_name = "i-index of cell corner" ;
+		Xp1:units = "none" ;
+	double Yp1(Yp1) ;
+		Yp1:long_name = "j-index of cell corner" ;
+		Yp1:units = "none" ;
+	double T(T) ;
+		T:long_name = "model_time" ;
+		T:units = "s" ;
+	int iter(T) ;
+		iter:long_name = "iteration_count" ;
+	float DRHODR(T, Zld000015, Y, X) ;
+		DRHODR:description = "Stratification: d.Sigma/dr (kg/m3/r_unit)" ;
+		DRHODR:units = "kg/m^4" ;
+	float RHOAnoma(T, Zmd000015, Y, X) ;
+		RHOAnoma:description = "Density Anomaly (=Rho-rhoConst)" ;
+		RHOAnoma:units = "kg/m^3" ;
+	float CONVADJ(T, Zld000015, Y, X) ;
+		CONVADJ:description = "Convective Adjustment Index [0-1]" ;
+		CONVADJ:units = "fraction" ;
+	float GM_Kwx(T, Zld000015, Y, X) ;
+		GM_Kwx:description = "K_31 element (W.point, X.dir) of GM-Redi tensor" ;
+		GM_Kwx:units = "m^2/s" ;
+	float GM_Kwy(T, Zld000015, Y, X) ;
+		GM_Kwy:description = "K_32 element (W.point, Y.dir) of GM-Redi tensor" ;
+		GM_Kwy:units = "m^2/s" ;
+	float GM_Kwz(T, Zld000015, Y, X) ;
+		GM_Kwz:description = "K_33 element (W.point, Z.dir) of GM-Redi tensor" ;
+		GM_Kwz:units = "m^2/s" ;
+	float GM_PsiX(T, Zld000015, Y, Xp1) ;
+		GM_PsiX:description = "GM Bolus transport stream-function : U component" ;
+		GM_PsiX:units = "m^2/s" ;
+	float GM_PsiY(T, Zld000015, Yp1, X) ;
+		GM_PsiY:description = "GM Bolus transport stream-function : V component" ;
+		GM_PsiY:units = "m^2/s" ;
+
+// global attributes:
+		:MITgcm_URL = "http://mitgcm.org" ;
+		:MITgcm_tag_id = "" ;
+		:MITgcm_mnc_ver = 0.9 ;
+		:sNx = 32 ;
+		:sNy = 16 ;
+		:OLx = 4 ;
+		:OLy = 4 ;
+		:nSx = 12 ;
+		:nSy = 1 ;
+		:nPx = 1 ;
+		:nPy = 1 ;
+		:Nx = 384 ;
+		:Ny = 16 ;
+		:Nr = 15 ;
+}
