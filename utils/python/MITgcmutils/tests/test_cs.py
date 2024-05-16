@@ -46,7 +46,6 @@ if havematplotlib:
         plt.clf()
         h = pcol(x, y, e, cmap = 'jet')
         pngname = tmp_path / 'cs_pcol.png'
-        pngname = 'cs_pcol.png'
         plt.savefig(pngname)
         err = compare_images(pjoin(BASELINE_PATH, 'cs_pcol.png'), pngname, 13)
         if err:
