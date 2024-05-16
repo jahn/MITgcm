@@ -1,0 +1,40 @@
+netcdf phiHyd.0000072000 {
+dimensions:
+	T = UNLIMITED ; // (1 currently)
+	X = 384 ;
+	Y = 16 ;
+	Z = 15 ;
+variables:
+	double X(X) ;
+		X:long_name = "i-index of cell center" ;
+		X:units = "none" ;
+	double Y(Y) ;
+		Y:long_name = "j-index of cell center" ;
+		Y:units = "none" ;
+	double Z(Z) ;
+		Z:long_name = "vertical coordinate of cell center" ;
+		Z:units = "meters" ;
+		Z:positive = "up" ;
+	double T(T) ;
+		T:long_name = "model_time" ;
+		T:units = "s" ;
+	int iter(T) ;
+		iter:long_name = "iteration_count" ;
+	float phiHyd(T, Z, Y, X) ;
+
+// global attributes:
+		:MITgcm_URL = "http://mitgcm.org" ;
+		:MITgcm_tag_id = "" ;
+		:MITgcm_mnc_ver = 0.9 ;
+		:sNx = 32 ;
+		:sNy = 16 ;
+		:OLx = 4 ;
+		:OLy = 4 ;
+		:nSx = 12 ;
+		:nSy = 1 ;
+		:nPx = 1 ;
+		:nPy = 1 ;
+		:Nx = 384 ;
+		:Ny = 16 ;
+		:Nr = 15 ;
+}

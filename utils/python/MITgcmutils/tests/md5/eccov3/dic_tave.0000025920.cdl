@@ -1,0 +1,49 @@
+netcdf dic_tave.0000025920 {
+dimensions:
+	T = UNLIMITED ; // (1 currently)
+	X = 360 ;
+	Y = 160 ;
+variables:
+	double X(X) ;
+		X:long_name = "longitude of cell center" ;
+		X:units = "degrees_east" ;
+	double Y(Y) ;
+		Y:long_name = "latitude of cell center" ;
+		Y:units = "degrees_north" ;
+	double T(T) ;
+		T:long_name = "model_time" ;
+		T:units = "s" ;
+	int iter(T) ;
+		iter:long_name = "iteration_count" ;
+	float dic_SUR_ave(T, Y, X) ;
+		dic_SUR_ave:units = "--" ;
+		dic_SUR_ave:description = "" ;
+	float dic_SURC_ave(T, Y, X) ;
+		dic_SURC_ave:units = "--" ;
+		dic_SURC_ave:description = "" ;
+	float dic_SURO_ave(T, Y, X) ;
+		dic_SURO_ave:units = "--" ;
+		dic_SURO_ave:description = "" ;
+	float dic_pH_ave(T, Y, X) ;
+		dic_pH_ave:units = "--" ;
+		dic_pH_ave:description = "" ;
+	float dic_pCO2_ave(T, Y, X) ;
+		dic_pCO2_ave:units = "--" ;
+		dic_pCO2_ave:description = "" ;
+
+// global attributes:
+		:MITgcm_URL = "http://mitgcm.org" ;
+		:MITgcm_tag_id = "1.1645 2012/04/04" ;
+		:MITgcm_mnc_ver = 0.9 ;
+		:sNx = 45 ;
+		:sNy = 40 ;
+		:OLx = 4 ;
+		:OLy = 4 ;
+		:nSx = 1 ;
+		:nSy = 1 ;
+		:nPx = 8 ;
+		:nPy = 4 ;
+		:Nx = 360 ;
+		:Ny = 160 ;
+		:Nr = 23 ;
+}
