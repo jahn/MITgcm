@@ -1,11 +1,8 @@
 #!/bin/bash
 v="$1"
-if test -z "$v"; then
-  echo "run-scripts <python-version>"
-  exit 1
+if test -n "$v"; then
+  . .tox/$v/bin/activate
 fi
-
-. .tox/$v/bin/activate
 
 err=0
 for f in \
@@ -18,7 +15,7 @@ for f in \
   do
   echo "# $f"
   o="$(basename $f)"
-  scripts/gluemncbig -o $o.nc tests/data/$f.*.nc
+  scripts/gluemncbig -q -o $o.nc tests/data/$f.*.nc
   ncdump -h $o.nc | grep -v build_ | grep -v MITgcm_version > $o.cdl
   ncdump $o.nc | grep -v build_ | grep -v MITgcm_version | md5sum > $o.md5
   if ! diff tests/md5/$f.cdl $o.cdl; then
@@ -30,12 +27,6 @@ for f in \
     err=1
   fi
 done
-#for f in grid state_2d_set1.0000000000
-#do
-#  echo "# tests/data/extra/llc90/mnc/mnc_*/$f"
-#  scripts/gluemncbig -o t.nc tests/data/extra/llc90/mnc/mnc_*/$f.*.nc
-#  cmp tests/data/extra/ref_output/llc90/mnc/$f.nc t.nc || exit ERROR
-#done
 if [ "$err" = 1 ]; then
   echo "Some comparisons failed."
   exit 1
