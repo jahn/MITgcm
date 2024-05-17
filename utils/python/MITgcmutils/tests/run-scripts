@@ -25,6 +25,8 @@ for f in \
   if ! diff tests/md5/$f.md5 $o.md5; then
     echo "Checksum doesn't match reference: $f"
     err=1
+  else
+    rm $o.cdl $o.md5 $o.nc
   fi
 done
 if [ "$err" = 1 ]; then
