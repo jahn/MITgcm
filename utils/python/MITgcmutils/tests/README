@@ -5,5 +5,3 @@ To test any changes to MITgcmutils, do the following in the "tests" directory:
 2. Install needed python versions (python3.8, ..., python3.12).
 3. Install tox.
 4. Run "tox" in ".." (or "tox -e py38" or similar to test a single python version)
-5. Run "tests/run-scripts py38" (or other python version) in ".." to test gluemncbig.
-   It will generatae some .cdl, .md5 and .nc files.
