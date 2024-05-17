@@ -1,0 +1,3 @@
+[submodule "utils/python/MITgcmutils/tests/data"]
+	path = utils/python/MITgcmutils/tests/data
+	url = https://github.com/jahn/MITgcmutils-test-data.git
