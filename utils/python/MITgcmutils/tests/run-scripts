@@ -17,16 +17,16 @@ for f in \
   o="$(basename $f)"
   scripts/gluemncbig -q -o $o.nc tests/data/$f.*.nc
   ncdump -h $o.nc | grep -v build_ | grep -v MITgcm_version > $o.cdl
-  ncdump $o.nc | grep -v build_ | grep -v MITgcm_version | md5sum > $o.md5
-  if ! diff tests/md5/$f.cdl $o.cdl; then
+  ncdump $o.nc | grep -v build_ | grep -v MITgcm_version | cksum > $o.crc
+  if ! diff tests/nc/$f.cdl $o.cdl; then
     echo "Metadata doesn't match reference: $f"
     err=1
   fi
-  if ! diff tests/md5/$f.md5 $o.md5; then
+  if ! diff tests/nc/$f.crc $o.crc; then
     echo "Checksum doesn't match reference: $f"
     err=1
   else
-    rm $o.cdl $o.md5 $o.nc
+    rm $o.cdl $o.crc $o.nc
   fi
 done
 if [ "$err" = 1 ]; then
