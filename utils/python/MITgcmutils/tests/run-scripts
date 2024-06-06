@@ -16,17 +16,23 @@ for f in \
   echo "# $f"
   o="$(basename $f)"
   scripts/gluemncbig -q -o $o.nc tests/data/$f.*.nc
-  ncdump -h $o.nc | grep -v build_ | grep -v MITgcm_version > $o.cdl
-  ncdump $o.nc | grep -v build_ | grep -v MITgcm_version | cksum > $o.crc
-  if ! diff tests/nc/$f.cdl $o.cdl; then
-    echo "Metadata doesn't match reference: $f"
-    err=1
-  fi
-  if ! diff tests/nc/$f.crc $o.crc; then
-    echo "Checksum doesn't match reference: $f"
+  retval=$?
+  if [ $retval -ne 0 ]; then
+    echo "gluemncbig failed on $f"
     err=1
   else
-    rm $o.cdl $o.crc $o.nc
+    ncdump -h $o.nc | grep -v build_ | grep -v MITgcm_version > $o.cdl
+    ncdump $o.nc | grep -v build_ | grep -v MITgcm_version | cksum > $o.crc
+    if ! diff tests/nc/$f.cdl $o.cdl; then
+      echo "Metadata doesn't match reference: $f"
+      err=1
+    fi
+    if ! diff tests/nc/$f.crc $o.crc; then
+      echo "Checksum doesn't match reference: $f"
+      err=1
+    else
+      rm $o.cdl $o.crc $o.nc
+    fi
   fi
 done
 if [ "$err" = 1 ]; then
