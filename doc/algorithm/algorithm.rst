@@ -237,15 +237,8 @@ The calling tree for these routines is as follows:
 .. admonition:: Pressure method calling tree
   :class: note
 
-    | :filelink:`FORWARD\_STEP <model/src/forward_step.F>`
-    | :math:`\phantom{W}` :filelink:`DYNAMICS <model/src/dynamics.F>`
-    | :math:`\phantom{WW}` :filelink:`TIMESTEP <model/src/timestep.F>` :math:`\phantom{xxxxxxxxxxxxxxxxxxxxxx}` :math:`u^*,v^*` :eq:`ustar-rigid-lid` , :eq:`vstar-rigid-lid`
-    | :math:`\phantom{W}` :filelink:`SOLVE\_FOR\_PRESSURE <model/src/solve_for_pressure.F>`
-    | :math:`\phantom{WW}` :filelink:`CALC\_DIV\_GHAT <model/src/calc_div_ghat.F>` :math:`\phantom{xxxxxxxxxxxxxxxx}` :math:`H\widehat{u^*},H\widehat{v^*}` :eq:`elliptic`
-    | :math:`\phantom{WW}` :filelink:`CG2D <model/src/cg2d.F>` :math:`\phantom{xxxxxxxxxxxxxxxxxxxxxxxxxx}` :math:`\eta^{n+1}` :eq:`elliptic`
-    | :math:`\phantom{W}` :filelink:`MOMENTUM\_CORRECTION\_STEP <model/src/momentum_correction_step.F>`
-    | :math:`\phantom{WW}` :filelink:`CALC\_GRAD\_PHI\_SURF <model/src/calc_grad_phi_surf.F>` :math:`\phantom{xxxxxxxxxx}` :math:`\nabla \eta^{n+1}`
-    | :math:`\phantom{WW}` :filelink:`CORRECTION\_STEP  <model/src/correction_step.F>` :math:`\phantom{xxxxxxxxxxxxw}` :math:`u^{n+1},v^{n+1}` :eq:`un+1-rigid-lid` , :eq:`vn+1-rigid-lid`
+   text
+
 
 In general, the horizontal momentum time-stepping can contain some terms
 that are treated implicitly in time, such as the vertical viscosity when
