@@ -154,4 +154,15 @@ jobs:
      - name: build docs
        run: |
          cd doc
+         make clean latex
+
+     - name: Upload tex source
+       uses: actions/upload-artifact@v4
+       with:
+         name: latex-source
+         path: doc/_build/latex
+
+     - name: build docs
+       run: |
+         cd doc
          make clean latexpdf LATEXOPTS="-interaction=nonstopmode -halt-on-error"
