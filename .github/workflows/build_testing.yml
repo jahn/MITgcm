@@ -53,8 +53,14 @@ jobs:
    strategy:
      matrix:
       include:
-        - exp: "halfpipe_streamice"
+        - exp: "global_oce_biogeo_bling"
         - exp: "global_oce_latlon"
+        - exp: "global_ocean.cd32x15"
+        - exp: "halfpipe_streamice"
+        - exp: "isomip"
+        - exp: "lab_sea"
+        - exp: "tutorial_global_oce_biogeo"
+        - exp: "tutorial_tracel_adjsens"
 
    continue-on-error: true
 
