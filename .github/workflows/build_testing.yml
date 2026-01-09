@@ -71,8 +71,8 @@ jobs:
 
      - name: Get a docker image and set it running
        run: |
-         docker pull mitgcm/tapenade-ubuntu:latest
-         docker run -i -t -v `pwd`:/MITgcm -d --name tapenade-testing --ulimit stack=-1:-1 --memory=4g -e _JAVA_OPTIONS=-Xmx2560m --rm mitgcm/tapenade-ubuntu:latest /bin/bash
+         docker pull oliverjahn/tapenade-ubuntu:latest
+         docker run -i -t -v `pwd`:/MITgcm -d --name tapenade-testing --ulimit stack=-1:-1 --memory=4g -e _JAVA_OPTIONS=-Xmx2560m --rm oliverjahn/tapenade-ubuntu:latest /bin/bash
 
      - name: Run testreport
        env:

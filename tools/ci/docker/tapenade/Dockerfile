@@ -10,6 +10,7 @@ RUN apt-get install -y tar
 RUN apt-get install -y make
 RUN apt-get install -y libc6
 RUN apt-get install -y bison
+RUN apt-get install -y libnetcdff-dev
 
 RUN wget https://gitlab.inria.fr/tapenade/tapenade/-/archive/e89660a5921a1ccf68b4afc331b3b0910878a179/tapenade-e89660a5921a1ccf68b4afc331b3b0910878a179.tar.gz
 RUN tar -xzvf tapenade-e89660a5921a1ccf68b4afc331b3b0910878a179.tar.gz
