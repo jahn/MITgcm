@@ -3369,7 +3369,7 @@ cat >>$MAKEFILE <<EOF
 ## %.o : %.F
 
 # C preprocessing and replacing the _d in constants:
-CPPCMD = cat \$< | ${CPP} \$(DEFINES) \$(INCLUDES) | ${S64}
+CPPCMD = set -o pipefail ; cat \$< | ${CPP} \$(DEFINES) \$(INCLUDES) | ${S64}
 
 .F.$FS:
 	\$(CPPCMD)  > \$@
