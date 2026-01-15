@@ -3138,6 +3138,8 @@ cat >>$MAKEFILE <<EOF
 # LINK         : Command for link editor program
 # LIBS         : Library flags /or/ additional optimization/debugging flags
 
+SHELL := /bin/bash
+
 ROOTDIR     = ${ROOTDIR}
 BUILDDIR    = ${BUILDDIR}
 SOURCEDIRS  = ${SOURCEDIRSMK}
