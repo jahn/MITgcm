@@ -35,7 +35,7 @@ C     !FUNCTIONS:
 CEOP
 
 C     !LOCAL VARIABLES:
-      INTEGER iUnit, length_of_rec, iL, nM2G
+      INTEGER iUnit1, iUnit2, length_of_rec, iL, nM2G
       CHARACTER*(MAX_LEN_MBUF) msgBuf
       CHARACTER*(MAX_LEN_FNAM) fname
       INTEGER xSize, ySize
@@ -48,6 +48,8 @@ C     !LOCAL VARIABLES:
       INTEGER myTile
 #endif /* ALLOW_EXCH2 */
       INTEGER np, ip, ipo, ipstart, ill, iG1, jG1
+      INTEGER idx, errCnt
+      _RL wgt
 
       _BEGIN_MASTER( mythid )
 
@@ -58,23 +60,13 @@ C     !LOCAL VARIABLES:
       iL = ILNBLNK(SAL_model2llFile)
       WRITE(fname,'(A,A)') SAL_model2llFile(1:iL), '_indptr.bin'
       length_of_rec = MDS_RECLEN(32,SAL_NLON*SAL_NLAT+1,myThid)
-      CALL MDSFINDUNIT( iUnit, myThid )
-      OPEN(iUnit, file=fname, status='old', access='direct',
+      CALL MDSFINDUNIT( iUnit1, myThid )
+      OPEN(iUnit1, file=fname, status='old', access='direct',
      &     recl=length_of_rec)
-      READ(iUnit, rec=1) SAL_M2Gindptr
-      CLOSE(iUnit)
+      READ(iUnit1, rec=1) SAL_M2Gindptr
+      CLOSE(iUnit1)
 
       nM2G = SAL_M2Gindptr(SAL_NLON*SAL_NLAT+1)
-      IF (nM2G .GT. SAL_MAXM2G) THEN
-       WRITE(msgBuf,'(A,I10,A,I10,A)') 'SAL_INIT_INTERP: found ',
-     & nM2G,' model2ll weights, but SAL_MAXM2G = ',SAL_MAXM2G
-       CALL PRINT_ERROR( msgBuf, myThid )
-       WRITE(msgBuf,'(2A)') 'SAL_INIT_INTERP: ',
-     &  'need to increase SAL_MAXM2G'
-       CALL PRINT_ERROR( msgBuf, myThid )
-       CALL ALL_PROC_DIE( 0 )
-       STOP 'ABNORMAL END: S/R SAL_INIT_INTERP (SAL_MAXM2G)'
-      ENDIF
 
       WRITE(msgBuf,'(A,I10,A)') 'SAL_INIT_INTERP: reading ',
      &                          nM2G,' model2ll weights'
@@ -83,21 +75,17 @@ C     !LOCAL VARIABLES:
 
       iL = ILNBLNK(SAL_model2llFile)
       WRITE(fname,'(A,A)') SAL_model2llFile(1:iL), '_indices.bin'
-      length_of_rec = MDS_RECLEN(32,nM2G,myThid)
-      CALL MDSFINDUNIT( iUnit, myThid )
-      OPEN(iUnit, file=fname, status='old', access='direct',
+      length_of_rec = MDS_RECLEN(32,1,myThid)
+      CALL MDSFINDUNIT( iUnit1, myThid )
+      OPEN(iUnit1, file=fname, status='old', access='direct',
      &     recl=length_of_rec)
-      READ(iUnit, rec=1) SAL_M2Gind(1:nM2G)
-      CLOSE(iUnit)
 
       iL = ILNBLNK(SAL_model2llFile)
       WRITE(fname,'(A,A)') SAL_model2llFile(1:iL), '_weights.bin'
-      length_of_rec = MDS_RECLEN(64,nM2G,myThid)
-      CALL MDSFINDUNIT( iUnit, myThid )
-      OPEN(iUnit, file=fname, status='old', access='direct',
+      length_of_rec = MDS_RECLEN(64,1,myThid)
+      CALL MDSFINDUNIT( iUnit2, myThid )
+      OPEN(iUnit2, file=fname, status='old', access='direct',
      &     recl=length_of_rec)
-      READ(iUnit, rec=1) SAL_M2Gwgt(1:nM2G)
-      CLOSE(iUnit)
 
 C--   Restrict to model grid cells on this processor
 C     and map to tile indices
@@ -110,12 +98,15 @@ C     and map to tile indices
 #endif /* ALLOW_EXCH2 */
       np = myProcId + 1
       ipo = 0
+      errCnt = 0
       DO ill=1,SAL_NLON*SAL_NLAT
         ipstart = SAL_M2Gindptr(ill) + 1
         SAL_M2Gindptr(ill) = ipo
         DO ip=ipstart,SAL_M2Gindptr(ill+1)
-          jG = SAL_M2Gind(ip)/xSize + 1
-          iG = MOD(SAL_M2Gind(ip), xSize) + 1
+          READ(iUnit1, rec=ip) idx
+          READ(iUnit2, rec=ip) wgt
+          jG = idx/xSize + 1
+          iG = MOD(idx, xSize) + 1
 
 #ifdef ALLOW_EXCH2
           DO bj=1,nSy
@@ -142,9 +133,13 @@ C-           default (face fit into global-IO-array)
               iG1=exch2_txGlobalo(myTile)+iGjLoc*(j-1)
               jG1=exch2_tyGlobalo(myTile)+jGjLoc*(j-1)
               IF (jG.EQ.jG1 .AND. iG.GE.iG1 .AND. iG.LT.iG1+sNx) THEN
-               ipo = ipo + 1
+               IF (ipo .LT. SAL_MAXM2G) THEN
+                ipo = ipo + 1
+               ELSE
+                errCnt = errCnt + 1
+               ENDIF
                SAL_M2Gind(ipo) = (((bj-1)*nSx+bi-1)*sNy+j-1)*sNx+iG-iG1
-               SAL_M2Gwgt(ipo) = SAL_M2Gwgt(ip)
+               SAL_M2Gwgt(ipo) = wgt
               ENDIF
              ENDDO
            ENDDO
@@ -171,9 +166,13 @@ C-           default (face fit into global-IO-array)
               iG1 = iBase+(bi-1)*sNx+1
               jG1 = jBase+(bj-1)*sNy+j
               IF (jG.EQ.jG1 .AND. iG.GE.iG1 .AND. iG.LT.iG1+sNx) THEN
-               ipo = ipo + 1
+               IF (ipo .LT. SAL_MAXM2G) THEN
+                ipo = ipo + 1
+               ELSE
+                errCnt = errCnt + 1
+               ENDIF
                SAL_M2Gind(ipo) = (((bj-1)*nSx+bi-1)*sNy+j-1)*sNx+iG-iG1
-               SAL_M2Gwgt(ipo) = SAL_M2Gwgt(ip)
+               SAL_M2Gwgt(ipo) = wgt
               ENDIF
              ENDDO
            ENDDO
@@ -184,6 +183,25 @@ C-           default (face fit into global-IO-array)
         ENDDO
       ENDDO
       SAL_M2Gindptr(SAL_NLON*SAL_NLAT+1) = ipo
+
+      CLOSE(iUnit1)
+      CLOSE(iUnit2)
+
+      IF (errCnt .GT. 0) THEN
+       errCnt = errCnt + ipo
+       WRITE(msgBuf,'(2A,I10,A)') 'SAL_INIT_INTERP:',
+     &      ' need',errCnt,' weights'
+       CALL PRINT_ERROR(msgBuf, myThid)
+       WRITE(msgBuf,'(2A)') 'SAL_INIT_INTERP:',
+     &      ' increase SAL_MAXM2G'
+       CALL PRINT_ERROR(msgBuf, myThid)
+       STOP 'SAL_INIT_MODEL2LL: insufficient SAL_MAXM2G'
+      ENDIF
+
+      WRITE(msgBuf,'(2A,I10,A)') 'SAL_INIT_INTERP:',
+     &     ' using',ipo,' weights'
+      CALL PRINT_MESSAGE(msgBuf,standardMessageUnit,
+     &                   SQUEEZE_RIGHT,myThid)
 
       _END_MASTER( mythid )
       _BARRIER
