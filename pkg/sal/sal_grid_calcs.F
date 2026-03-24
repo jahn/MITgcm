@@ -30,15 +30,17 @@ C     !LOCAL VARIABLES:
 C---Grid to SPH
       CALL SHTNS_SPAT_TO_SH(SAL_grid, SAL_lm)
 
-      IF (SAL_cilmIter.GT.0 .AND. MOD(myIter,SAL_cilmIter).EQ.0) THEN
-       WRITE(fname,'(A,I10.10,A)') 'SAL_cilm.',myIter,'.bin'
-       filePrec = 64
-       CALL MDSFINDUNIT( iUnit, myThid )
-       length_of_rec = MDS_RECLEN(filePrec,SAL_NLM*2,myThid)
-       OPEN(iUnit, file=fname, status='unknown', access='direct',
-     &      recl=length_of_rec)
-       WRITE(iUnit, rec=1) SAL_lm
-       CLOSE(iUnit)
+      IF (SAL_cilmIter.GT.0) THEN
+       IF (MOD(myIter,SAL_cilmIter).EQ.0) THEN
+        WRITE(fname,'(A,I10.10,A)') 'SAL_cilm.',myIter,'.bin'
+        filePrec = 64
+        CALL MDSFINDUNIT( iUnit, myThid )
+        length_of_rec = MDS_RECLEN(filePrec,SAL_NLM*2,myThid)
+        OPEN(iUnit, file=fname, status='unknown', access='direct',
+     &       recl=length_of_rec)
+        WRITE(iUnit, rec=1) SAL_lm
+        CLOSE(iUnit)
+       ENDIF
       ENDIF
 
 C---Convolution step for SAL calculation
@@ -55,15 +57,17 @@ C     lm = (m*(2*lmax + 2 - (m+1)))//2 + l + 1
        ENDDO
       ENDDO
 
-      IF (SAL_cilmIter.GT.0 .AND. MOD(myIter,SAL_cilmIter).EQ.0) THEN
-       WRITE(fname,'(A,I10.10,A)') 'SAL_cilm2.',myIter,'.bin'
-       filePrec = 64
-       CALL MDSFINDUNIT( iUnit, myThid )
-       length_of_rec = MDS_RECLEN(filePrec,SAL_NLM*2,myThid)
-       OPEN(iUnit, file=fname, status='unknown', access='direct',
-     &      recl=length_of_rec)
-       WRITE(iUnit, rec=1) SAL_lm
-       CLOSE(iUnit)
+      IF (SAL_cilmIter.GT.0) THEN
+       IF (MOD(myIter,SAL_cilmIter).EQ.0) THEN
+        WRITE(fname,'(A,I10.10,A)') 'SAL_cilm2.',myIter,'.bin'
+        filePrec = 64
+        CALL MDSFINDUNIT( iUnit, myThid )
+        length_of_rec = MDS_RECLEN(filePrec,SAL_NLM*2,myThid)
+        OPEN(iUnit, file=fname, status='unknown', access='direct',
+     &       recl=length_of_rec)
+        WRITE(iUnit, rec=1) SAL_lm
+        CLOSE(iUnit)
+       ENDIF
       ENDIF
 
 C---SPH to Grid

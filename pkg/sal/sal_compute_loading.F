@@ -104,15 +104,17 @@ C--   Collect data from all procs
 
       IF (myProcId .eq. 0) THEN
 
-       IF (SAL_diagIter.GT.0 .AND. MOD(myIter,SAL_diagIter).EQ.0) THEN
-        WRITE(fname,'(A,I10.10,A)') 'SAL_grid.',myIter,'.bin'
-        filePrec = 64
-        CALL MDSFINDUNIT( iUnit, myThid )
-        length_of_rec = MDS_RECLEN(filePrec,SAL_NLON*SAL_NLAT,myThid)
-        OPEN(iUnit, file=fname, status='unknown', access='direct',
-     &       recl=length_of_rec)
-        WRITE(iUnit, rec=1) SAL_grid
-        CLOSE(iUnit)
+       IF (SAL_diagIter.GT.0) THEN
+        IF (MOD(myIter,SAL_diagIter).EQ.0) THEN
+         WRITE(fname,'(A,I10.10,A)') 'SAL_grid.',myIter,'.bin'
+         filePrec = 64
+         CALL MDSFINDUNIT( iUnit, myThid )
+         length_of_rec = MDS_RECLEN(filePrec,SAL_NLON*SAL_NLAT,myThid)
+         OPEN(iUnit, file=fname, status='unknown', access='direct',
+     &        recl=length_of_rec)
+         WRITE(iUnit, rec=1) SAL_grid
+         CLOSE(iUnit)
+        ENDIF
        ENDIF
 
 #ifdef SAL_SKIP_GRID_CALCS
@@ -127,15 +129,17 @@ C      apply kernel, and map back to lat-long (again SAL_grid)
        CALL SAL_GRID_CALCS(myTime,myIter,myThid)
 #endif
 
-       IF (SAL_diagIter.GT.0 .AND. MOD(myIter,SAL_diagIter).EQ.0) THEN
-        WRITE(fname,'(A,I10.10,A)') 'SAL_gridSAL.',myIter,'.bin'
-        filePrec = 64
-        CALL MDSFINDUNIT( iUnit, myThid )
-        length_of_rec = MDS_RECLEN(filePrec,SAL_NLON*SAL_NLAT,myThid)
-        OPEN(iUnit, file=fname, status='unknown', access='direct',
-     &       recl=length_of_rec)
-        WRITE(iUnit, rec=1) SAL_grid
-        CLOSE(iUnit)
+       IF (SAL_diagIter.GT.0) THEN
+        IF (MOD(myIter,SAL_diagIter).EQ.0) THEN
+         WRITE(fname,'(A,I10.10,A)') 'SAL_gridSAL.',myIter,'.bin'
+         filePrec = 64
+         CALL MDSFINDUNIT( iUnit, myThid )
+         length_of_rec = MDS_RECLEN(filePrec,SAL_NLON*SAL_NLAT,myThid)
+         OPEN(iUnit, file=fname, status='unknown', access='direct',
+     &        recl=length_of_rec)
+         WRITE(iUnit, rec=1) SAL_grid
+         CLOSE(iUnit)
+        ENDIF
        ENDIF
 
 C end process 0 if statement
