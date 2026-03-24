@@ -10,6 +10,7 @@ Introduction
 
 :filelink:`pkg/sal` adds forcing due to the effects of ocean self-attraction
 and loading (SAL) to the tide-generating potential, :varlink:`phiTide2d`.
+Based on code from :cite:`vinogradova:2014`.
 
 
 .. _ssub_phys_sal_config:
