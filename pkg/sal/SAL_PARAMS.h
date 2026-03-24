@@ -33,10 +33,13 @@ C                      Only used for logging
 C     SAL_diagIter       :: iterations between lat-lon SAL debug diags (0: no diagnostics)
 C     SAL_cilmIter       :: iterations between spectral SAL debug diags (0: no diagnostics)
 C     SAL_ll2modelMethod :: method for interpolating back to model grid: 1 means bilinear, 2 bicubic
-      COMMON /SAL_I/ SAL_ll2modelMethod, SAL_diagIter, SAL_cilmIter
+C     SAL_numThreads     :: number of threads to use (0 means one per core)
+      COMMON /SAL_I/ SAL_ll2modelMethod, SAL_diagIter, SAL_cilmIter,
+     &               SAL_numThreads
       INTEGER SAL_ll2modelMethod
       INTEGER SAL_diagIter
       INTEGER SAL_cilmIter
+      INTEGER SAL_numThreads
 
 C     SAL_usePhiHydLow :: use phiHydLow from previous timestep instead of PHIBOTfv
 C     SAL_maskLand     :: exclude land from mass anomaly computation

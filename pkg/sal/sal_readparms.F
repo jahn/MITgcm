@@ -43,7 +43,8 @@ C     iUnit      :: Work variable for IO unit number
      &   SAL_rhoEarth,
      &   SAL_startTime,
      &   SAL_diagIter,
-     &   SAL_cilmIter
+     &   SAL_cilmIter,
+     &   SAL_numThreads
 
       IF ( .NOT.useSAL ) THEN
 C-    pkg SAL is not used
@@ -67,6 +68,7 @@ C--   Default values for SAL
       SAL_ll2modelMethod = 2
       SAL_diagIter = 0
       SAL_cilmIter = 0
+      SAL_numThreads = 1
       SAL_usePhiHydLow = .FALSE.
       SAL_maskLand = .TRUE.
       SAL_rhoEarth = 5517 _d 0

@@ -56,7 +56,7 @@ C check all Gaussian latitudes were given
       IF (myProcId .eq. 0) THEN
 
         CALL SHTNS_VERBOSE(1)
-        CALL SHTNS_USE_THREADS(0)
+        CALL SHTNS_USE_THREADS(SAL_numThreads)
 
         nlat = SAL_NLAT
         nphi = SAL_NLON

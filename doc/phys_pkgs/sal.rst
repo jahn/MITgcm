@@ -130,6 +130,8 @@ The run-time parameters for package sal are set in ``data.sal``, see
   :varlink:`SAL_diagIter`       & 0          & Iterations between lat-lon SAL debug diags (0: no diagnostics)
   :varlink:`SAL_cilmIter`       & 0          & Iterations between spectral SAL debug diags (0: no diagnostics)
   :varlink:`SAL_loadSaveCfg`    & .FALSE.    & Load SHTns configuration from files shtns_cfg and shtns_cfg_fftw; create files if not found
+                                &            & (not recommended)
+  :varlink:`SAL_numThread`      & 1          & Number of OMP threads to use; 0 mean one per processor core
 
 .. rubric:: Notes:
 
