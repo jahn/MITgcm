@@ -52,7 +52,7 @@ harmonic analysis.  The size parameters of this grid are given in file
 .. csv-table:: sal compile time parameters in file SAL_SIZE.h
    :name: tab_phys_pkg_sal_cpp_size
    :delim: &
-   :widths: auto
+   :widths: 20,80
    :header: CPP option, Description
 
    :varlink:`SAL_NLAT`   & number of latitudes for harmonic analysis
@@ -115,8 +115,8 @@ The run-time parameters for package sal are set in ``data.sal``, see
 .. csv-table:: Run-time parameters for sal package, namelist :varlink:`SAL_PARM01`
   :name: tab_phys_sal_runtimeparms
   :delim: &
-  :widths: auto
-  :header: Name, Default value, Description
+  :widths: 25,13,62
+  :header: Name, Default, Description
 
   :varlink:`SAL_LoveFile`       & 'Love.txt' & Path to text file with load Love numbers
   :varlink:`SAL_refFile`        & ' '        & Path to binary file with reference bottom pressure anomaly
@@ -133,6 +133,8 @@ The run-time parameters for package sal are set in ``data.sal``, see
   :varlink:`SAL_loadSaveCfg`    & .FALSE.    & Load SHTns configuration from files shtns_cfg and shtns_cfg_fftw; create files if not found
                                 &            & (not recommended)
   :varlink:`SAL_numThread`      & 1          & Number of OMP threads to use; 0 mean one per processor core
+  :varlink:`SAL_taperWidth`     & 0          & Width of spectral tapering function (0 means no tapered cutoff)
+  :varlink:`SAL_taperCutoff`    & 0          & Cutoff in l for spectral tapering
 
 .. rubric:: Notes:
 
@@ -224,6 +226,17 @@ in CPP_OPTIONS.h.  If :varlink:`SAL_usePhiHydLow` is set to true in data.sal,
 the variable :varlink:`phiHydLow` computed in the previous time step is used
 instead.  SAL computations can therefore not start until the second time step
 and a pickup is required for restarts.
+
+A tapered cutoff can be applied by setting :varlink:`SAL_taperCutoff`,
+:math:`l_{\text{cut}}`, and :varlink:`SAL_taperWidth`,
+:math:`l_{\text{width}}`.  In this case, the term under the sum in
+:eq:`eq_phys_pkg_sal_potential` is multiplied by
+
+.. math::
+
+   \frac12 \left( 1 - \tanh\frac{l - l_{\text{cut}}}{l_{\text{width}}} \right)
+   \;.
+
 
 
 Implementation
